@@ -63,7 +63,7 @@ export async function getStaticProps({
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
   }
-  console.log({pages, product, optionsCategories});
+  // console.log({pages, product, optionsCategories});
   
   return {
     props: { pages, product, optionsCategories, header },
@@ -117,7 +117,7 @@ export default function Slug({
     const products = useSearch({
       categoryId: commaSeparatedString,
     })
-    console.log({products});
+    // console.log({products});
     
     if (products?.data?.found) {
       productsFetched++
@@ -299,7 +299,6 @@ export default function Slug({
   return (
     <div>
       <Header headerData={header?.data} />
-      <p>Hello</p>
       {groupedProducts && (
         <Customizer
           productsFetched={optionsCategories?.length === productsFetched}

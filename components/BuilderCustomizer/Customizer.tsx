@@ -1,6 +1,4 @@
 const Customizer = (props: any) => {
-  console.log("Customizer", props);
-
   return (
     <div>
       <h1 style={{ textAlign: 'center', fontSize: '2rem', fontWeight: 'bold' }}>
