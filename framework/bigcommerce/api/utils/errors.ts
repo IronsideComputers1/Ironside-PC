@@ -1,4 +1,4 @@
-import type { Response } from '@vercel/fetch'
+import type { Response } from 'node-fetch';
 
 // Used for GraphQL errors
 export class BigcommerceGraphQLError extends Error {}

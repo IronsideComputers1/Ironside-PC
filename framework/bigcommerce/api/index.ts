@@ -1,4 +1,3 @@
-import type { RequestInit } from '@vercel/fetch'
 import type { CommerceAPIConfig } from '@commerce/api'
 import fetchGraphqlApi from './utils/fetch-graphql-api'
 import fetchStoreApi from './utils/fetch-store-api'
@@ -11,7 +10,7 @@ export interface BigcommerceConfig extends CommerceAPIConfig {
   storeApiToken: string
   storeApiClientId: string
   storeChannelId?: string
-  storeApiFetch<T>(endpoint: string, options?: RequestInit): Promise<T>
+  storeApiFetch<T>(endpoint: string, options?: import('node-fetch').RequestInit): Promise<T>
   builderApiKey: string
 }
 

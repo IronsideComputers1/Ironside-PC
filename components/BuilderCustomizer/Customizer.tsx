@@ -1,5 +1,4 @@
 const Customizer = (props: any) => {
-    
   return (
     <div>
       <h1 style={{ textAlign: 'center', fontSize: '2rem', fontWeight: 'bold' }}>

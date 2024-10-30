@@ -3,16 +3,17 @@ import type { GraphQLFetcher } from '@commerce/api'
 import { getConfig } from '..'
 import fetch from './fetch'
 
+// @ts-ignore next-line
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,
   { variables, preview } = {},
   fetchOptions
 ) => {
   const config = getConfig()
-  // @ts-ignore next-line
   const res = await fetch(config.commerceUrl + (preview ? '/preview' : ''), {
     ...fetchOptions,
     method: 'POST',
+    // @ts-ignore next-line
     headers: {
       Authorization: `Bearer ${config.apiToken}`,
       ...fetchOptions?.headers,
