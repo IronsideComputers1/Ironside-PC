@@ -6,7 +6,7 @@ import type {
   InferGetStaticPropsType,
 } from 'next'
 import { Layout } from '@components/common'
-import Customizer from '@components/Customizer'
+import Customizer, { NewCustomizer } from '@components/Customizer'
 import { getConfig } from '@framework/api'
 import getProduct from '@framework/api/operations/get-product'
 import getAllPages from '@framework/api/operations/get-all-pages'
@@ -107,7 +107,6 @@ export default function Slug({
   const { data: colorOptions } = useSearch({
     categoryId: 209,
   })
-  console.log({optionsCategories});
 
   optionsCategories?.forEach((category: any) => {
     const uniqueValueIds = new Set(
@@ -135,7 +134,7 @@ export default function Slug({
       })
     }
   })
-
+  
   const groupProductsByCategory = (originalData: any) => {
     const groupedData: any[] = []
     const categoryMap: any = {}
