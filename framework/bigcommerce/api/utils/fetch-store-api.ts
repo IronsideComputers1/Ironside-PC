@@ -1,4 +1,4 @@
-import type { RequestInit, Response } from '@vercel/fetch'
+import { RequestInit, Response } from 'node-fetch';
 import { getConfig } from '..'
 import { BigcommerceApiError, BigcommerceNetworkError } from './errors'
 import fetch from './fetch'
