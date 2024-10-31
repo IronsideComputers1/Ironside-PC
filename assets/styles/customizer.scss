@@ -417,69 +417,69 @@ button.add-to-cart {
   }
 
   > .grid-view {
-    > div {
-      width: 25%;
-      border-right: 1px solid var(--accents-15);
-      padding: 0 12px;
+    // > div {
+    //   width: 25%;
+    //   border-right: 1px solid var(--accents-15);
+    //   padding: 0 12px;
 
-      @include desktop {
-        width: 33.33%;
-        margin-bottom: 20px;
-      }
+    //   @include desktop {
+    //     width: 33.33%;
+    //     margin-bottom: 20px;
+    //   }
 
-      @include tablet {
-        width: 50%;
-        @include flex-direction(row);
-        @include align-item(flex-start);
-      }
+    //   @include tablet {
+    //     width: 50%;
+    //     @include flex-direction(row);
+    //     @include align-item(flex-start);
+    //   }
 
-      @include tablet-small {
-        width: 25%;
-      }
+    //   @include tablet-small {
+    //     width: 25%;
+    //   }
 
-      @include mobile-small {
-        width: 50%;
-        border: 0;
-      }
+    //   @include mobile-small {
+    //     width: 50%;
+    //     border: 0;
+    //   }
 
-      &:nth-child(4n) {
-        border-right: 0;
-      }
+    //   &:nth-child(4n) {
+    //     border-right: 0;
+    //   }
 
-      &:nth-child(2n):not(:nth-child(2), :last-child) {
-        border-right: 0;
-      }
+    //   &:nth-child(2n):not(:nth-child(2), :last-child) {
+    //     border-right: 0;
+    //   }
 
-      //Every 3rd child
-      &:nth-child(3n) {
-        @include desktop {
-          border-right: 0;
-        }
+    //   //Every 3rd child
+    //   &:nth-child(3n) {
+    //     @include desktop {
+    //       border-right: 0;
+    //     }
 
-        @include tablet {
-          border-right: 1px solid #232323;
-        }
-      }
+    //     @include tablet {
+    //       border-right: 1px solid #232323;
+    //     }
+    //   }
 
-      &:nth-child(2n) {
-        @include tablet {
-          border-right: 0;
-        }
+    //   &:nth-child(2n) {
+    //     @include tablet {
+    //       border-right: 0;
+    //     }
 
-        @include tablet-small {
-          border-right: 1px solid #232323;
-        }
-        @include mobile {
-          border-right: 0;
-        }
-      }
+    //     @include tablet-small {
+    //       border-right: 1px solid #232323;
+    //     }
+    //     @include mobile {
+    //       border-right: 0;
+    //     }
+    //   }
 
-      &:nth-child(2n-1) {
-        @include tablet-small {
-          border-right: 1px solid #232323;
-        }
-      }
-    }
+    //   &:nth-child(2n-1) {
+    //     @include tablet-small {
+    //       border-right: 1px solid #232323;
+    //     }
+    //   }
+    // }
 
     .options-image {
       width: 150px;

@@ -17,6 +17,7 @@ import useRemoveItem from '@framework/cart/use-remove-item'
 import IncompatibilitesModal from './IncompatibilitesModal'
 import { OptionSelectionController } from './OptionSelectionController'
 import { Error404 } from './Error404'
+import { Block } from './Block'
 import { ProductLeft } from './ProductLeft'
 import { getCurrentVariant } from '../product/helpers'
 
@@ -515,7 +516,7 @@ const Cutomizer: FC<Props> = (props) => {
                           >
                             {categories?.categoryName}
                           </h2>
-                          <div className="grid-view flex flex-wrap">
+                          <div className="grid-view flex flex-wrap border	rounded-lg px-11 py-3">
                             {categories?.subCategory?.map(
                               (subs: any, index: number) => (
                                 <>
@@ -526,47 +527,19 @@ const Cutomizer: FC<Props> = (props) => {
                                         subs.categoryName === ele.cat
                                       ) {
                                         return (
-                                          <div
-                                            className={`flex flex-wrap align-v-center ${
-                                              incompatibleCats?.some(
-                                                (cat: any) =>
-                                                  cat ===
-                                                  subs.categoryName
-                                              ) && 'incompatible'
-                                            }`}
-                                            key={index}
-                                            onClick={() => {
-                                              onModalSelection(subs)
-                                            }}
-                                          >
-                                            <div className="options-image flex align-v-center justify-center">
-                                              {!!prod?.images?.edges
-                                                .length ? (
-                                                <img
-                                                  className="image"
-                                                  src={loadImage(prod)}
-                                                />
-                                              ) : (
-                                                <EmptyProduct />
-                                              )}
-                                            </div>
-
-                                            <div className="options-name">
-                                              <h3>
-                                                {subs?.categoryName}
-                                              </h3>
-                                              <h4 className="mb-0">
-                                                {prod?.name.length > 35
-                                                  ? `${renderColorName(
-                                                      prod
-                                                    )?.substring(
-                                                      0,
-                                                      35
-                                                    )}...`
-                                                  : renderColorName(prod)}
-                                              </h4>
-                                            </div>
-                                          </div>
+                                          <>
+                                          <Block 
+                                            prod={prod}
+                                            subs={subs}
+                                            incompatibleCats={incompatibleCats}
+                                            onModalSelection={onModalSelection}
+                                            loadImage={loadImage}
+                                            renderColorName={renderColorName}
+                                            />
+                                            {index !== categories?.subCategory?.length - 1 && (
+                                              <hr className="h-0 w-full my-8 border-t-0 border-b" />
+                                            )}
+                                            </>
                                         )
                                       }
                                     })
