@@ -528,18 +528,18 @@ const Cutomizer: FC<Props> = (props) => {
                                       ) {
                                         return (
                                           <>
-                                          <Block 
-                                            prod={prod}
-                                            subs={subs}
-                                            incompatibleCats={incompatibleCats}
-                                            onModalSelection={onModalSelection}
-                                            loadImage={loadImage}
-                                            renderColorName={renderColorName}
+                                            <Block 
+                                              prod={prod}
+                                              subs={subs}
+                                              incompatibleCats={incompatibleCats}
+                                              onModalSelection={onModalSelection}
+                                              loadImage={loadImage}
+                                              renderColorName={renderColorName}
                                             />
                                             {index !== categories?.subCategory?.length - 1 && (
-                                              <hr className="h-0 w-full my-8 border-t-0 border-b" />
+                                              <hr className="h-0 w-full my-1 border-t-0 border-b border-primary" />
                                             )}
-                                            </>
+                                          </>
                                         )
                                       }
                                     })
