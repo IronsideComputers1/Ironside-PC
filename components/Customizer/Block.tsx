@@ -19,6 +19,9 @@ export const Block = ({
   loadImage,
   renderColorName,
 }: Props) => {
+  console.log({prod});
+  console.log({subs});
+  
   return (
     <div
       className='flex items-center justify-between w-full'
