@@ -1,11 +1,12 @@
 import React from 'react'
 
-const DropdownArrow = () => {
+const DropdownArrow = ({ width = 10, height = 6 }) => {
   return (
     <svg
+      className='fill-current'
       xmlns="http://www.w3.org/2000/svg"
-      width="10"
-      height="6"
+      width={width}
+      height={height}
       viewBox="0 0 10 6"
     >
       <path
