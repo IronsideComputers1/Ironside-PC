@@ -481,9 +481,13 @@ const Cutomizer: FC<Props> = (props) => {
       
       <div className="customizer">
         <div
-          className="customizer-product flex flex-wrap align-v-center"
+          className="customizer-product grid grid-cols-2"
           data-lenis-prevent
         >
+        {/* <div
+          className="customizer-product flex flex-wrap align-v-center"
+          data-lenis-prevent
+        > */}
           <ProductLeft
             products={product.images?.edges}
             modalImage={modalImage}
@@ -527,7 +531,7 @@ const Cutomizer: FC<Props> = (props) => {
                                         subs.categoryName === ele.cat
                                       ) {
                                         return (
-                                          <>
+                                          <div key={index} className='w-full'>
                                             <Block 
                                               prod={prod}
                                               subs={subs}
@@ -539,7 +543,7 @@ const Cutomizer: FC<Props> = (props) => {
                                             {index !== categories?.subCategory?.length - 1 && (
                                               <hr className="h-0 w-full my-1 border-t-0 border-b border-primary" />
                                             )}
-                                          </>
+                                          </div>
                                         )
                                       }
                                     })

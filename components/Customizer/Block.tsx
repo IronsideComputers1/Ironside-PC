@@ -28,8 +28,8 @@ export const Block = ({
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
-  console.log({subItems});
-  console.log({subs});
+  // console.log({subItems});
+  // console.log({subs});
   
   return (
     <div className='flex flex-col w-full select-none'>
@@ -68,17 +68,19 @@ export const Block = ({
           </div>
         </div>
         <div className={classNames(
-          'border w-10 h-10 rounded-full flex items-center justify-center',
+          'border w-auto h-9 px-3 rounded-full flex items-center justify-center',
           {
             'transform rotate-180': isOpen,
           }
         )}>
-          <DropdownArrow width={14} height={14} />
+          <div className='text-gray-600'>
+            <DropdownArrow width={10} height={6} />
+          </div>
         </div>
       </div>
       {isOpen && <div className='flex gap-3 flex-wrap'>
         {subItems.map((subItem: Product) => (
-          <BlockItem subItem={subItem} />
+          <BlockItem key={subItem.entityId} subItem={subItem} />
         ))}
       </div>}
     </div>
