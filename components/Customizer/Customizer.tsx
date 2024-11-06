@@ -493,7 +493,7 @@ const Cutomizer: FC<Props> = (props) => {
             modalImage={modalImage}
           />
 
-          <div className="customizer-product-content">
+          <div className="customizer-product-content pt-10">
             {/* TODO: move this to header */}
             {/* <p
               className="themeColorChanger flex align-center justify-center mb-0 cursor-pointer"

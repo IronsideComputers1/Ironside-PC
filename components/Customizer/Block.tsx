@@ -1,4 +1,3 @@
-import { Accordion } from '@components/Accordion/Accordion'
 import DropdownArrow from '@components/icons/DropdownArrow'
 import EmptyProduct from '@components/icons/EmptyProduct'
 import React, { useState } from 'react'
