@@ -481,19 +481,21 @@ const Cutomizer: FC<Props> = (props) => {
       
       <div className="customizer">
         <div
-          className="customizer-product grid grid-cols-2"
+          className="customizer-product grid grid-cols-4"
           data-lenis-prevent
         >
         {/* <div
           className="customizer-product flex flex-wrap align-v-center"
           data-lenis-prevent
         > */}
-          <ProductLeft
-            products={product.images?.edges}
-            modalImage={modalImage}
-          />
+          <div className='col-span-2 bg-red flex items-center justify-center'>
+            <ProductLeft
+              products={product.images?.edges}
+              modalImage={modalImage}
+            />
+          </div>
 
-          <div className="customizer-product-content pt-10">
+          <div className="customizer-product-content pt-10 bg-blue">
             {/* TODO: move this to header */}
             {/* <p
               className="themeColorChanger flex align-center justify-center mb-0 cursor-pointer"
@@ -516,7 +518,7 @@ const Cutomizer: FC<Props> = (props) => {
                         <>
                           <h2
                             id={categories?.categoryName}
-                            className="text-center text-base weight-700"
+                            className="text-center font-Inconsolata text-base weight-700 text-basicDark"
                           >
                             {categories?.categoryName}
                           </h2>

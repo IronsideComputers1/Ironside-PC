@@ -37,7 +37,7 @@ export const Block = ({
         onClick={toggleAccordion}
       >
         <div className='flex items-center justify-start w-full'>
-          <div className="p-3">
+          <div className="p-3 mr-12">
             {!!prod?.images?.edges
               .length ? (
               <img
@@ -51,10 +51,10 @@ export const Block = ({
           </div>
 
           <div className="options-name">
-            <h3>
+            <h3 className='font-Arimo text-base leading-4 text-left capitalize mb-1.5'>
               {subs?.categoryName}
             </h3>
-            <h4 className="mb-0">
+            <h4 className="mb-0 font-Inconsolata text-base leading-4 text-basicDark font-normal tracking-normal capitalize">
               {prod?.name.length > 35
                 ? `${renderColorName(
                     prod

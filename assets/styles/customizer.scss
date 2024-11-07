@@ -236,12 +236,12 @@ button.add-to-cart {
     margin-bottom: 22px;
   }
 
-  h3 {
-    letter-spacing: 0;
-    margin-bottom: 6px;
-    @extend .fs-16;
-    text-transform: capitalize;
-  }
+  // h3 {
+  //   letter-spacing: 0;
+  //   margin-bottom: 6px;
+  //   @extend .fs-16;
+  //   text-transform: capitalize;
+  // }
 }
 
 .customizer-product-content {
@@ -400,13 +400,13 @@ button.add-to-cart {
     }
   }
 
-  h4 {
-    color: #aaaaaa;
-    letter-spacing: 0;
-    @extend .fs-16;
-    text-transform: capitalize;
-    font-family: var(--body-fonts);
-  }
+  // h4 {
+  //   color: #aaaaaa;
+  //   letter-spacing: 0;
+  //   @extend .fs-16;
+  //   text-transform: capitalize;
+  //   font-family: var(--body-fonts);
+  // }
 
   > .grid-view {
     .options-image {
