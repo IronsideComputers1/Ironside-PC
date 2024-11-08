@@ -35,10 +35,10 @@ body {
   .category-header {
     background-color: transparent;
     padding: 0;
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 3;
+    // position: absolute;
+    // left: 0;
+    // right: 0;
+    // z-index: 3;
 
     .header-left {
       @include tablet-small {

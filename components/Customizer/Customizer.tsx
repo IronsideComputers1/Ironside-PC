@@ -481,21 +481,21 @@ const Cutomizer: FC<Props> = (props) => {
       
       <div className="customizer">
         <div
-          className="customizer-product grid grid-cols-4"
+          className="customizer-product grid grid-cols-2"
           data-lenis-prevent
         >
-        {/* <div
-          className="customizer-product flex flex-wrap align-v-center"
-          data-lenis-prevent
-        > */}
-          <div className='col-span-2 bg-red flex items-center justify-center'>
+          <div className='flex items-center justify-center'>
             <ProductLeft
               products={product.images?.edges}
               modalImage={modalImage}
             />
           </div>
 
-          <div className="customizer-product-content pt-10 bg-blue">
+          <div className="customizer-product-content pt-10 mr-13 w-full relative overflow-y-scroll flex justify-end items-start "
+            style={{
+              maxHeight: "90vh"
+            }}
+          >
             {/* TODO: move this to header */}
             {/* <p
               className="themeColorChanger flex align-center justify-center mb-0 cursor-pointer"
@@ -504,25 +504,34 @@ const Cutomizer: FC<Props> = (props) => {
               {themeColor == false ? <Moon /> : <Sun />}
             </p> */}
 
-            <div className="components w-100">
-              <div className="default-options" id={'scroll-box'}>
-                <div className="head flex justify-center items-center w-100">
-                  <h1 className="text-center">{productDescription[0]?.trim()}</h1>
-                  <p className="mb-0">{productDescription[1]?.trim()}</p>
-                </div>
-
-                <div>
+            <div className="components flex items-center justify-center"
+              style={{width: "82%"}}
+            
+            >
+              <div
+                id='scroll-box'
+                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-10" 
+                // style={{ maxHeight: '743px', maxWidth: '836px' }}
+              >
+                <>
                   <div className="customizerProductGrid">
+                    <div className="head flex justify-center items-center flex-col">
+                      <div className='flex justify-center items-center'>
+                        <h1 className="text-center">{productDescription[0]?.trim()}</h1>
+                        <p className="mb-0">{productDescription[1]?.trim()}</p>
+                      </div>
+                      <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
+                    </div>
                     {!!selectedIds?.length &&
                       categoriesDataFiltered?.map((categories: any) => (
                         <>
                           <h2
                             id={categories?.categoryName}
-                            className="text-center font-Inconsolata text-base weight-700 text-basicDark"
+                            className="text-lg leading-4 font-bold mb-5 text-center font-Inconsolata weight-700 text-basicDark"
                           >
                             {categories?.categoryName}
                           </h2>
-                          <div className="grid-view flex flex-wrap border	rounded-lg px-11 py-3">
+                          <div className="grid-view flex flex-wrap border rounded-lg px-11 py-2.5 w-full  last:mb-36">
                             {categories?.subCategory?.map(
                               (subs: any, index: number) => (
                                 <>
@@ -533,7 +542,10 @@ const Cutomizer: FC<Props> = (props) => {
                                         subs.categoryName === ele.cat
                                       ) {
                                         return (
-                                          <div key={index} className='w-full'>
+                                          <div 
+                                            key={index}
+                                            className='w-full'
+                                          >
                                             <Block 
                                               prod={prod}
                                               subs={subs}
@@ -557,161 +569,53 @@ const Cutomizer: FC<Props> = (props) => {
                         </>
                       ))}
                   </div>
-                </div>
-                {/* {modal ? (
-                  <ProductSelectionModal
-                    optionSelections={optionSelections}
-                    setIncompatibleProducts={setIncompatibleProducts}
-                    incompatibleProdIds={incompatibleProdIds}
-                    setModal={setModal}
-                    onOptionSelections={onOptionSelections}
-                    modalData={modalData}
-                    selectedIds={selectedIds}
-                    selectedColor={selectedColor}
-                    colorOpts={colorOpts}
-                    defaultColors={defaultColors}
-                    convertCurrency={convertCurrency}
-                    setIncompatibleProdIds={setIncompatibleProdIds}
-                    setIncompatibleCats={setIncompatibleCats}
-                    scrollToElement={scrollToElement}
-                    activeTab={activeTab}
-                    setDefaultColors={setDefaultColors}
-                  />
-                ) : (
-                  <div>
-                    <div className="grid-btns flex justify-end">
-                      <button
-                        className={`${gridView == 'gridview'}`}
-                        onClick={() => setGridView('gridview')}
-                      >
-                        <GridIcon />
-                      </button>
-                      <button
-                        onClick={() => setGridView('listview')}
-                        className={`${gridView == 'listview'}`}
-                      >
-                        <ListIcon />
-                      </button>
-                    </div>
-                    <div className="customizerProductGrid">
-                      {!!selectedIds?.length &&
-                        categoriesDataFiltered?.map((categories: any) => (
-                          <>
-                            <h2
-                              id={categories?.categoryName}
-                              className="content-item"
-                            >
-                              {categories?.categoryName}
-                            </h2>
-                            <div
-                              className={`${
-                                gridView == 'gridview' ? 'grid' : 'list'
-                              }-view flex flex-wrap`}
-                            >
-                              {categories?.subCategory?.map(
-                                (subs: any, index: number) => (
-                                  <>
-                                    {selectedIds?.map((ele: any) =>
-                                      subs?.products?.map((prod: any) => {
-                                        if (
-                                          ele.product === prod.entityId &&
-                                          subs.categoryName === ele.cat
-                                        ) {
-                                          return (
-                                            <div
-                                              className={`flex flex-wrap align-v-center ${
-                                                incompatibleCats?.some(
-                                                  (cat: any) =>
-                                                    cat ===
-                                                    subs.categoryName
-                                                ) && 'incompatible'
-                                              }`}
-                                              key={index}
-                                              onClick={() => {
-                                                onModalSelection(subs)
-                                              }}
-                                            >
-                                              <div className="options-image flex align-v-center justify-center">
-                                                {!!prod?.images?.edges
-                                                  .length ? (
-                                                  <img
-                                                    className="image"
-                                                    src={loadImage(prod)}
-                                                  />
-                                                ) : (
-                                                  <EmptyProduct />
-                                                )}
-                                              </div>
-
-                                              <div className="options-name">
-                                                <h3>
-                                                  {subs?.categoryName}
-                                                </h3>
-                                                <h4 className="mb-0">
-                                                  {prod?.name.length > 35
-                                                    ? `${renderColorName(
-                                                        prod
-                                                      )?.substring(
-                                                        0,
-                                                        35
-                                                      )}...`
-                                                    : renderColorName(prod)}
-                                                </h4>
-                                              </div>
-                                            </div>
-                                          )
-                                        }
-                                      })
-                                    )}
-                                  </>
-                                )
-                              )}
-                            </div>
-                          </>
-                        ))}
-                    </div>
-                  </div>
-                )} */}
+                </>
               </div>
 
-              <div className="customizer-total flex justify-space align-self-start align-center">
-                {getWarranty()}
-                <div>
-                  <label>Ships by</label>
-                  <span className="customizer-total-price">
-                    {getShippingDate()}
-                  </span>
-                </div>
-                <div>
-                  <label>Total</label>
-                  {/* DemoID to render breadPay placement */}
-                  <span className="customizer-total-price">
-                    {convertCurrency(totalPrice)}
-                  </span>
-                  <div id="bread-checkout-btn" />
-                </div>
-                {Object.keys(incompatibleProducts).length ? (
-                  <Button
-                    aria-label="Add to Cart"
-                    type="button"
-                    className="btn add-to-cart incompatibilities-btn"
-                  >
-                    <WrongPassword />
-                    Fix Incompatibilities
-                  </Button>
-                ) : (
-                  <Button
-                    aria-label="Add to Cart"
-                    type="button"
-                    className="btn add-to-cart"
-                    onClick={addToCart}
-                    loading={loading}
-                    disabled={!variant}
-                  >
-                    Add to Cart
-                  </Button>
-                )}
+            </div>
+            <div
+              className="flex justify-space align-self-start align-center fixed right-0.5 bottom-0 py-6 px-20 items-center border-t border-primary"
+              style={{ 
+                backdropFilter: "blur(10px)",
+                left: "55%",
+              }}
+            >
+              {getWarranty()}
+              <div>
+                <label>Ships by</label>
+                <span className="customizer-total-price">
+                  {getShippingDate()}
+                </span>
               </div>
+              <div>
+                <label>Total</label>
+                {/* DemoID to render breadPay placement */}
+                <span className="customizer-total-price">
+                  {convertCurrency(totalPrice)}
+                </span>
+                <div id="bread-checkout-btn" />
+              </div>
+              {Object.keys(incompatibleProducts).length ? (
+                <Button
+                  aria-label="Add to Cart"
+                  type="button"
+                  className="btn add-to-cart incompatibilities-btn"
+                >
+                  <WrongPassword />
+                  Fix Incompatibilities
+                </Button>
+              ) : (
+                <Button
+                  aria-label="Add to Cart"
+                  type="button"
+                  className="btn add-to-cart"
+                  onClick={addToCart}
+                  loading={loading}
+                  disabled={!variant}
+                >
+                  Add to Cart
+                </Button>
+              )}
             </div>
           </div>
         </div>

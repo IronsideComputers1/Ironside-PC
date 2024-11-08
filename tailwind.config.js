@@ -14,6 +14,9 @@ module.exports = {
       },
     },
   },
+  variants: {
+    margin: ['last'],
+  },
   theme: {
     extend: {
       maxWidth: {

@@ -296,7 +296,7 @@ export default function Slug({
   }, [])
 
   return (
-    <div>
+    <>
       <Header headerData={header?.data} />
       {groupedProducts && (
         <Customizer
@@ -312,7 +312,7 @@ export default function Slug({
       {/* <div className="mt50">
         <BuilderComponent model="symbol" />
       </div> */}
-    </div>
+    </>
   )
 }
 
