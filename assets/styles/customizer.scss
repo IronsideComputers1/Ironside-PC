@@ -1,6 +1,4 @@
 .customizer {
-  max-width: 1920px;
-  margin: auto;
 
   .bg-img {
     width: 35.677vw;
@@ -30,8 +28,6 @@
   }
 
   &-product {
-    padding-top: 112px;
-    padding-top: 62px;
 
     @include tablet-small {
       padding: 0 40px;
@@ -89,24 +85,6 @@
     }
 
     &-content {
-      width: 43.542vw;
-      max-width: 836px;
-
-      @include xl {
-        width: 836px;
-      }
-
-      @include tablet-small {
-        width: 100%;
-        max-width: none;
-      }
-
-      label {
-        @include mobile-small {
-          font-size: 12px;
-        }
-      }
-
       .customizer-total-price {
         @include mobile-small {
           font-size: 16px;
@@ -118,28 +96,6 @@
   }
 
   &-total {
-    padding: 26px 5vw;
-    align-items: center;
-
-    @include xl {
-      padding: 26px 96px;
-    }
-
-    @media screen and (max-width: 1441px) {
-      padding: 26px 0;
-    }
-
-    @include tablet-small {
-      @include align-item(flex-start);
-      padding: 26px 0;
-    }
-
-    @include mobile-small {
-      div:first-child {
-        margin-right: 10px;
-      }
-    }
-
     &-price {
       font-size: 24px;
       line-height: 24px;
@@ -191,78 +147,13 @@ button.add-to-cart {
   }
 }
 
-.default-options {
-  height: 631px;
-  max-width: 836px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  // border-top: 1px solid #636363;
-  border-bottom: 1px solid #636363;
-  padding: 0 10px 0 0;
-
-  @include tablet {
-    height: 561px;
-    width: 100%;
-    max-width: none;
-    // padding: 10px 0 0;
-  }
-
-  @include mobile-small {
-    height: 380px;
-    padding: 0;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  .close {
-    &:hover {
-      svg {
-        fill: var(--secondary);
-      }
-    }
-
-    svg {
-      fill: #636363;
-    }
-  }
-
-  h2 {
-    font-size: 18px;
-    line-height: 18px;
-    font-weight: 700;
-    font-family: var(--heading-fonts);
-    margin-bottom: 22px;
-  }
-
-  h3 {
-    letter-spacing: 0;
-    margin-bottom: 6px;
-    @extend .fs-16;
-    text-transform: capitalize;
-  }
-}
-
 .customizer-product-content {
-  padding-top: 6.51vw;
-  @include xl {
-    padding-top: 125px;
-  }
   .head {
-    position: sticky;
-    top: 0;
-    // padding-top: 6.51vw;
     padding-top: 18px;
     padding-bottom: 15px;
     z-index: 1;
-    border-bottom: 1px solid #636363;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-
-    // @include xl {
-    //   padding-top: 126px;
-    // }
 
     @include tablet-small {
       position: unset;
@@ -408,14 +299,6 @@ button.add-to-cart {
     }
   }
 
-  h4 {
-    color: #aaaaaa;
-    letter-spacing: 0;
-    @extend .fs-16;
-    text-transform: capitalize;
-    font-family: var(--body-fonts);
-  }
-
   > .grid-view {
     .options-image {
       width: 150px;
@@ -447,7 +330,6 @@ button.add-to-cart {
     }
 
     .options-name {
-      // height: 100%;
       height: calc(100% - 150px);
     }
   }
@@ -1047,10 +929,6 @@ body[data-theme='light'] {
   .btn-small {
     margin-left: 16px;
   }
-}
-
-#Peripherals + div {
-  padding-bottom: 30px;
 }
 
 .Toastify__toast-container--bottom-center {

@@ -18,7 +18,7 @@
   
 /* Track */
 ::-webkit-scrollbar-track { 
-    background: var(--primary); 
+    /* background: var(--primary);  */
 } 
   
 /* Handle */

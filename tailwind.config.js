@@ -14,6 +14,9 @@ module.exports = {
       },
     },
   },
+  variants: {
+    margin: ['last'],
+  },
   theme: {
     extend: {
       maxWidth: {
@@ -50,9 +53,10 @@ module.exports = {
         primary: "#363636",
       }),
       textColor: {
-        base: 'var(--text-base)',
+        // base: 'var(--text-base)',
         primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
+        basicDark: '#757575',
       },
       boxShadow: {
         'outline-2': '0 0 0 2px var(--accents-2)',
