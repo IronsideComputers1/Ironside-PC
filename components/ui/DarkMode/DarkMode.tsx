@@ -8,7 +8,7 @@ export const useGetTheme = () => {
   const [theme, setTheme] = useState(global.window?.__theme)
   useEffect(() => {
     setTheme(global.window?.__theme);
-  }, [theme])
+  }, [theme]);
   return theme;
 }
 

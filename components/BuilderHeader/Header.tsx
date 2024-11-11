@@ -8,6 +8,8 @@ import MobileMenu from './MobileMenu'
 import { Portal } from '@reach/portal'
 import { Cross } from '@components/icons'
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
+import { Logo } from '@components/ui'
+import { IronSideLogo } from '@components/ui/IronSideLogo/IronSideLogo'
 
 
 const Header = (props: any) => {
@@ -39,21 +41,10 @@ const Header = (props: any) => {
           <div className="header-left d-flex items-center">
             <Link href="/">
               <a className="logo" aria-label="Logo">
-                {theme === 'light' ? (
-                  <img
-                    src={data?.logo?.whiteThemeLogo}
-                    alt="logo"
-                    width="82px"
-                    height="47px"
-                  />
-                ) : (
-                  <img
-                    src={data?.logo?.blackThemeLogo}
-                    alt="logo"
-                    width="82px"
-                    height="47px"
-                  />
-                )}
+                <IronSideLogo 
+                  whiteThemeLogo={data?.logo?.whiteThemeLogo} 
+                  blackThemeLogo={data?.logo?.blackThemeLogo}
+                />
               </a>
             </Link>
             <div className="mobile-menu-btn" onClick={() => mobileMenu()}>
