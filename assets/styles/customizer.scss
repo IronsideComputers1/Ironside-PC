@@ -1,6 +1,4 @@
 .customizer {
-  // max-width: 1920px;
-  // margin: auto;
 
   .bg-img {
     width: 35.677vw;
@@ -30,8 +28,6 @@
   }
 
   &-product {
-    // padding-top: 112px;
-    // padding-top: 62px;
 
     @include tablet-small {
       padding: 0 40px;
@@ -303,14 +299,6 @@ button.add-to-cart {
     }
   }
 
-  // h4 {
-  //   color: #aaaaaa;
-  //   letter-spacing: 0;
-  //   @extend .fs-16;
-  //   text-transform: capitalize;
-  //   font-family: var(--body-fonts);
-  // }
-
   > .grid-view {
     .options-image {
       width: 150px;
@@ -342,7 +330,6 @@ button.add-to-cart {
     }
 
     .options-name {
-      // height: 100%;
       height: calc(100% - 150px);
     }
   }
