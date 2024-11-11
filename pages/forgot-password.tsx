@@ -40,8 +40,8 @@ export default function forgotPassword({ header }: any) {
   const router = useRouter()
 
   if (typeof window !== 'undefined') {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }
   const handleForgotPassword = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()

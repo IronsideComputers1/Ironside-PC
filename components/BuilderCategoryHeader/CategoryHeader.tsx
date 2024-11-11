@@ -5,12 +5,13 @@ import MobileMenu from '@components/BuilderHeader/MobileMenu'
 import Hamburgers from '@components/icons/Hamburgers'
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
+// import { useThemeToggle } from '@components/ui/DarkMode/DarkMode'
 
 const CategoryHeader = (props: any) => {
   const data = props?.categoryHeaderData
     ? props?.categoryHeaderData
     : props?.header?.value?.data
-  const [theme, setTheme] = useState('black')
+  // const { theme } = useThemeToggle();
   const [menuOpen, setMenuOpen] = useState(false)
   const [headerData, setHeaderData] = useState<any>({})
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false)
@@ -27,12 +28,7 @@ const CategoryHeader = (props: any) => {
     const techSpecs: any = document.getElementById('tech-spec')
     const overview: any = document.getElementById('overview')
 
-    if (typeof window !== 'undefined') {
-      const bodyTheme: any = document
-        .querySelector('body')
-        ?.getAttribute('data-theme')
-      setTheme(bodyTheme)
-    }
+    
 
     //galleryButton
     galleryButton?.addEventListener('click', function () {
@@ -121,7 +117,7 @@ const CategoryHeader = (props: any) => {
         <div className="logo flex justify-start">
           <Link href="/">
             <a className="logo" aria-label="Logo">
-              {theme !== 'dark' ? (
+              {/* {theme !== 'dark' ? (
                 <img
                   src={data?.whiteThemeLogo}
                   alt="logo"
@@ -135,7 +131,7 @@ const CategoryHeader = (props: any) => {
                   width="82px"
                   height="47px"
                 />
-              )}
+              )} */}
             </a>
           </Link>
         </div>

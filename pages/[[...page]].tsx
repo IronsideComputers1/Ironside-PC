@@ -53,16 +53,6 @@ export default function Page({
   const router = useRouter()
   const isPreviewingInBuilder = useIsPreviewing()
   const show404 = !page && !isPreviewingInBuilder
-  
-  if (typeof window !== 'undefined') {
-    document
-      .querySelector('#body')
-      ?.setAttribute(
-        'data-theme',
-        page?.data?.blackTheme == false ? 'light' : 'dark'
-      )
-    document.querySelector('html')?.removeAttribute('data-theme')
-  }
 
   if (router.isFallback) {
     return (

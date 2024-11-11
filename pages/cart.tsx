@@ -27,7 +27,6 @@ export async function getStaticProps({
 }
 
 export default function Cart({ header }: any) {
-  const [themeColor, setThemeColor] = useState(false)
   const [currency, setCurrency] = useState<any>({})
   const [isStockOut, setIsStockOut] = useState([])
 
@@ -70,15 +69,6 @@ export default function Cart({ header }: any) {
       return item?.parent_id === null
     }) ?? []
 
-  const checkThemeColor = (dark: boolean) => {
-    if (dark == true) {
-      document.querySelector('#body')?.setAttribute('data-theme', 'light')
-      setThemeColor(true)
-    } else {
-      setThemeColor(false)
-      document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    }
-  }
   const totalQuantities = items
     .map((item: any) => item.quantity)
     .reduce((acc: number, curr: number) => acc + curr, 0)
@@ -100,10 +90,6 @@ export default function Cart({ header }: any) {
   }, [product])
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-      document.querySelector('html')?.removeAttribute('data-theme')
-    }
     closeSidebar()
     const currencyData: any = localStorage.getItem('currency_data')
     if (currencyData) setCurrency(JSON.parse(currencyData))
@@ -113,7 +99,7 @@ export default function Cart({ header }: any) {
     })
   }, [])
   if (typeof window !== 'undefined') {
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
   }
 
   return (
@@ -125,12 +111,6 @@ export default function Cart({ header }: any) {
       >
         <div className="account-pages-heading d-flex align-v-center justify-space themeColor">
           <h1 className="Text_pageHeading__VhZNf">Cart</h1>
-          <p
-            className="flex align-center justify-center mb-0 cursor-pointer"
-            onClick={() => checkThemeColor(themeColor ? false : true)}
-          >
-            {themeColor == false ? <Moon /> : <Sun />}
-          </p>
         </div>
         <div className="cart-page">
           <div className="cart-page-left lg:col-span-8">

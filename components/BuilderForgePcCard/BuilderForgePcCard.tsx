@@ -9,8 +9,8 @@ const BuilderForgePcCard = (props: any) => {
   const [isHovering, setIsHovering] = useState<number>(-1)
 
   useEffect(() => {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }, [])
 
   const handleMouseEnter = (index: number) => {

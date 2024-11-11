@@ -9,20 +9,10 @@ const MobileMenu = ({ data, mobileMenu }: any) => {
   const router = useRouter()
   const [theme, setTheme] = useState('black')
   let themeAttr = 'dark'
-  if (typeof window !== 'undefined') {
-    const bodyTheme: any = document
-      .querySelector('body')
-      ?.getAttribute('data-theme')
-    themeAttr = bodyTheme
-  }
+
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const bodyTheme: any = document
-        .querySelector('body')
-        ?.getAttribute('data-theme')
-      setTheme(bodyTheme)
-    }
+    
   }, [themeAttr])
   const onMenuSelected = (link: any) => {
     setTimeout(() => {

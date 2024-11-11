@@ -58,8 +58,8 @@ export default function SignUp({
   const signup = useSignup()
 
   if (typeof window !== 'undefined') {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }
 
   const handleInputChange = (field: string, value: any) => {

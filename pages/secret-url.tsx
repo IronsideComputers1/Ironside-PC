@@ -53,8 +53,8 @@ export default function SecretUrl({
   const [token, setToken] = useState('')
 
   if (typeof window !== 'undefined') {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }
   const headers = {
     'Content-Type': 'application/json',

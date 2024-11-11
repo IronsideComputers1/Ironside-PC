@@ -33,8 +33,8 @@ export default function MerchGears({
   })
 
   if (typeof window !== 'undefined') {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }
 
   useEffect(() => {

@@ -18,8 +18,8 @@ export async function getStaticProps({
 
 export default function Orders() {
   if (typeof window !== 'undefined') {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }
 
   return (

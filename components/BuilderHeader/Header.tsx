@@ -7,6 +7,8 @@ import Hamburgers from '@components/icons/Hamburgers'
 import MobileMenu from './MobileMenu'
 import { Portal } from '@reach/portal'
 import { Cross } from '@components/icons'
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
+
 
 const Header = (props: any) => {
   const data = props?.headerData
@@ -14,24 +16,7 @@ const Header = (props: any) => {
     : props?.header?.value?.data
   const [menuOpen, setMenuOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [theme, setTheme] = useState('black')
-  let themeAttr = 'dark'
-  if (typeof window !== 'undefined') {
-    const bodyTheme: any = document
-      .querySelector('body')
-      ?.getAttribute('data-theme')
-    themeAttr = bodyTheme
-  }
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const bodyTheme: any = document
-        .querySelector('body')
-        ?.getAttribute('data-theme')
-      setTheme(bodyTheme)
-    }
-  }, [themeAttr])
-
+  const theme = useGetTheme();
   const mobileMenu = useCallback(() => {
     setMenuOpen(!menuOpen)
     document.querySelector('body')?.classList.toggle('menu-opened')
@@ -110,7 +95,6 @@ const Header = (props: any) => {
                 <p>{props?.sale_banner_text}</p>
               </div>
             )}
-
             <UserNav mobileMenu={mobileMenu} />
           </div>
         </div>

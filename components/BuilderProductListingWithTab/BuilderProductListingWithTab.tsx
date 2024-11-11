@@ -6,19 +6,14 @@ import Intel_logo_black from '../../public/Intel_logo_black.png'
 import useSearch from '@framework/products/use-search'
 import Link from 'next/link'
 import usePrice from '@commerce/use-price'
+import { useThemeToggle } from '@components/ui/DarkMode/DarkMode'
 
 const BuilderProductListingWithTab = (props: any) => {
   const data = props?.productlistingWithTab?.value?.data
   const [processor, setProcessor] = useState('amd')
-  const [theme, setTheme] = useState('black')
+  // const { theme } = useThemeToggle();
   const [currency, setCurrency] = useState<any>({})
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const bodyTheme: any = document
-        .querySelector('body')
-        ?.getAttribute('data-theme')
-      setTheme(bodyTheme)
-    }
     const currencyData: any = localStorage.getItem('currency_data')
     setCurrency(JSON.parse(currencyData))
   }, [])
@@ -215,13 +210,13 @@ const BuilderProductListingWithTab = (props: any) => {
               }`}
               onClick={() => setProcessor('intel')}
             >
-              <img
+              {/* <img
                 src={
                   theme === 'light'
                     ? Intel_logo_black.src
                     : Intel_logo_white.src
                 }
-              />
+              /> */}
             </button>
           </div>
         </div>
