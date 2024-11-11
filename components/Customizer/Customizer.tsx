@@ -574,7 +574,7 @@ const Cutomizer: FC<Props> = (props) => {
 
             </div>
             <div
-              className="flex justify-evenly align-self-start align-start fixed right-0.5 bottom-0 py-6 px-20 items-center border-t border-primary"
+              className="flex justify-evenly items-start fixed right-0.5 bottom-0 py-6 px-20 border-t border-primary"
               style={{ 
                 backdropFilter: "blur(10px)",
                 left: "55%",
