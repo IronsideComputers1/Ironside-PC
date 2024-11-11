@@ -491,7 +491,8 @@ const Cutomizer: FC<Props> = (props) => {
             />
           </div>
 
-          <div className="customizer-product-content pt-10 mr-13 w-full relative overflow-y-scroll flex justify-end items-start "
+          <div 
+            className="customizer-product-content pt-10 mr-13 w-full relative overflow-y-scroll flex justify-end items-start"
             style={{
               maxHeight: "90vh"
             }}
@@ -505,13 +506,12 @@ const Cutomizer: FC<Props> = (props) => {
             </p> */}
 
             <div className="components flex items-center justify-center"
-              style={{width: "82%"}}
+              style={{ width: "82%" }}
             
             >
               <div
                 id='scroll-box'
                 className="default-options overflow-y-auto overflow-x-hidden px-0 pr-10" 
-                // style={{ maxHeight: '743px', maxWidth: '836px' }}
               >
                 <>
                   <div className="customizerProductGrid">
@@ -574,7 +574,7 @@ const Cutomizer: FC<Props> = (props) => {
 
             </div>
             <div
-              className="flex justify-space align-self-start align-center fixed right-0.5 bottom-0 py-6 px-20 items-center border-t border-primary"
+              className="flex justify-evenly align-self-start align-start fixed right-0.5 bottom-0 py-6 px-20 items-center border-t border-primary"
               style={{ 
                 backdropFilter: "blur(10px)",
                 left: "55%",
