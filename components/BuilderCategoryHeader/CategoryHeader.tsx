@@ -116,23 +116,21 @@ const CategoryHeader = (props: any) => {
       <div className="category-inner flex items-center justify-between">
         <div className="logo flex justify-start">
           <Link href="/">
-            <a className="logo" aria-label="Logo">
-              {theme !== 'dark' ? (
-                <img
-                  src={data?.whiteThemeLogo}
-                  alt="logo"
-                  width="82px"
-                  height="47px"
-                />
-              ) : (
-                <img
-                  src={data?.blackThemeLogo}
-                  alt="logo"
-                  width="82px"
-                  height="47px"
-                />
-              )}
-            </a>
+            {theme !== 'dark' ? (
+              <img
+                src={data?.whiteThemeLogo}
+                alt="logo"
+                width="82px"
+                height="47px"
+              />
+            ) : (
+              <img
+                src={data?.blackThemeLogo}
+                alt="logo"
+                width="82px"
+                height="47px"
+              />
+            )}
           </Link>
         </div>
         <div className="header-left">

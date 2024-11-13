@@ -25,7 +25,7 @@ const Header = (props: any) => {
   }, [menuOpen])
 
   return (
-    <div className="header">
+    <div className="header h-28 relative">
       {!!props?.sale_banner_text && (
         <div
           className="sale-banner mobile"
@@ -37,7 +37,7 @@ const Header = (props: any) => {
         </div>
       )}
       <div className="relative flex">
-        <div className="header-inner relative d-flex flex-row justify-space pt-40 align-v-center">
+        <div className="absolute w-full flex flex-row justify-space pt-40 px-11 items-center">
           <div className="header-left d-flex items-center">
             <Link href="/">
               <a className="logo" aria-label="Logo">
@@ -51,7 +51,7 @@ const Header = (props: any) => {
               <Hamburgers />
             </div>
 
-            <nav className="hidden ml-6 space-x-4 lg:block">
+            <nav className=" ml-6 space-x-4 lg:block">
               <ul className="list-none flex align-v-center">
                 {Object.keys(data?.categories || {}).map(
                   (key: any, index: any) => {
