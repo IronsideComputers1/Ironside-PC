@@ -6,7 +6,7 @@ import Intel_logo_black from '../../public/Intel_logo_black.png'
 import useSearch from '@framework/products/use-search'
 import Link from 'next/link'
 import usePrice from '@commerce/use-price'
-import { useThemeToggle } from '@components/ui/DarkMode/DarkMode'
+// import { useThemeToggle } from '@components/ui/DarkMode/DarkMode'
 
 const BuilderProductListingWithTab = (props: any) => {
   const data = props?.productlistingWithTab?.value?.data
