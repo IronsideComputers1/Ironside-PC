@@ -7,8 +7,6 @@ import Hamburgers from '@components/icons/Hamburgers'
 import MobileMenu from './MobileMenu'
 import { Portal } from '@reach/portal'
 import { Cross } from '@components/icons'
-import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
-import { Logo } from '@components/ui'
 import { IronSideLogo } from '@components/ui/IronSideLogo/IronSideLogo'
 
 
@@ -18,7 +16,6 @@ const Header = (props: any) => {
     : props?.header?.value?.data
   const [menuOpen, setMenuOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const theme = useGetTheme();
   const mobileMenu = useCallback(() => {
     setMenuOpen(!menuOpen)
     document.querySelector('body')?.classList.toggle('menu-opened')
