@@ -16,11 +16,12 @@ export const BlockItem = ({ subItem }: { subItem: Product }) => {
     // @ts-ignore next-line
     baseAmount: Number(subItem?.price || subItem.prices?.retailPrice?.value),
     currencyCode: subItem.prices?.price?.currencyCode! || 'USD',
-  })
+  });
   console.log({subItem});
   
   const imageUrl = getImageUrl(subItem);
   const { name, variants, customFields } = subItem;
+  const isOutOfStock = variants.edges.length > 0 && !variants.edges[0].node.inventory.isInStock;
   return (
     <div className='border rounded-lg w-56 h-auto flex items-start justify-between p-5 flex-col relative'>
       <div className='flex items-center justify-center w-full'>
@@ -41,18 +42,20 @@ export const BlockItem = ({ subItem }: { subItem: Product }) => {
             </div>
         </div>
       </div>
-      <div className='absolute inset-0 bg-black bg-opacity-50 w-full h-full flex items-center justify-center'>
-        <div
-          className="bg-white bg-opacity-25 border-black w-32 h-20 rounded-lg flex items-center justify-center"
-          style={{ "backdropFilter": "blur(30px)" }}
-        >
-          <h4
-            className='text-black m-0 capitalize text-xs font-Arimo text-center dark:text-white'
+      {isOutOfStock && (
+        <div className='absolute inset-0 bg-black bg-opacity-50 rounded-lg w-full h-full flex items-center justify-center'>
+          <div
+            className="bg-white bg-opacity-5 w-32 h-20 rounded-lg flex items-center justify-center"
+            style={{ "backdropFilter": "blur(30px)" }}
           >
-            Out of stock
-          </h4>
+            <h4
+              className='m-0 capitalize text-xs font-Arimo text-center text-black'
+            >
+              Out of stock
+            </h4>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

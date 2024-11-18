@@ -300,24 +300,6 @@ const Cutomizer: FC<Props> = (props) => {
     return image
   }
 
-  const scrollToElement = (heading: string, isModalSelection?: boolean) => {
-    setTimeout(() => {
-      setActiveTab(heading)
-      const scrollElement: any = document.getElementById(
-        `${heading?.replace(/[ ,:]+/g, '-')}`
-      )
-      const targetPosition = scrollElement?.offsetTop
-
-      if (targetPosition) {
-        const element: any = document.getElementById('scroll-box')
-        element.scrollTo({
-          top: targetPosition - 298,
-          behavior: isModalSelection ? 'auto' : 'smooth',
-        })
-      }
-    }, 1)
-  }
-
   const getWarranty = () => {
     const selectedWarranty = optionSelections?.filter((cat: any) => {
       if (cat?.category_name === 'Warranty') return cat
