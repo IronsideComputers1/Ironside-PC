@@ -1,6 +1,6 @@
 import DropdownArrow from '@components/icons/DropdownArrow'
 import EmptyProduct from '@components/icons/EmptyProduct'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { BlockItem } from './BlockItem'
 import classNames from 'classnames'
 import { Product } from './types'
@@ -12,6 +12,7 @@ type Props = {
   onModalSelection: any
   loadImage: any;
   renderColorName: any;
+  children?: any
 }
 
 export const Block = ({ 
@@ -19,17 +20,35 @@ export const Block = ({
   subs,
   incompatibleCats,
   onModalSelection,
+  children,
   loadImage,
   renderColorName,
 }: Props) => {
+
+  const blockRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (blockRef.current && !blockRef.current.contains(event.target as Node)) {
+      console.log('Clicked outside the component');
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
-  const subItems = subs?.products || [];
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
+    onModalSelection(subs);
   };
   
   return (
-    <div className='flex flex-col w-full select-none'>
+    <div ref={blockRef} className='flex flex-col w-full select-none'>
       <div
         className='flex items-center justify-between w-full'
         onClick={toggleAccordion}
@@ -76,9 +95,7 @@ export const Block = ({
         </div>
       </div>
       {isOpen && <div className='flex gap-3 flex-wrap'>
-        {subItems.map((subItem: Product) => (
-          <BlockItem key={subItem.entityId} subItem={subItem} />
-        ))}
+        {children}
       </div>}
     </div>
   )

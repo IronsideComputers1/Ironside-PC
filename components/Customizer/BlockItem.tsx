@@ -4,12 +4,17 @@ import Image from 'next/image';
 import usePrice from '@framework/use-price';
 import { CustomFieldSelect } from './CustomFieldSelect';
 
+type Props = {
+  subItem: Product;
+  onAddItem?: (item: any) => void;
+}
+
 const getImageUrl = (product: Product): string | undefined => {
   const defaultImage = product.images.edges.find(edge => edge.node.isDefault);
   return defaultImage ? defaultImage.node.urlOriginal : undefined;
 }
 
-export const BlockItem = ({ subItem }: { subItem: Product }) => {
+export const BlockItem = ({ subItem, onAddItem }: Props) => {
   const { price } = usePrice({
     // @ts-ignore next-line
     amount: Number(subItem?.price || subItem.prices?.price?.value),
@@ -23,7 +28,13 @@ export const BlockItem = ({ subItem }: { subItem: Product }) => {
   const { name, variants, customFields } = subItem;
   const isOutOfStock = variants.edges.length > 0 && !variants.edges[0].node.inventory.isInStock;
   return (
-    <div className='border rounded-lg w-56 h-auto flex items-start justify-between p-5 flex-col relative'>
+    <div
+      className='border rounded-lg w-56 h-auto flex items-start justify-between p-5 flex-col relative'
+      onClick={() => {
+        if(!onAddItem || isOutOfStock) return;
+        onAddItem(subItem);
+      }}
+    >
       <div className='flex items-center justify-center w-full'>
         {imageUrl && <Image width="150px" height="150px" src={imageUrl} alt={name} objectFit="contain" />}
       </div>
@@ -37,9 +48,9 @@ export const BlockItem = ({ subItem }: { subItem: Product }) => {
               console.log('Selected', s);
             }} />
           </div>
-            <div className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs" style={{ backgroundColor: '#1c1c1c' }}>
-            +{price}
-            </div>
+          <div className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs" style={{ backgroundColor: '#1c1c1c' }}>
+          +{price}
+          </div>
         </div>
       </div>
       {isOutOfStock && (
