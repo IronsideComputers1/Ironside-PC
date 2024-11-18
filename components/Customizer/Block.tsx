@@ -27,8 +27,6 @@ export const Block = ({
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
-  // console.log({subItems});
-  // console.log({subs});
   
   return (
     <div className='flex flex-col w-full select-none'>

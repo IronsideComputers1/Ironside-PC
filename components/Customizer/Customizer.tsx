@@ -20,6 +20,7 @@ import { Error404 } from './Error404'
 import { Block } from './Block'
 import { ProductLeft } from './ProductLeft'
 import { getCurrentVariant } from '../product/helpers'
+import { ItemBody } from '@framework/api/wishlist'
 
 interface Props {
   className?: string
@@ -51,8 +52,10 @@ const Cutomizer: FC<Props> = (props) => {
     warranties,
     shippingDays,
   } = OptionSelectionController({ product, categoriesDataFiltered })
-  console.log({categoriesDataFiltered});
-    
+  
+  
+  const [selectedProducts, setSelectedProducts] = useState<ItemBody[]>([]);
+
   const [basePrice, setBasePrice] = useState<number>(0)
   const [modalData, setModalData] = useState<any>({})
   const [activeTab, setActiveTab] = useState<string>('Aesthetics')
@@ -61,7 +64,6 @@ const Cutomizer: FC<Props> = (props) => {
   const [saveMyBuildModal, setSaveMyBuildModal] = useState(false)
   const [incompatibleModal, setIncompatibleModal] = useState(false)
   const [cartIndex, setCartIndex] = useState<any>('')
-  const [gridView, setGridView] = useState('gridview')
   const [buildUrl, setBuildUrl] = useState('')
   const [incompatibleProducts, setIncompatibleProducts] = useState({})
   const [totalPrice, setTotalPrice] = useState(0)
@@ -69,7 +71,14 @@ const Cutomizer: FC<Props> = (props) => {
   const [incompatibleProdIds, setIncompatibleProdIds] = useState([])
   const [defaultColors, setDefaultColors] = useState([])
 
-  const addItem = useAddItem()
+  console.log({selectedProducts});
+
+  const addItem = (item: ItemBody) => {
+    console.log({item});
+    setSelectedProducts([...selectedProducts, item]);
+  }
+
+  // const addItem = useAddItem()
   const { data: cartData }: any = useCart()
   const removeItem = useRemoveItem()
   const router = useRouter()
