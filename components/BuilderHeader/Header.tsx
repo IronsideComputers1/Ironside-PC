@@ -7,6 +7,8 @@ import Hamburgers from '@components/icons/Hamburgers'
 import MobileMenu from './MobileMenu'
 import { Portal } from '@reach/portal'
 import { Cross } from '@components/icons'
+import { IronSideLogo } from '@components/ui/IronSideLogo/IronSideLogo'
+
 
 const Header = (props: any) => {
   const data = props?.headerData
@@ -14,31 +16,13 @@ const Header = (props: any) => {
     : props?.header?.value?.data
   const [menuOpen, setMenuOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [theme, setTheme] = useState('black')
-  let themeAttr = 'dark'
-  if (typeof window !== 'undefined') {
-    const bodyTheme: any = document
-      .querySelector('body')
-      ?.getAttribute('data-theme')
-    themeAttr = bodyTheme
-  }
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const bodyTheme: any = document
-        .querySelector('body')
-        ?.getAttribute('data-theme')
-      setTheme(bodyTheme)
-    }
-  }, [themeAttr])
-
   const mobileMenu = useCallback(() => {
     setMenuOpen(!menuOpen)
     document.querySelector('body')?.classList.toggle('menu-opened')
   }, [menuOpen])
 
   return (
-    <div className="header">
+    <div className="header h-28 relative">
       {!!props?.sale_banner_text && (
         <div
           className="sale-banner mobile"
@@ -50,32 +34,21 @@ const Header = (props: any) => {
         </div>
       )}
       <div className="relative flex">
-        <div className="header-inner relative d-flex flex-row justify-space pt-40 align-v-center">
+        <div className="absolute w-full flex flex-row justify-space pt-40 px-11 items-center">
           <div className="header-left d-flex items-center">
             <Link href="/">
               <a className="logo" aria-label="Logo">
-                {theme === 'light' ? (
-                  <img
-                    src={data?.logo?.whiteThemeLogo}
-                    alt="logo"
-                    width="82px"
-                    height="47px"
-                  />
-                ) : (
-                  <img
-                    src={data?.logo?.blackThemeLogo}
-                    alt="logo"
-                    width="82px"
-                    height="47px"
-                  />
-                )}
+                <IronSideLogo 
+                  whiteThemeLogo={data?.logo?.whiteThemeLogo} 
+                  blackThemeLogo={data?.logo?.blackThemeLogo}
+                />
               </a>
             </Link>
             <div className="mobile-menu-btn" onClick={() => mobileMenu()}>
               <Hamburgers />
             </div>
 
-            <nav className="hidden ml-6 space-x-4 lg:block">
+            <nav className=" ml-6 space-x-4 lg:block">
               <ul className="list-none flex align-v-center">
                 {Object.keys(data?.categories || {}).map(
                   (key: any, index: any) => {
@@ -110,7 +83,6 @@ const Header = (props: any) => {
                 <p>{props?.sale_banner_text}</p>
               </div>
             )}
-
             <UserNav mobileMenu={mobileMenu} />
           </div>
         </div>

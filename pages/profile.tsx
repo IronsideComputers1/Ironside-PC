@@ -43,8 +43,8 @@ export default function Profile({
   const setCustomerAttribute = useSetCustomerAttribute()
 
   if (typeof window !== 'undefined') {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }
 
   const setCartId = async () => {

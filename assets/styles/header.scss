@@ -2,6 +2,17 @@
   .menu-description {
     background: var(--menu-bg-light);
   }
+  .dark-logo {
+    display: none;
+  }
+}
+[data-theme='dark'] {
+  .menu-description {
+    background: var(--menu-bg-dark);
+  }
+  .light-logo {
+    display: none;
+  }
 }
 
 body {
@@ -9,32 +20,36 @@ body {
     .header {
       position: relative;
 
-      .header-inner {
-        @include tablet {
-          padding-top: 70px;
-        }
+      // .header-inner {
+      //   @include tablet {
+      //     padding-top: 70px;
+      //   }
 
-        @include mobile {
-          padding: 68px 30px 0;
-        }
-      }
+      //   @include mobile {
+      //     padding: 70px 30px 0;
+      //   }
+      // }
     }
   }
 
-  .header-inner {
-    width: 100%;
-    padding: 40px 40px 0;
-    position: relative;
+  // .header-inner {
+  //   width: 100%;
+  //   padding: 40px 40px 0;
+  //   position: relative;
 
-    @include mobile {
-      padding: 30px 20px 0;
-    }
-  }
+  //   @include mobile {
+  //     padding: 30px 20px 0;
+  //   }
+  // }
 
   .header,
   .category-header {
     background-color: transparent;
     padding: 0;
+    // position: absolute;
+    // left: 0;
+    // right: 0;
+    z-index: 3;
 
     .header-left {
       @include tablet-small {
@@ -143,7 +158,7 @@ body {
 
   @include desktop-small {
     display: none;
-    padding: 12px 10px;
+    padding: 9px 10px;
   }
 
   @include tablet-small {
@@ -264,13 +279,6 @@ body {
           0px 0px 41.218406677246094px $color-white,
           0px 0px 70.66012573242188px $color-white,
           0px 0px 123.65522003173828px $color-white;
-      }
-    }
-    @include mobile {
-      &:hover {
-        .mega-menu-heading {
-          text-shadow: none;
-        }
       }
     }
   }
@@ -434,7 +442,7 @@ body {
     letter-spacing: -0.7px;
     margin-bottom: 15px;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: var(--secondary);
     margin: 0 0 15px;
     text-shadow: none;
@@ -1076,7 +1084,7 @@ body .category-header {
 
     li.buy-now {
       margin-left: 15px;
-      padding: 9px 15px;
+      padding: 8px 15px;
       border: 1px solid var(--border);
       border-radius: 79px;
       font-family: var(--secondary-fonts);
@@ -1094,13 +1102,16 @@ body .category-header {
       }
       &:hover {
         cursor: pointer;
-        border-color: var(--secondary);
-        background: var(--hover);
       }
       a {
         font-size: 13px;
         line-height: 13px;
         letter-spacing: -1.625px;
+
+        &:hover {
+          border-color: var(--secondary);
+        }
+
         @include mobile-small {
           font-size: 12px;
           line-height: 12px;
@@ -1134,9 +1145,6 @@ body .category-header {
     font-family: var(--secondary-fonts);
     @include tablet-small {
       margin-left: 0 !important;
-    }
-    &:hover {
-      opacity: 0.5;
     }
   }
 }

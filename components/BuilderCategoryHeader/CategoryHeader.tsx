@@ -3,6 +3,7 @@ import AboutMenu from '@components/BuilderHeader/AboutMenu'
 import MegaMenu from '@components/BuilderHeader/MegaMenu'
 import MobileMenu from '@components/BuilderHeader/MobileMenu'
 import Hamburgers from '@components/icons/Hamburgers'
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
@@ -10,7 +11,7 @@ const CategoryHeader = (props: any) => {
   const data = props?.categoryHeaderData
     ? props?.categoryHeaderData
     : props?.header?.value?.data
-  const [theme, setTheme] = useState('black')
+  const theme = useGetTheme();
   const [menuOpen, setMenuOpen] = useState(false)
   const [headerData, setHeaderData] = useState<any>({})
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false)
@@ -27,12 +28,7 @@ const CategoryHeader = (props: any) => {
     const techSpecs: any = document.getElementById('tech-spec')
     const overview: any = document.getElementById('overview')
 
-    if (typeof window !== 'undefined') {
-      const bodyTheme: any = document
-        .querySelector('body')
-        ?.getAttribute('data-theme')
-      setTheme(bodyTheme)
-    }
+    
 
     //galleryButton
     galleryButton?.addEventListener('click', function () {
@@ -120,23 +116,21 @@ const CategoryHeader = (props: any) => {
       <div className="category-inner flex items-center justify-between">
         <div className="logo flex justify-start">
           <Link href="/">
-            <a className="logo" aria-label="Logo">
-              {theme !== 'dark' ? (
-                <img
-                  src={data?.whiteThemeLogo}
-                  alt="logo"
-                  width="82px"
-                  height="47px"
-                />
-              ) : (
-                <img
-                  src={data?.blackThemeLogo}
-                  alt="logo"
-                  width="82px"
-                  height="47px"
-                />
-              )}
-            </a>
+            {theme !== 'dark' ? (
+              <img
+                src={data?.whiteThemeLogo}
+                alt="logo"
+                width="82px"
+                height="47px"
+              />
+            ) : (
+              <img
+                src={data?.blackThemeLogo}
+                alt="logo"
+                width="82px"
+                height="47px"
+              />
+            )}
           </Link>
         </div>
         <div className="header-left">

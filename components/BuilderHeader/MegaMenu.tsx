@@ -9,20 +9,10 @@ const MegaMenu = ({ data }: MegaMenuProps) => {
   const [theme, setTheme] = useState('dark')
   const [hoverImage, setHoverImage] = useState<any>(data?.megaMenu[0])
   let themeAttr = 'dark'
-  if (typeof window !== 'undefined') {
-    const bodyTheme: any = document
-      .querySelector('body')
-      ?.getAttribute('data-theme')
-    themeAttr = bodyTheme
-  }
+
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const bodyTheme: any = document
-        .querySelector('body')
-        ?.getAttribute('data-theme')
-      setTheme(bodyTheme)
-    }
+    
   }, [themeAttr])
 
   const imageChange = (index: number) => {

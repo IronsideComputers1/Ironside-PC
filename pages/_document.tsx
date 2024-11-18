@@ -1,9 +1,12 @@
-import Document, { Head, Html, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import { getTheme } from '@components/ui/DarkMode/DarkMode';
+
 class MyDocument extends Document {
   render() {
     return (
       <Html>
         <Head>
+          <script dangerouslySetInnerHTML={{ __html: getTheme }} />
           <link rel="preload" href="https://fonts.googleapis.com" />
           <link rel="preload" href="https://fonts.gstatic.com" crossOrigin="" />
           <link

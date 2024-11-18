@@ -26,8 +26,6 @@ interface Props {
   children?: any
   product: ProductNode
   categoriesDataFiltered: any
-  checkThemeColor: any
-  themeColor: boolean
   colorOpts?: number[]
   currency?: any
   productsFetched?: boolean
@@ -39,8 +37,6 @@ const Cutomizer: FC<Props> = (props) => {
   const {
     product,
     categoriesDataFiltered,
-    checkThemeColor,
-    themeColor,
     colorOpts,
     productsFetched,
     currency,
@@ -497,17 +493,9 @@ const Cutomizer: FC<Props> = (props) => {
               maxHeight: "90vh"
             }}
           >
-            {/* TODO: move this to header */}
-            {/* <p
-              className="themeColorChanger flex align-center justify-center mb-0 cursor-pointer"
-              onClick={() => checkThemeColor(themeColor ? false : true)}
-            >
-              {themeColor == false ? <Moon /> : <Sun />}
-            </p> */}
-
-            <div className="components flex items-center justify-center"
+            <div 
+              className="components flex items-center justify-center"
               style={{ width: "82%" }}
-            
             >
               <div
                 id='scroll-box'
@@ -574,7 +562,7 @@ const Cutomizer: FC<Props> = (props) => {
 
             </div>
             <div
-              className="flex justify-evenly align-self-start align-start fixed right-0.5 bottom-0 py-6 px-20 items-center border-t border-primary"
+              className="flex justify-evenly items-start fixed right-0.5 bottom-0 py-6 px-20 border-t border-primary"
               style={{ 
                 backdropFilter: "blur(10px)",
                 left: "55%",

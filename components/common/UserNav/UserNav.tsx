@@ -15,6 +15,13 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock'
+import dynamic from 'next/dynamic'
+
+const DarkMode = dynamic(() => import("../../ui/DarkMode/DarkMode"), {
+  ssr: false,
+  // Make sure to code a placeholder so the UI doesn't jump when the component loads
+  loading: () => <div className="w-9 h-9" />,
+});
 
 interface Props {
   className?: string
@@ -137,6 +144,9 @@ const UserNav: FC<Props> = ({ className, mobileMenu, device }) => {
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
         <ul className={'list-none d-flex head-top ' + s.list}>
+          <li>
+            <DarkMode />
+          </li>
           <li className="currency">
             <a
               role="button"

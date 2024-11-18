@@ -44,8 +44,8 @@ export default function Login({
   const { data: customer }: any = useCustomer()
 
   if (typeof window !== 'undefined') {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }
 
   const handleLogin = async (e: React.SyntheticEvent<EventTarget>) => {

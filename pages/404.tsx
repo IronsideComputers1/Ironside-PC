@@ -23,8 +23,8 @@ export async function getStaticProps({
 
 export default function ErrorPage({ header }: any) {
   if (typeof window !== 'undefined') {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }
   return (
     <>

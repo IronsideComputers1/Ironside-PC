@@ -96,8 +96,8 @@ export default function AdminAuth({
   }, [email, password, dirty])
 
   if (typeof window !== 'undefined') {
-    document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    document.querySelector('html')?.removeAttribute('data-theme')
+    
+    
   }
 
   useEffect(() => {

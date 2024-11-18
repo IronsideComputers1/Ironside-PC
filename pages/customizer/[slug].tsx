@@ -176,19 +176,19 @@ export default function Slug({
     setGroupedProducts(groupedData)
   }
 
-  const checkThemeColor = (dark: boolean) => {
-    if (dark == true) {
-      document.querySelector('#body')?.setAttribute('data-theme', 'light')
-      setThemeColor(true)
-    } else {
-      setThemeColor(false)
-      document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-    }
-  }
+  // const checkThemeColor = (dark: boolean) => {
+  //   if (dark == true) {
+      
+  //     setThemeColor(true)
+  //   } else {
+  //     setThemeColor(false)
+      
+  //   }
+  // }
 
-  if (typeof window !== 'undefined') {
-    document.querySelector('html')?.removeAttribute('data-theme')
-  }
+  // if (typeof window !== 'undefined') {
+    
+  // }
 
   useEffect(() => {
     let filteredProductData: any = []
@@ -283,10 +283,6 @@ export default function Slug({
   }, [productsFetched, productData.data, colorOptions])
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      document.querySelector('#body')?.setAttribute('data-theme', 'dark')
-      document.querySelector('html')?.removeAttribute('data-theme')
-    }
     const currencyData: any = localStorage.getItem('currency_data')
     if (currencyData) setCurrency(JSON.parse(currencyData))
     $(document).on('CURRENCY_UPDATE', () => {
@@ -303,8 +299,6 @@ export default function Slug({
           productsFetched={optionsCategories?.length === productsFetched}
           product={productDetail}
           categoriesDataFiltered={groupedProducts}
-          checkThemeColor={checkThemeColor}
-          themeColor={themeColor}
           colorOpts={colorOpts}
           currency={currency}
         />
