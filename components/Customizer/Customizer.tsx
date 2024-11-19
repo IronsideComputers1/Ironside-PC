@@ -21,6 +21,7 @@ import { Block } from './Block'
 import { ProductLeft } from './ProductLeft'
 import { getCurrentVariant } from '../product/helpers'
 import { ItemBody } from '@framework/api/wishlist'
+import ProductSelectionModal from './ProductSelectionModal'
 
 interface Props {
   className?: string
@@ -480,7 +481,7 @@ const Customizer: FC<Props> = (props) => {
           >
             <div 
               className="components flex items-center justify-center"
-              style={{ width: "82%" }}
+              style={{ width: "86%" }}
             >
               <div
                 id='scroll-box'
@@ -526,8 +527,26 @@ const Customizer: FC<Props> = (props) => {
                                               onModalSelection={onModalSelection}
                                               loadImage={loadImage}
                                               renderColorName={renderColorName}
-                                              onAddItem={addItem}
-                                            />
+                                            >
+                                              <ProductSelectionModal
+                                                optionSelections={optionSelections}
+                                                setIncompatibleProducts={setIncompatibleProducts}
+                                                incompatibleProdIds={incompatibleProdIds}
+                                                setModal={setModal}
+                                                onOptionSelections={onOptionSelections}
+                                                modalData={modalData}
+                                                selectedIds={selectedIds}
+                                                selectedColor={selectedColor}
+                                                colorOpts={colorOpts}
+                                                defaultColors={defaultColors}
+                                                convertCurrency={convertCurrency}
+                                                setIncompatibleProdIds={setIncompatibleProdIds}
+                                                setIncompatibleCats={setIncompatibleCats}
+                                                scrollToElement={()=>{}}
+                                                activeTab={activeTab}
+                                                setDefaultColors={setDefaultColors}
+                                              />
+                                            </Block>
                                             {index !== categories?.subCategory?.length - 1 && (
                                               <hr className="h-0 w-full my-1 border-t-0 border-b border-primary" />
                                             )}

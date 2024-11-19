@@ -19,10 +19,6 @@ module.exports = {
   },
   theme: {
     extend: {
-      // screens: {
-      //   'dark': {'raw': '(prefers-color-scheme: dark)'},
-      //   // => @media (prefers-color-scheme: dark) { ... }
-      // },
       maxWidth: {
         '8xl': '1920px',
       },
