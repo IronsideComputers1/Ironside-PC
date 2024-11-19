@@ -34,7 +34,7 @@ const Header = (props: any) => {
         </div>
       )}
       <div className="relative flex">
-        <div className="absolute w-full flex flex-row justify-space pt-40 px-11 items-center">
+        <div className="w-full flex flex-row justify-space pt-40 px-11 items-center">
           <div className="header-left d-flex items-center">
             <Link href="/">
               <a className="logo" aria-label="Logo">
