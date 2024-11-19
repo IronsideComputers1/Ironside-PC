@@ -72,8 +72,8 @@ const ProductInfoModal: FC<Props> = ({
       <div
         className={
           stock == true
-            ? 'stock-checker'
-            : 'flex align-v-center justify-space-end stock-out stock-checker'
+            ? 'stock-checker w-full'
+            : 'flex align-v-center justify-space-end stock-out stock-checker w-full'
         }
       >
         {!stock && <p className="out-of-stock-hihglighter">Out Of Stock</p>}

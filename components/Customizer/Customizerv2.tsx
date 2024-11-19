@@ -481,7 +481,7 @@ const Customizer: FC<Props> = (props) => {
           >
             <div 
               className="components flex items-center justify-center"
-              style={{ width: "82%" }}
+              style={{ width: "86%" }}
             >
               <div
                 id='scroll-box'
