@@ -272,7 +272,7 @@ const ProductSelectionModal = ({
 
   return (
     <div className="category-popup">
-      <div className="flex flex-wrap gap-2 pb-3">
+      <div className="flex flex-wrap pb-3" style={{ gap: "8px" }}>
         {modalData?.products?.map((data: any, index: number) => (
           <div
             className={
