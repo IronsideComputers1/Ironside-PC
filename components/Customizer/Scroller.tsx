@@ -10,7 +10,7 @@ export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
   return (
     <div className="list-none fixed z-10"
       style={{
-        bottom: '116px'
+        bottom: '118px'
       }}
     >
       <ul 
