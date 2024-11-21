@@ -639,18 +639,6 @@ const Customizer: FC<Props> = (props) => {
                   Fix Incompatibilities
                 </Button>
               ) : (
-                // <button
-                //   className={
-                //     classNames(
-                //       "dark box-border m-0 overflow-visible bg-none appearance-none shadow-none inline-flex justify-center uppercase items-center text-base leading-none font-secondary font-normal text-white bg-button-color text-center border rounded-full py-5 px-2.5 tracking-tighter cursor-pointer transition-all relative w-56 h-14",
-                //       theme === "dark" ? "text-white" : "text-basicDark", 
-                //     )
-                //   }
-                //   disabled={!variant}
-                //   onClick={addToCart}
-                // >
-                //   Add to Cart
-                // </button>
                 <Button
                   aria-label="Add to Cart"
                   type="button"
