@@ -6,8 +6,8 @@ import { Portal } from '@reach/portal'
 import useAddItem from '@framework/cart/use-add-item'
 import type { ProductNode } from '@framework/api/operations/get-product'
 import { Button } from '@components/ui'
-import EmptyProduct from '@components/icons/EmptyProduct'
 import SaveBuildModal from '@components/ui/SaveBuildModal/SaveBuildModal'
+import SaveMyBuild from './SaveMyBuild'
 import axios from 'axios'
 import WrongPassword from '@components/icons/WrongPassword'
 import usePrice from '@commerce/use-price'
@@ -22,6 +22,7 @@ import { ProductLeft } from './ProductLeft'
 import { getCurrentVariant } from '../product/helpers'
 import { ItemBody } from '@framework/api/wishlist'
 import ProductSelectionModal from './ProductSelectionModal'
+import { Floppy } from '@components/icons'
 
 interface Props {
   className?: string
@@ -567,7 +568,7 @@ const Customizer: FC<Props> = (props) => {
 
             </div>
             <div
-              className="flex items-start fixed right-0.5 bottom-0 py-6 px-20 border-t border-primary"
+              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-t border-primary"
               style={{ 
                 backdropFilter: "blur(10px)",
                 left: "55%",
@@ -610,6 +611,19 @@ const Customizer: FC<Props> = (props) => {
                   Add to Cart
                 </Button>
               )}
+              <button
+                className="dark box-border m-0 overflow-visible bg-none appearance-none shadow-none inline-flex justify-center uppercase items-center text-base leading-none font-secondary font-normal text-white bg-button-color text-center border border-dark rounded-full py-5 px-2.5 tracking-tighter cursor-pointer transition-all relative w-14 h-14"
+                onClick={() => {
+                  SaveMyBuild(
+                    optionSelections,
+                    selectedColor,
+                    setBuildUrl
+                  )
+                  setSaveMyBuildModal(true)
+                }}
+              >
+                <Floppy />
+              </button>
             </div>
           </div>
         </div>

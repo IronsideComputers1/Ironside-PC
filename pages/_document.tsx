@@ -13,10 +13,10 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&display=swap"
             rel="stylesheet"
           />
-          <script
+          {/* <script
             id="gorgias-chat-widget-install-v3"
             src="https://config.gorgias.chat/bundle-loader/01HRAD3WX0M4BTPHD30B6N6E39"
-          ></script>
+          ></script> */}
           <script src="https://connect-preview.breadpayments.com/sdk.js"></script>
           <link
             rel="preload"
