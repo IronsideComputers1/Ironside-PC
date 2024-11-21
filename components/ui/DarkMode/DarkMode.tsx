@@ -5,9 +5,15 @@ import { Moon, Sun } from '@components/icons'
 import { useCallback, useEffect, useState } from "react";
 
 export const useGetTheme = () => {
-  const [theme, setTheme] = useState(global.window?.__theme)
+  const [theme, setTheme] = useState(global.window?.__theme);
   useEffect(() => {
-    setTheme(global.window?.__theme);
+    const callback = ({ detail: { isDark } }) => {
+      setTheme(isDark ? 'dark' : 'light');
+    }
+    window.addEventListener("darkModeChange", callback);
+    return () => {
+      window.removeEventListener("darkModeChange", callback);
+    }
   }, [theme]);
   return theme;
 }
@@ -31,7 +37,11 @@ export const DarkMode = () => {
   }, []);
 
   const icon = isDark ? <Sun height={21} width={21} /> : <Moon height={21} width={21} />;
-
+  window.dispatchEvent(new CustomEvent("darkModeChange", {
+    detail: {
+      isDark
+    }
+  }));
   return <button onClick={toggleTheme}>{icon}</button>;
 }
 

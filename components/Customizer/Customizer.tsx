@@ -24,6 +24,8 @@ import { ItemBody } from '@framework/api/wishlist'
 import ProductSelectionModal from './ProductSelectionModal'
 import { Floppy } from '@components/icons'
 import { Scroller } from './Scroller'
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
+import classNames from 'classnames'
 
 interface Props {
   className?: string
@@ -70,6 +72,8 @@ const Customizer: FC<Props> = (props) => {
   const [incompatibleCats, setIncompatibleCats] = useState([])
   const [incompatibleProdIds, setIncompatibleProdIds] = useState([])
   const [defaultColors, setDefaultColors] = useState([])
+  
+  const theme = useGetTheme();
 
   const addItem = useAddItem()
   const { data: cartData }: any = useCart()
@@ -595,7 +599,7 @@ const Customizer: FC<Props> = (props) => {
 
             
             <div
-              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-t border-primary"
+              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-t border-primary text-center"
               style={{ 
                 backdropFilter: "blur(10px)",
                 left: "55%",
@@ -649,7 +653,7 @@ const Customizer: FC<Props> = (props) => {
                   setSaveMyBuildModal(true)
                 }}
               >
-                <Floppy />
+                <Floppy className={classNames("fill-current", theme === "dark" ? "text-basicDark" : "text-black")} />
               </button>
             </div>
           </div>

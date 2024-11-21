@@ -9,6 +9,7 @@ import DropdownArrow from '@components/icons/DropdownArrow'
 import Image from 'next/image'
 import classNames from 'classnames'
 import Info from '@components/icons/Info'
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 
 const ProductSelectionModal = ({
   setModal,
@@ -31,6 +32,7 @@ const ProductSelectionModal = ({
   const { displayModal, closeModal } = useUI()
   const [toggle, setToggle] = useState(false)
   const [toggleIndex, setToggleIndex] = useState('')
+  const theme = useGetTheme();
   const productInfoImages = (data: any) => {
     const images = data?.images?.edges.map((image: any) => {
       return image?.node?.urlOriginal
@@ -132,9 +134,13 @@ const ProductSelectionModal = ({
         }
       })
     }
-    const finalPrice = price + varaintPrice
+    const finalPrice = price + varaintPrice;
     return (
-      <p className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs" style={{ backgroundColor: '#1c1c1c' }}>
+      <p
+        className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs"
+        style={{ 
+          backgroundColor: theme === "dark" ? '#1c1c1c' : "rgba(0, 0, 0, 0.05)"
+        }}>
         {finalPrice?.toString().includes('-')
           ? convertCurrency(finalPrice)
           : `+${convertCurrency(finalPrice)}`}

@@ -1,3 +1,4 @@
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode';
 import React from 'react'
 
 interface ScrollerProps {
@@ -6,7 +7,14 @@ interface ScrollerProps {
 }
 
 export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
+  const theme = useGetTheme();
   const tabs = ['Aesthetics', 'Components', 'Services', 'Peripherals'];
+  const getTabColor = (tab: string) => {
+    if(theme === "light") {
+      return activeTab === tab ? { color: "rgba(0, 0, 0, 1)" } :{  color: 'rgba(0, 0, 0, 0.5)' }
+    }
+    return activeTab === tab ? { color: 'rgba(255, 255, 255, 1)' } : { color: "rgba(255, 255, 255, 0.5)" }
+  }
   return (
     <div className="list-none fixed z-10"
       style={{
@@ -17,7 +25,7 @@ export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
         className='flex items-center h-10 rounded-full w-96 m-0'
         style={{
           backdropFilter: "blur(30px)",
-          backgroundColor: "rgba(255, 255, 255, 0.05)",
+          backgroundColor: theme === "light" ? "rgba(0, 0, 0, 0.05)": "rgba(255, 255, 255, 0.05)",
           justifyContent: 'space-evenly'
         }}
       >
@@ -25,9 +33,7 @@ export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
           <li key={tab}>
             <a
               className='cursor-pointer'
-              style={
-                activeTab === tab ? { color: 'rgba(255, 255, 255, 1)' } : { color: "rgba(255, 255, 255, 0.5)" }
-              }
+              style={getTabColor(tab)}
               onClick={() => { 
                 onScroll(tab);
                 document?.getElementById(tab)?.scrollIntoView({ behavior: "smooth"})
