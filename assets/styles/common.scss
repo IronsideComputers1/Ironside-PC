@@ -418,6 +418,20 @@ body[data-theme='light'] {
   }
 }
 
+[data-theme='light'] {
+  .btn-small {
+    background-color: white;
+    color: var(--primary);
+  } 
+}
+
+[data-theme='dark'] {
+  .btn-small {
+    background-color: transparent;
+    color: var(--secondary);
+  } 
+}
+
 .btn-small {
   all: unset;
   font-size: 13px;
@@ -425,8 +439,6 @@ body[data-theme='light'] {
   letter-spacing: -1.625px;
   font-family: var(--secondary-fonts);
   font-weight: 400;
-  color: var(--secondary);
-  background-color: transparent;
   text-align: center;
   border: 1px solid #363636;
   border-radius: 79px;
