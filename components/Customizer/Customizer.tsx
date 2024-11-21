@@ -24,6 +24,8 @@ import { ItemBody } from '@framework/api/wishlist'
 import ProductSelectionModal from './ProductSelectionModal'
 import { Floppy } from '@components/icons'
 import { Scroller } from './Scroller'
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
+import classNames from 'classnames'
 
 interface Props {
   className?: string
@@ -70,6 +72,8 @@ const Customizer: FC<Props> = (props) => {
   const [incompatibleCats, setIncompatibleCats] = useState([])
   const [incompatibleProdIds, setIncompatibleProdIds] = useState([])
   const [defaultColors, setDefaultColors] = useState([])
+  
+  const theme = useGetTheme();
 
   const addItem = useAddItem()
   const { data: cartData }: any = useCart()
@@ -570,7 +574,15 @@ const Customizer: FC<Props> = (props) => {
                                             />
                                           </Block>
                                           {index !== categories?.subCategory?.length - 1 && (
-                                            <hr className="h-0 w-full my-1 border-t-0 border-b border-primary" />
+                                            <hr
+                                              className={classNames(
+                                                "h-0 w-full my-1 border-t-0 border-b",
+                                                {
+                                                  "border-primary": theme === "dark",
+                                                  "border-light": theme === "light",
+                                                }
+                                              )}
+                                            />
                                           )}
                                         </div>
                                       )
@@ -595,7 +607,7 @@ const Customizer: FC<Props> = (props) => {
 
             
             <div
-              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-t border-primary"
+              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-top text-center"
               style={{ 
                 backdropFilter: "blur(10px)",
                 left: "55%",
@@ -639,7 +651,12 @@ const Customizer: FC<Props> = (props) => {
                 </Button>
               )}
               <button
-                className="dark box-border m-0 overflow-visible bg-none appearance-none shadow-none inline-flex justify-center uppercase items-center text-base leading-none font-secondary font-normal text-white bg-button-color text-center border border-dark rounded-full py-5 px-2.5 tracking-tighter cursor-pointer transition-all relative w-14 h-14"
+                className={
+                  classNames(
+                    "dark box-border m-0 overflow-visible bg-none appearance-none shadow-none inline-flex justify-center uppercase items-center text-base leading-none font-secondary font-normal text-white bg-button-color text-center border rounded-full py-5 px-2.5 tracking-tighter cursor-pointer transition-all relative w-14 h-14",
+                    theme === "dark" ? "text-white" : "text-basicDark", 
+                  )
+                }
                 onClick={() => {
                   SaveMyBuild(
                     optionSelections,
@@ -649,7 +666,7 @@ const Customizer: FC<Props> = (props) => {
                   setSaveMyBuildModal(true)
                 }}
               >
-                <Floppy />
+                <Floppy className="fill-current" />
               </button>
             </div>
           </div>

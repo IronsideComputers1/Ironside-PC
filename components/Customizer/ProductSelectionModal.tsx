@@ -9,6 +9,7 @@ import DropdownArrow from '@components/icons/DropdownArrow'
 import Image from 'next/image'
 import classNames from 'classnames'
 import Info from '@components/icons/Info'
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 
 const ProductSelectionModal = ({
   setModal,
@@ -31,6 +32,7 @@ const ProductSelectionModal = ({
   const { displayModal, closeModal } = useUI()
   const [toggle, setToggle] = useState(false)
   const [toggleIndex, setToggleIndex] = useState('')
+  const theme = useGetTheme();
   const productInfoImages = (data: any) => {
     const images = data?.images?.edges.map((image: any) => {
       return image?.node?.urlOriginal
@@ -132,9 +134,14 @@ const ProductSelectionModal = ({
         }
       })
     }
-    const finalPrice = price + varaintPrice
+    const finalPrice = price + varaintPrice;
     return (
-      <p className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs" style={{ backgroundColor: '#1c1c1c' }}>
+      <p
+        className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs"
+        style={{ 
+          backgroundColor: theme === "dark" ? '#1c1c1c' : "rgba(0, 0, 0, 0.05)",
+          color: theme === "dark" ? '#fff' : "rgba(0, 0, 0, 0.5)"
+        }}>
         {finalPrice?.toString().includes('-')
           ? convertCurrency(finalPrice)
           : `+${convertCurrency(finalPrice)}`}
@@ -283,7 +290,11 @@ const ProductSelectionModal = ({
             key={index}
           >
             <div
-              className={classNames("border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md hover:border-secondary", 
+              className={classNames("border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md",
+              {
+                "hover:border-black": theme === "light",
+                "hover:border-secondary": theme === "dark",
+              },
               selectedIds?.some(
                 (product: any) =>
                   product?.product === data?.entityId &&
@@ -393,22 +404,16 @@ const ProductSelectionModal = ({
                   {data?.customFields?.edges?.length >= 2 ? (
                     <>
                       <button
-                        className="multiColorOption flex align-v-center justify-space"
+                        className="multiColorOption flex items-center pl-4"
+                        style={{
+                          justifyContent: 'space-between',
+                        }}
                         onClick={() => {
                           setToggle(true)
                           setToggleIndex(index.toString())
                         }}
                       >
-                        <>
-                          <span
-                            className="colorPattelListBg"
-                            style={{
-                              backgroundColor:
-                                renderColorName(data).split(',')[1],
-                            }}
-                          ></span>
-                          {renderColorName(data).split(',')[0]}
-                        </>
+                        {renderColorName(data).split(',')[0]}
                         <span className="arrow">
                           <DropdownArrow />
                         </span>

@@ -8,6 +8,7 @@ import React, {
 import mergeRefs from 'react-merge-refs'
 import s from './Button.module.css'
 import { LoadingDots } from '@components/ui'
+import { useGetTheme } from '../DarkMode/DarkMode'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string
@@ -34,6 +35,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     Component = 'button',
     ...rest
   } = props
+  const theme = useGetTheme();
   const ref = useRef<typeof Component>(null)
 
   const rootClassName = cn(
@@ -43,6 +45,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
       [s.loading]: loading,
       [s.disabled]: disabled,
     },
+    theme === 'dark' ? s.dark : s.light,
     className
   )
 
