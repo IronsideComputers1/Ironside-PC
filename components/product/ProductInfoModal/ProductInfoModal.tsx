@@ -85,12 +85,12 @@ const ProductInfoModal: FC<Props> = ({
         </span>
       </div>
       <Portal>
-        <div>
+        <div className='relative'>
           <div role="dialog">
-            {showModal ? (
+            {true ? (
               <>
                 <div className="modal product-modal" data-lenis-prevent>
-                  <div className="w-100">
+                  <div className="w-full grid grid-cols-2 pt-14">
                     <div className="product-thumbnail flex flex-direction justify-center items-center">
                       <Slider
                         className="product-thumbnail-main"
@@ -136,15 +136,18 @@ const ProductInfoModal: FC<Props> = ({
                         ''
                       )}
                     </div>
-                    <button
-                      onClick={() => setShowModal(false)}
-                      aria-label="Close panel"
-                      className="modal-close hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none absolute right-0 top-0 m-6"
-                    >
-                      <Cross className="h-6 w-6" />
-                    </button>
-                    <div className="product-thumbnail-content">
-                      <div className="product-thumbnail-content-heading">
+                    <span className='absolute top-0 left-0 right-0 w-full flex items-center justify-between text-gray-500 border-b border-dark h-12 pl-8'>
+                      <p className='m-0 text-basicDark font-medium font-Inconsolata'>PRODUCT_OVERVIEW.EXE</p>
+                      <button
+                        onClick={() => setShowModal(false)}
+                        aria-label="Close panel"
+                        className="hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none right-0 top-0 m-6"
+                      >
+                        <Cross className="h-3 w-3 fill-current" />
+                      </button>
+                    </span>
+                    <div className="">
+                      <div className="">
                         <h2>{heading}</h2>
                       </div>
                       {text ? (
