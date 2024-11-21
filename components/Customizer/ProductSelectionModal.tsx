@@ -139,7 +139,8 @@ const ProductSelectionModal = ({
       <p
         className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs"
         style={{ 
-          backgroundColor: theme === "dark" ? '#1c1c1c' : "rgba(0, 0, 0, 0.05)"
+          backgroundColor: theme === "dark" ? '#1c1c1c' : "rgba(0, 0, 0, 0.05)",
+          color: theme === "dark" ? '#fff' : "rgba(0, 0, 0, 0.5)"
         }}>
         {finalPrice?.toString().includes('-')
           ? convertCurrency(finalPrice)
@@ -399,22 +400,16 @@ const ProductSelectionModal = ({
                   {data?.customFields?.edges?.length >= 2 ? (
                     <>
                       <button
-                        className="multiColorOption flex align-v-center justify-space"
+                        className="multiColorOption flex items-center pl-4"
+                        style={{
+                          justifyContent: 'space-between',
+                        }}
                         onClick={() => {
                           setToggle(true)
                           setToggleIndex(index.toString())
                         }}
                       >
-                        <>
-                          <span
-                            className="colorPattelListBg"
-                            style={{
-                              backgroundColor:
-                                renderColorName(data).split(',')[1],
-                            }}
-                          ></span>
-                          {renderColorName(data).split(',')[0]}
-                        </>
+                        {renderColorName(data).split(',')[0]}
                         <span className="arrow">
                           <DropdownArrow />
                         </span>

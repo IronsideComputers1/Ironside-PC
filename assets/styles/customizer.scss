@@ -470,9 +470,9 @@ button.add-to-cart {
   height: 28px;
   padding: 8px;
   border-radius: 42px;
-  background: linear-gradient(#292929, #292929) padding-box,
-    linear-gradient(to bottom, #ffffff4a, #e0e0e000) border-box;
-  border: 1px solid transparent;
+  padding-left: 18px;
+  cursor: pointer;
+  border: 1px solid var(--accents-0);
   color: var(--secondary);
   box-shadow: 0 8px 7px 0 hsl(0deg 0% 0% / 5%) !important;
 
