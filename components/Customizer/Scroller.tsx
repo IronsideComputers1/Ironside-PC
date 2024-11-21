@@ -1,10 +1,12 @@
-import classNames from 'classnames';
 import React from 'react'
 
-export const Scroller = ({ activeTab, scrollToElement }) => {
+interface ScrollerProps {
+  activeTab: string;
+  onScroll: (tab: string) => void;
+}
+
+export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
   const tabs = ['Aesthetics', 'Components', 'Services', 'Peripherals'];
-  console.log({activeTab});
-  
   return (
     <div className="list-none fixed z-10"
       style={{
@@ -19,21 +21,22 @@ export const Scroller = ({ activeTab, scrollToElement }) => {
           justifyContent: 'space-evenly'
         }}
       >
-        {tabs.map((tab) => {
-          return (
-            <li key={tab}>
-              <a
-                className='cursor-pointer'
-                style={
-                  activeTab === tab ? { color: 'rgba(255, 255, 255, 1)' } : { color: "rgba(255, 255, 255, 0.5)" }
-                }
-                onClick={() => { scrollToElement(tab) }}
-              >
-                {tab}
-              </a>
-            </li>
-          );
-        })}
+        {tabs.map((tab) =>  (
+          <li key={tab}>
+            <a
+              className='cursor-pointer'
+              style={
+                activeTab === tab ? { color: 'rgba(255, 255, 255, 1)' } : { color: "rgba(255, 255, 255, 0.5)" }
+              }
+              onClick={() => { 
+                onScroll(tab);
+                document?.getElementById(tab)?.scrollIntoView({ behavior: "smooth"})
+              }}
+            >
+              {tab}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   )

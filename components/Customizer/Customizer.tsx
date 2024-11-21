@@ -585,7 +585,12 @@ const Customizer: FC<Props> = (props) => {
                     ))}
                 </div>
               </div>
-            <Scroller scrollToElement={scrollToElement} activeTab={activeTab} />
+              <Scroller
+                onScroll={(heading: string) => {
+                  setActiveTab(heading)
+                }}
+                activeTab={activeTab}
+              />
             </div>
 
             
