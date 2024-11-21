@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { BlockItem } from './BlockItem'
 import classNames from 'classnames'
 import { Product } from './types'
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 
 type Props = {
   prod: any
@@ -24,7 +25,7 @@ export const Block = ({
   loadImage,
   renderColorName,
 }: Props) => {
-
+  const theme = useGetTheme();
   const blockRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -93,7 +94,7 @@ export const Block = ({
             'transform rotate-180': isOpen,
           }
         )}>
-          <div className='text-gray-600'>
+          <div className={classNames(theme === "dark" ? 'text-gray-600' : 'text-gray-300')}>
             <DropdownArrow width={10} height={6} />
           </div>
         </div>

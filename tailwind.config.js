@@ -55,6 +55,7 @@ module.exports = {
         ...theme('colors'),
         primary: "#363636",
         dark: "#636363",
+        light: "#d2d6dc",
       }),
       textColor: {
         // base: 'var(--text-base)',

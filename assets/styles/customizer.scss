@@ -337,6 +337,11 @@ button.add-to-cart {
   }
 }
 
+
+[data-theme='light'] .productSelected {
+  border: 1px solid #363636;
+}
+
 .productSelected {
   border: 1px solid var(--accents-0);
   .multiColorOption {

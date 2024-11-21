@@ -290,7 +290,11 @@ const ProductSelectionModal = ({
             key={index}
           >
             <div
-              className={classNames("border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md hover:border-secondary", 
+              className={classNames("border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md",
+              {
+                "hover:border-black": theme === "light",
+                "hover:border-secondary": theme === "dark",
+              },
               selectedIds?.some(
                 (product: any) =>
                   product?.product === data?.entityId &&
