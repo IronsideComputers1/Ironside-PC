@@ -7,6 +7,9 @@ import { ProductInfoModal } from '@components/product'
 import EmptyProduct from '@components/icons/EmptyProduct'
 import DropdownArrow from '@components/icons/DropdownArrow'
 import Image from 'next/image'
+import classNames from 'classnames'
+import Info from '@components/icons/Info'
+
 const ProductSelectionModal = ({
   setModal,
   modalData,
@@ -131,7 +134,7 @@ const ProductSelectionModal = ({
     }
     const finalPrice = price + varaintPrice
     return (
-      <p className="case-price mb-0">
+      <p className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs" style={{ backgroundColor: '#1c1c1c' }}>
         {finalPrice?.toString().includes('-')
           ? convertCurrency(finalPrice)
           : `+${convertCurrency(finalPrice)}`}
@@ -183,6 +186,9 @@ const ProductSelectionModal = ({
     //     image = color?.product_image
     //   }
     // })
+    console.log(prod?.customFields?.edges);
+    console.log(prod?.images?.edges[0]?.node);
+    
     if (image === '') image = prod?.images?.edges[0]?.node?.urlOriginal
     return image
   }
@@ -217,203 +223,124 @@ const ProductSelectionModal = ({
     }
   }
 
+  const setProduct = (data: any) => {
+    setIncompatibleProducts({})
+    setIncompatibleProdIds([])
+    setIncompatibleCats([])
+    onOptionSelections(
+      data?.entityId,
+      modalData?.categoryName,
+      data?.prices?.price?.value
+    )
+    scrollToElement(activeTab, true)
+    setModal(false)
+  }
+
+  const onSetProduct = (data: any) => {
+    if(data?.variants.edges[0]?.node?.inventory?.isInStock){
+      return setProduct(data);
+    }
+    return notify();
+  }
+
+  const ProductImage = ({ data, index }: { data: any, index: number}) => {
+    if (data?.images?.edges.length === 0) {
+      return (
+        <div
+          className="flex items-center justify-center w-full"
+          onClick={() => {onSetProduct(data)}}
+        >
+          <EmptyProduct />
+        </div>
+      );
+    }
+    const isFirst = data?.customFields?.edges.length === 0 || isMerch;
+    const imageUrl = isFirst ? data?.images?.edges[0]?.node?.urlOriginal : loadImage(data)
+    return (
+      <div
+        className="flex items-center justify-center w-full"
+        onClick={() => {
+          if (isFirst) return onSetProduct(data);
+          setToggleIndex(index.toString())
+          setToggle(true)
+        }}
+      >
+        <Image width="130px" height="130px" src={imageUrl} objectFit="contain" />
+      </div>
+    );
+  }
+
   return (
     <div className="category-popup">
-      <div className="product-thumbnail-content flex justify-space align-start">
-        <h2>{modalData?.categoryName}</h2>
-        <button
-          onClick={() => {
-            scrollToElement(activeTab, true)
-            setModal(false)
-          }}
-          aria-label="Close panel"
-          className="close"
-        >
-          <Cross className="h-6 w-6" />
-        </button>
-      </div>
-      <div className="flex flex-wrap spacer-6">
+      <div className="flex flex-wrap pb-3" style={{ gap: "8px" }}>
         {modalData?.products?.map((data: any, index: number) => (
           <div
             className={
-              data?.variants?.edges[0]?.node?.inventory?.isInStock
-                ? 'product-square'
-                : 'product-square stock-out'
+              classNames('w-56',{
+                "stock-out": !data?.variants?.edges[0]?.node?.inventory?.isInStock
+              })
             }
             key={index}
           >
             <div
-              className={
-                selectedIds?.some(
-                  (product: any) =>
-                    product?.product === data?.entityId &&
-                    product?.cat === modalData?.categoryName
-                )
-                  ? `product-square-box productSelected ${
-                      incompatibleProdIds?.some(
-                        (id: any) => id === data?.entityId
-                      ) && 'incompatible'
-                    }`
-                  : 'product-square-box'
-              }
+              className={`
+                border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md hover:border-secondary
+                ${
+                  selectedIds?.some(
+                    (product: any) =>
+                      product?.product === data?.entityId &&
+                      product?.cat === modalData?.categoryName
+                  )
+                    ? `productSelected ${
+                        incompatibleProdIds?.some(
+                          (id: any) => id === data?.entityId
+                        ) && 'incompatible'
+                      }`
+                    : ''
+                    }  
+              `}
             >
               <ProductInfoModal
                 open={displayModal}
                 onClose={closeModal}
-                heading={<>{data?.name}</>}
+                heading={data?.name}
                 text={data?.description}
-                button={<>...</>}
+                button={<Info height={18} width={18} className="fill-current text-basicDark" />}
                 productImages={productInfoImages(data)}
                 stock={data?.variants?.edges[0]?.node?.inventory?.isInStock}
               />
+              <ProductImage index={index} data={data} />
+              <div className="flex flex-direction justify-space w-full">
+                <span className='py-2'>
+                  {data?.customFields?.edges.length === 0 || isMerch ? (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        onSetProduct(data);
+                      }}
+                    >
+                      {data?.name.length > 23
+                        ? `${data?.name?.substring(0, 23)}...`
+                        : data?.name}
+                    </div>
+                  ) : (
+                    <div key={index}>
+                      {data?.name.length > 23
+                        ? `${data?.name?.substring(0, 23)}...`
+                        : data?.name}
+                    </div>
+                  )}
+                </span>
 
-              {data?.images?.edges.length ? (
-                data?.customFields?.edges.length === 0 || isMerch ? (
-                  <div
-                    className="options-internal-image flex align-v-center justify-center"
-                    onClick={() => {
-                      data?.variants.edges[0]?.node?.inventory?.isInStock
-                        ? (function () {
-                            setIncompatibleProducts({})
-                            setIncompatibleProdIds([])
-                            setIncompatibleCats([])
-                            onOptionSelections(
-                              data?.entityId,
-                              modalData?.categoryName,
-                              data?.prices?.price?.value
-                            )
-                            scrollToElement(activeTab, true)
-                            setModal(false)
-                          })()
-                        : notify()
-                    }}
-                  >
-                    <Image
-                      priority={true}
-                      height={154}
-                      width={105}
-                      src={data?.images?.edges[0]?.node?.urlOriginal}
-                    />
-                  </div>
-                ) : (
-                  <div
-                    className="options-internal-image flex align-v-center justify-center"
-                    onClick={() => {
-                      setToggleIndex(index.toString())
-                      setToggle(true)
-                    }}
-                  >
-                    <Image
-                      priority={true}
-                      height={154}
-                      width={105}
-                      src={loadImage(data)}
-                    />
-                  </div>
-                )
-              ) : (
-                <div
-                  className="options-internal-image flex align-v-center justify-center"
-                  onClick={() => {
-                    data?.variants.edges[0]?.node?.inventory?.isInStock
-                      ? (function () {
-                          setIncompatibleProducts({})
-                          setIncompatibleProdIds([])
-                          setIncompatibleCats([])
-                          onOptionSelections(
-                            data?.entityId,
-                            modalData?.categoryName,
-                            data?.prices?.price?.value
-                          )
-                          scrollToElement(activeTab, true)
-                          setModal(false)
-                        })()
-                      : notify()
-                  }}
-                >
-                  <EmptyProduct />
-                </div>
-              )}
-              <div className="flex flex-direction justify-space">
-                {data?.customFields?.edges.length === 0 || isMerch ? (
-                  <h3
-                    key={index}
-                    onClick={() => {
-                      data?.variants.edges[0]?.node?.inventory?.isInStock
-                        ? (function () {
-                            setIncompatibleProducts({})
-                            setIncompatibleProdIds([])
-                            setIncompatibleCats([])
-                            onOptionSelections(
-                              data?.entityId,
-                              modalData?.categoryName,
-                              data?.prices?.price?.value
-                            )
-                            scrollToElement(activeTab, true)
-                            setModal(false)
-                          })()
-                        : notify()
-                    }}
-                  >
-                    {data?.name.length > 23
-                      ? `${data?.name?.substring(0, 23)}...`
-                      : data?.name}
-                  </h3>
-                ) : (
-                  <h3 key={index}>
-                    {data?.name.length > 23
-                      ? `${data?.name?.substring(0, 23)}...`
-                      : data?.name}
-                  </h3>
-                )}
-
-                <div className="flex align-v-center justify-space">
+                <div className='h-8 flex item s-center justify-between mt-6'>
                   <>
                     {data?.customFields?.edges.length < 2 && !isMerch ? (
-                      <div className="color-pattel flex w-100">
-                        {/* {data?.customFields?.edges?.map(
-                          (color: any, index: number) => (
-                            <div key={index}>
-                              <button
-                                className={
-                                  selectedColor.some(
-                                    (product: any) =>
-                                      product.product_id ===
-                                      parseInt(
-                                        color?.node?.value?.split(',')[2]
-                                      )
-                                  )
-                                    ? 'selectedColorOption'
-                                    : ''
-                                }
-                                style={{
-                                  cursor: 'pointer',
-                                  backgroundColor: `${
-                                    color?.node?.value?.split(',')[1]
-                                  }`,
-                                }}
-                                onClick={() => {
-                                  handleColorSelection(data, color)
-                                }}
-                              ></button>
-                              {colorOpts?.map((options: any) => {
-                                if (
-                                  color?.node?.value?.split(',')[2] ==
-                                  options?.entityId
-                                ) {
-                                  return renderColorPrice(options, data)
-                                }
-                              })}
-                            </div>
-                          )
-                        )} */}
+                      <div className="flex w-full justify-end">
                         {!selectedIds?.some(
                           (product: any) =>
                             product?.product === data?.entityId &&
                             product?.cat === modalData?.categoryName
-                        ) && (
-                          <p className="case-price mb-0">{renderPrice(data)}</p>
-                        )}
+                        ) && renderPrice(data)}
                       </div>
                     ) : (
                       <>
@@ -459,7 +386,7 @@ const ProductSelectionModal = ({
                           </div>
                         )}
                         {isMerch && (
-                          <p className="case-price mb-0">
+                          <p className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs" style={{ backgroundColor: '#1c1c1c' }}>
                             {convertCurrency(data?.prices?.price?.value)}
                           </p>
                         )}
@@ -493,7 +420,7 @@ const ProductSelectionModal = ({
                         (product: any) =>
                           product?.product === data?.entityId &&
                           product?.cat === modalData?.categoryName
-                      ) && <>{renderPrice(data)}</>}
+                      ) && renderPrice(data)}
                     </>
                   ) : (
                     ''

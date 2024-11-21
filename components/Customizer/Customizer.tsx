@@ -20,6 +20,8 @@ import { Error404 } from './Error404'
 import { Block } from './Block'
 import { ProductLeft } from './ProductLeft'
 import { getCurrentVariant } from '../product/helpers'
+import { ItemBody } from '@framework/api/wishlist'
+import ProductSelectionModal from './ProductSelectionModal'
 
 interface Props {
   className?: string
@@ -33,7 +35,7 @@ interface Props {
 
 declare let window: any
 
-const Cutomizer: FC<Props> = (props) => {
+const Customizer: FC<Props> = (props) => {
   const {
     product,
     categoriesDataFiltered,
@@ -51,8 +53,9 @@ const Cutomizer: FC<Props> = (props) => {
     warranties,
     shippingDays,
   } = OptionSelectionController({ product, categoriesDataFiltered })
-  console.log({categoriesDataFiltered});
-    
+  
+  const [selectedProducts, setSelectedProducts] = useState<ItemBody[]>([]);
+
   const [basePrice, setBasePrice] = useState<number>(0)
   const [modalData, setModalData] = useState<any>({})
   const [activeTab, setActiveTab] = useState<string>('Aesthetics')
@@ -61,13 +64,14 @@ const Cutomizer: FC<Props> = (props) => {
   const [saveMyBuildModal, setSaveMyBuildModal] = useState(false)
   const [incompatibleModal, setIncompatibleModal] = useState(false)
   const [cartIndex, setCartIndex] = useState<any>('')
-  const [gridView, setGridView] = useState('gridview')
   const [buildUrl, setBuildUrl] = useState('')
   const [incompatibleProducts, setIncompatibleProducts] = useState({})
   const [totalPrice, setTotalPrice] = useState(0)
   const [incompatibleCats, setIncompatibleCats] = useState([])
   const [incompatibleProdIds, setIncompatibleProdIds] = useState([])
   const [defaultColors, setDefaultColors] = useState([])
+
+  console.log({selectedProducts});
 
   const addItem = useAddItem()
   const { data: cartData }: any = useCart()
@@ -92,12 +96,12 @@ const Cutomizer: FC<Props> = (props) => {
   }, [selectedIds, select])
 
   // @ts-ignore next-line
-  const legacyImages =
-    product && product.images?.length
-      ? product.images?.map((item: any) => ({
-          node: { urlOriginal: item.url_standard, altText: product?.name },
-        }))
-      : null
+  // const legacyImages =
+  //   product && product.images?.length
+  //     ? product.images?.map((item: any) => ({
+  //         node: { urlOriginal: item.url_standard, altText: product?.name },
+  //       }))
+  //     : null
 
   useEffect(() => {
     setBasePrice(product?.variants?.edges[0]?.node?.prices?.price?.value)
@@ -291,24 +295,6 @@ const Cutomizer: FC<Props> = (props) => {
     return image
   }
 
-  const scrollToElement = (heading: string, isModalSelection?: boolean) => {
-    setTimeout(() => {
-      setActiveTab(heading)
-      const scrollElement: any = document.getElementById(
-        `${heading?.replace(/[ ,:]+/g, '-')}`
-      )
-      const targetPosition = scrollElement?.offsetTop
-
-      if (targetPosition) {
-        const element: any = document.getElementById('scroll-box')
-        element.scrollTo({
-          top: targetPosition - 298,
-          behavior: isModalSelection ? 'auto' : 'smooth',
-        })
-      }
-    }, 1)
-  }
-
   const getWarranty = () => {
     const selectedWarranty = optionSelections?.filter((cat: any) => {
       if (cat?.category_name === 'Warranty') return cat
@@ -495,7 +481,7 @@ const Cutomizer: FC<Props> = (props) => {
           >
             <div 
               className="components flex items-center justify-center"
-              style={{ width: "82%" }}
+              style={{ width: "86%" }}
             >
               <div
                 id='scroll-box'
@@ -519,7 +505,7 @@ const Cutomizer: FC<Props> = (props) => {
                           >
                             {categories?.categoryName}
                           </h2>
-                          <div className="grid-view flex flex-wrap border rounded-lg px-11 py-2.5 w-full  last:mb-36">
+                          <div className="grid-view flex flex-wrap border rounded-lg px-11 py-2.5 w-full last:mb-36">
                             {categories?.subCategory?.map(
                               (subs: any, index: number) => (
                                 <>
@@ -541,7 +527,26 @@ const Cutomizer: FC<Props> = (props) => {
                                               onModalSelection={onModalSelection}
                                               loadImage={loadImage}
                                               renderColorName={renderColorName}
-                                            />
+                                            >
+                                              <ProductSelectionModal
+                                                optionSelections={optionSelections}
+                                                setIncompatibleProducts={setIncompatibleProducts}
+                                                incompatibleProdIds={incompatibleProdIds}
+                                                setModal={setModal}
+                                                onOptionSelections={onOptionSelections}
+                                                modalData={modalData}
+                                                selectedIds={selectedIds}
+                                                selectedColor={selectedColor}
+                                                colorOpts={colorOpts}
+                                                defaultColors={defaultColors}
+                                                convertCurrency={convertCurrency}
+                                                setIncompatibleProdIds={setIncompatibleProdIds}
+                                                setIncompatibleCats={setIncompatibleCats}
+                                                scrollToElement={()=>{}}
+                                                activeTab={activeTab}
+                                                setDefaultColors={setDefaultColors}
+                                              />
+                                            </Block>
                                             {index !== categories?.subCategory?.length - 1 && (
                                               <hr className="h-0 w-full my-1 border-t-0 border-b border-primary" />
                                             )}
@@ -562,10 +567,11 @@ const Cutomizer: FC<Props> = (props) => {
 
             </div>
             <div
-              className="flex justify-evenly items-start fixed right-0.5 bottom-0 py-6 px-20 border-t border-primary"
+              className="flex items-start fixed right-0.5 bottom-0 py-6 px-20 border-t border-primary"
               style={{ 
                 backdropFilter: "blur(10px)",
                 left: "55%",
+                justifyContent: 'space-evenly'
               }}
             >
               {getWarranty()}
@@ -647,4 +653,4 @@ const Cutomizer: FC<Props> = (props) => {
   )
 }
 
-export default Cutomizer
+export default Customizer
