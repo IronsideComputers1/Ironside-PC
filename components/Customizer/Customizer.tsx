@@ -6,8 +6,8 @@ import { Portal } from '@reach/portal'
 import useAddItem from '@framework/cart/use-add-item'
 import type { ProductNode } from '@framework/api/operations/get-product'
 import { Button } from '@components/ui'
-import EmptyProduct from '@components/icons/EmptyProduct'
 import SaveBuildModal from '@components/ui/SaveBuildModal/SaveBuildModal'
+import SaveMyBuild from './SaveMyBuild'
 import axios from 'axios'
 import WrongPassword from '@components/icons/WrongPassword'
 import usePrice from '@commerce/use-price'
@@ -22,6 +22,8 @@ import { ProductLeft } from './ProductLeft'
 import { getCurrentVariant } from '../product/helpers'
 import { ItemBody } from '@framework/api/wishlist'
 import ProductSelectionModal from './ProductSelectionModal'
+import { Floppy } from '@components/icons'
+import { Scroller } from './Scroller'
 
 interface Props {
   className?: string
@@ -54,8 +56,6 @@ const Customizer: FC<Props> = (props) => {
     shippingDays,
   } = OptionSelectionController({ product, categoriesDataFiltered })
   
-  const [selectedProducts, setSelectedProducts] = useState<ItemBody[]>([]);
-
   const [basePrice, setBasePrice] = useState<number>(0)
   const [modalData, setModalData] = useState<any>({})
   const [activeTab, setActiveTab] = useState<string>('Aesthetics')
@@ -71,12 +71,35 @@ const Customizer: FC<Props> = (props) => {
   const [incompatibleProdIds, setIncompatibleProdIds] = useState([])
   const [defaultColors, setDefaultColors] = useState([])
 
-  console.log({selectedProducts});
-
   const addItem = useAddItem()
   const { data: cartData }: any = useCart()
   const removeItem = useRemoveItem()
   const router = useRouter()
+
+  const scrollToElement = (heading: string, isModalSelection?: boolean) => {
+    console.log('scrollToElement');
+    
+    setTimeout(() => {
+      console.log({ heading });
+      
+      setActiveTab(heading)
+      const scrollElement: any = document.getElementById(
+        `${heading?.replace(/[ ,:]+/g, '-')}`
+      )
+      const targetPosition = scrollElement?.offsetTop
+      console.log({ targetPosition });
+      
+      if (targetPosition) {
+        console.log('scrolling');
+        
+        const element: any = document.getElementById('scroll-box')
+        element.scrollTo({
+          top: targetPosition - 298,
+          behavior: isModalSelection ? 'auto' : 'smooth',
+        })
+      }
+    }, 1)
+  }
 
   // @ts-ignore next-line
   const variant =
@@ -476,7 +499,7 @@ const Customizer: FC<Props> = (props) => {
           <div 
             className="customizer-product-content pt-10 mr-13 w-full relative overflow-y-scroll flex justify-end items-start"
             style={{
-              maxHeight: "90vh"
+              maxHeight: "85vh"
             }}
           >
             <div 
@@ -487,87 +510,92 @@ const Customizer: FC<Props> = (props) => {
                 id='scroll-box'
                 className="default-options overflow-y-auto overflow-x-hidden px-0 pr-10" 
               >
-                <>
-                  <div className="customizerProductGrid">
-                    <div className="head flex justify-center items-center flex-col">
-                      <div className='flex justify-center items-center'>
-                        <h1 className="text-center">{productDescription[0]?.trim()}</h1>
-                        <p className="mb-0">{productDescription[1]?.trim()}</p>
-                      </div>
-                      <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
+                <div className="customizerProductGrid">
+                  <div className="head flex justify-center items-center flex-col">
+                    <div className='flex justify-center items-center'>
+                      <h1 className="text-center">{productDescription[0]?.trim()}</h1>
+                      <p className="mb-0">{productDescription[1]?.trim()}</p>
                     </div>
-                    {!!selectedIds?.length &&
-                      categoriesDataFiltered?.map((categories: any) => (
-                        <>
-                          <h2
-                            id={categories?.categoryName}
-                            className="text-lg leading-4 font-bold mb-5 text-center font-Inconsolata weight-700 text-basicDark"
-                          >
-                            {categories?.categoryName}
-                          </h2>
-                          <div className="grid-view flex flex-wrap border rounded-lg px-11 py-2.5 w-full last:mb-36">
-                            {categories?.subCategory?.map(
-                              (subs: any, index: number) => (
-                                <>
-                                  {selectedIds?.map((ele: any) =>
-                                    subs?.products?.map((prod: any) => {
-                                      if (
-                                        ele.product === prod.entityId &&
-                                        subs.categoryName === ele.cat
-                                      ) {
-                                        return (
-                                          <div 
-                                            key={index}
-                                            className='w-full'
-                                          >
-                                            <Block 
-                                              prod={prod}
-                                              subs={subs}
-                                              incompatibleCats={incompatibleCats}
-                                              onModalSelection={onModalSelection}
-                                              loadImage={loadImage}
-                                              renderColorName={renderColorName}
-                                            >
-                                              <ProductSelectionModal
-                                                optionSelections={optionSelections}
-                                                setIncompatibleProducts={setIncompatibleProducts}
-                                                incompatibleProdIds={incompatibleProdIds}
-                                                setModal={setModal}
-                                                onOptionSelections={onOptionSelections}
-                                                modalData={modalData}
-                                                selectedIds={selectedIds}
-                                                selectedColor={selectedColor}
-                                                colorOpts={colorOpts}
-                                                defaultColors={defaultColors}
-                                                convertCurrency={convertCurrency}
-                                                setIncompatibleProdIds={setIncompatibleProdIds}
-                                                setIncompatibleCats={setIncompatibleCats}
-                                                scrollToElement={()=>{}}
-                                                activeTab={activeTab}
-                                                setDefaultColors={setDefaultColors}
-                                              />
-                                            </Block>
-                                            {index !== categories?.subCategory?.length - 1 && (
-                                              <hr className="h-0 w-full my-1 border-t-0 border-b border-primary" />
-                                            )}
-                                          </div>
-                                        )
-                                      }
-                                    })
-                                  )}
-                                </>
-                              )
-                            )}
-                          </div>
-                        </>
-                      ))}
+                    <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
                   </div>
-                </>
+                  {!!selectedIds?.length &&
+                    categoriesDataFiltered?.map((categories: any) => (
+                      <>
+                        <h2
+                          id={categories?.categoryName}
+                          className="text-lg leading-4 font-bold mb-5 text-center font-Inconsolata weight-700 text-basicDark"
+                        >
+                          {categories?.categoryName}
+                        </h2>
+                        <div className="grid-view flex flex-wrap border rounded-lg px-11 py-2.5 w-full last:mb-36">
+                          {categories?.subCategory?.map(
+                            (subs: any, index: number) => (
+                              <>
+                                {selectedIds?.map((ele: any) =>
+                                  subs?.products?.map((prod: any) => {
+                                    if (
+                                      ele.product === prod.entityId &&
+                                      subs.categoryName === ele.cat
+                                    ) {
+                                      return (
+                                        <div 
+                                          key={index}
+                                          className='w-full'
+                                        >
+                                          <Block 
+                                            prod={prod}
+                                            subs={subs}
+                                            incompatibleCats={incompatibleCats}
+                                            onModalSelection={onModalSelection}
+                                            loadImage={loadImage}
+                                            renderColorName={renderColorName}
+                                          >
+                                            <ProductSelectionModal
+                                              optionSelections={optionSelections}
+                                              setIncompatibleProducts={setIncompatibleProducts}
+                                              incompatibleProdIds={incompatibleProdIds}
+                                              setModal={setModal}
+                                              onOptionSelections={onOptionSelections}
+                                              modalData={modalData}
+                                              selectedIds={selectedIds}
+                                              selectedColor={selectedColor}
+                                              colorOpts={colorOpts}
+                                              defaultColors={defaultColors}
+                                              convertCurrency={convertCurrency}
+                                              setIncompatibleProdIds={setIncompatibleProdIds}
+                                              setIncompatibleCats={setIncompatibleCats}
+                                              scrollToElement={scrollToElement}
+                                              activeTab={activeTab}
+                                              setDefaultColors={setDefaultColors}
+                                            />
+                                          </Block>
+                                          {index !== categories?.subCategory?.length - 1 && (
+                                            <hr className="h-0 w-full my-1 border-t-0 border-b border-primary" />
+                                          )}
+                                        </div>
+                                      )
+                                    }
+                                  })
+                                )}
+                              </>
+                            )
+                          )}
+                        </div>
+                      </>
+                    ))}
+                </div>
               </div>
-
+              <Scroller
+                onScroll={(heading: string) => {
+                  setActiveTab(heading)
+                }}
+                activeTab={activeTab}
+              />
             </div>
+
+            
             <div
-              className="flex items-start fixed right-0.5 bottom-0 py-6 px-20 border-t border-primary"
+              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-t border-primary"
               style={{ 
                 backdropFilter: "blur(10px)",
                 left: "55%",
@@ -610,6 +638,19 @@ const Customizer: FC<Props> = (props) => {
                   Add to Cart
                 </Button>
               )}
+              <button
+                className="dark box-border m-0 overflow-visible bg-none appearance-none shadow-none inline-flex justify-center uppercase items-center text-base leading-none font-secondary font-normal text-white bg-button-color text-center border border-dark rounded-full py-5 px-2.5 tracking-tighter cursor-pointer transition-all relative w-14 h-14"
+                onClick={() => {
+                  SaveMyBuild(
+                    optionSelections,
+                    selectedColor,
+                    setBuildUrl
+                  )
+                  setSaveMyBuildModal(true)
+                }}
+              >
+                <Floppy />
+              </button>
             </div>
           </div>
         </div>

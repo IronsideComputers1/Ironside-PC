@@ -51,6 +51,7 @@ module.exports = {
       borderColor: theme => ({
         ...theme('colors'),
         primary: "#363636",
+        dark: "#636363",
       }),
       textColor: {
         // base: 'var(--text-base)',

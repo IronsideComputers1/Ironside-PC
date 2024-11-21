@@ -50,7 +50,11 @@ export const Block = ({
   return (
     <div ref={blockRef} className='flex flex-col w-full select-none'>
       <div
-        className='flex items-center justify-between w-full'
+        className={classNames('flex items-center justify-between w-full', incompatibleCats?.some(
+          (cat: any) =>
+            cat ===
+            subs.categoryName
+        ) && 'incompatible')}
         onClick={toggleAccordion}
       >
         <div className='flex items-center justify-start w-full'>

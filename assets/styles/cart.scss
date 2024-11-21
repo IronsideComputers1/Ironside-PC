@@ -143,7 +143,7 @@
   &-left {
     width: 775px;
     display: inline-block;
-
+    padding-bottom: 250px;
     @include tablet {
       width: 65%;
     }
@@ -162,7 +162,6 @@
     padding-left: 64px;
     position: sticky;
     top: 20.625vw;
-    float: right;
     display: inline-block;
     vertical-align: top;
     order: 1;

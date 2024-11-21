@@ -271,34 +271,31 @@ const ProductSelectionModal = ({
   }
 
   return (
-    <div className="category-popup">
+    <div className="category-popup mt-2">
       <div className="flex flex-wrap pb-3" style={{ gap: "8px" }}>
         {modalData?.products?.map((data: any, index: number) => (
           <div
             className={
               classNames('w-56',{
-                "stock-out": !data?.variants?.edges[0]?.node?.inventory?.isInStock
+                "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
               })
             }
             key={index}
           >
             <div
-              className={`
-                border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md hover:border-secondary
-                ${
-                  selectedIds?.some(
-                    (product: any) =>
-                      product?.product === data?.entityId &&
-                      product?.cat === modalData?.categoryName
-                  )
-                    ? `productSelected ${
-                        incompatibleProdIds?.some(
-                          (id: any) => id === data?.entityId
-                        ) && 'incompatible'
-                      }`
-                    : ''
-                    }  
-              `}
+              className={classNames("border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md hover:border-secondary", 
+              selectedIds?.some(
+                (product: any) =>
+                  product?.product === data?.entityId &&
+                  product?.cat === modalData?.categoryName
+              )
+                ? `productSelected ${
+                    incompatibleProdIds?.some(
+                      (id: any) => id === data?.entityId
+                    ) && 'incompatible'
+                  }`
+                : ''
+              )}
             >
               <ProductInfoModal
                 open={displayModal}
@@ -311,7 +308,7 @@ const ProductSelectionModal = ({
               />
               <ProductImage index={index} data={data} />
               <div className="flex flex-direction justify-space w-full">
-                <span className='py-2'>
+                <span className='mt-3 py-2'>
                   {data?.customFields?.edges.length === 0 || isMerch ? (
                     <div
                       key={index}
