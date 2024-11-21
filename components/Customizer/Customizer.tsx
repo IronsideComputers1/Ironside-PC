@@ -22,10 +22,7 @@ import { ProductLeft } from './ProductLeft'
 import { getCurrentVariant } from '../product/helpers'
 import { ItemBody } from '@framework/api/wishlist'
 import ProductSelectionModal from './ProductSelectionModal'
-<<<<<<< HEAD
 import { Floppy } from '@components/icons'
-=======
->>>>>>> c5e374fd6b8c1db1be064338dd70c1535c84843e
 
 interface Props {
   className?: string
