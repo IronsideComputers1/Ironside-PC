@@ -297,7 +297,6 @@ h1.Text_pageHeading__VhZNf {
   top: 20.833vw;
   display: inline-block;
   vertical-align: top;
-  float: right;
 
   @include xl {
     top: 400px;
@@ -450,10 +449,6 @@ h1.Text_pageHeading__VhZNf {
 
 .product-modal {
   padding-top: 0;
-
-  // >div {
-  //   padding-bottom: 48px;
-  // }
 
   @include tablet-small {
     @include justify-content(center);
@@ -1100,10 +1095,8 @@ h1.Text_pageHeading__VhZNf {
   @include justify-content(space-between);
   width: calc(100% - 397px);
 
-  // padding-left: 39px;
   @include tablet {
     width: calc(100% - 338px);
-    // padding-left: 10px;
   }
 
   @include tablet-small {
