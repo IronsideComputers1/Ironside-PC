@@ -944,6 +944,7 @@ body .Layout_root___g0be {
   transform: translate(-50%, -50%);
   z-index: 99;
   max-height: 584px;
+  // max-height: 602px;
   width: 1016px;
   overflow-x: hidden;
   background-color: var(--theme-bg);
@@ -989,7 +990,10 @@ body .Layout_root___g0be {
   }
 }
 
-body[data-theme='light'] {
+[data-theme='light'] {
+  .modal {
+    box-shadow: unset;
+  }
   .product-modal {
     background-color: rgba(255, 255, 255, 1);
     border-color: rgba(0, 0, 0, 0.5);

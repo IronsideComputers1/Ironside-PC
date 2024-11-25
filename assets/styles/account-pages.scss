@@ -428,7 +428,6 @@ h1.Text_pageHeading__VhZNf {
 
 .product-description {
   padding: 45px 30px;
-  border-bottom: 1px solid rgba(54, 54, 54, 1);
 
   @include tablet-small {
     max-height: none;
@@ -452,9 +451,9 @@ h1.Text_pageHeading__VhZNf {
 .product-modal {
   padding-top: 0;
 
-  >div {
-    padding-bottom: 48px;
-  }
+  // >div {
+  //   padding-bottom: 48px;
+  // }
 
   @include tablet-small {
     @include justify-content(center);
