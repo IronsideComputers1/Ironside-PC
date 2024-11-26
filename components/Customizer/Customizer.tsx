@@ -603,6 +603,16 @@ const Customizer: FC<Props> = (props) => {
                 }}
                 activeTab={activeTab}
               />
+              {incompatibleModal && (
+                <IncompatibilitesModal
+                  incompatibleProducts={incompatibleProducts}
+                  setIncompatibleModal={setIncompatibleModal}
+                  selectedIds={optionSelections}
+                  categoriesDataFiltered={categoriesDataFiltered}
+                  onModalSelection={onModalSelection}
+                  setIncompatibleProducts={setIncompatibleProducts}
+                />
+              )}
             </div>
 
             
@@ -681,16 +691,6 @@ const Customizer: FC<Props> = (props) => {
           totalPrice={convertCurrency(totalPrice)}
           setSaveMyBuildModal={setSaveMyBuildModal}
           productImage={modalImage[0]?.node?.urlOriginal}
-        />
-      )}
-      {incompatibleModal && (
-        <IncompatibilitesModal
-          incompatibleProducts={incompatibleProducts}
-          setIncompatibleModal={setIncompatibleModal}
-          selectedIds={optionSelections}
-          categoriesDataFiltered={categoriesDataFiltered}
-          onModalSelection={onModalSelection}
-          setIncompatibleProducts={setIncompatibleProducts}
         />
       )}
       <Portal>

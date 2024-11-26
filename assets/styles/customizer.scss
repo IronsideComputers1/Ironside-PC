@@ -132,8 +132,6 @@
 }
 
 button.add-to-cart {
-  min-width: 14.063vw;
-
   @include xl {
     min-width: 269px;
   }
@@ -746,25 +744,19 @@ body[data-theme='light'] {
 }
 
 .incompatibilites-modal {
-  max-width: 574px;
-  padding: 37px 30px;
+  max-width: 444px;
+  height: 274px;
+  padding: 0;
   text-align: center;
+  backdrop-filter: blur(10px);
+  background-color: rgba(16, 16, 16, 0.8);
 
-  &-header {
-    @include display-flex(flex);
-    @include flex-direction(column);
-    @include align-item(center);
-    @include justify-content(center);
-
-    h2 {
-      color: #ff7070;
-    }
-  }
+  top: 50%;
+  left: 78%;
+  right: unset;
 }
 
 .incompatibilites-list {
-  margin-top: 45px;
-
   p {
     line-height: 19px;
     margin-bottom: 15px;
@@ -772,14 +764,17 @@ body[data-theme='light'] {
   }
 
   .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
     button {
       font-size: 13px;
       line-height: 13px;
       color: var(--secondary);
       display: inline-block;
-      min-width: auto;
-      padding: 17px 22px;
-      background-color: var(--hover-1);
+      width: 45%;
       border-color: var(--hover-1);
 
       + button {
