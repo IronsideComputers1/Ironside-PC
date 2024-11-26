@@ -1,5 +1,15 @@
 .customizer {
 
+  // Reset styles for modal
+  &-prod-modal {
+    padding: 0;
+    overflow: hidden;
+    
+    .modal-content {
+      height: 532px;
+    }
+  }
+
   .bg-img {
     width: 35.677vw;
     height: 100%;
