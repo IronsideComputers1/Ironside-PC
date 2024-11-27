@@ -784,16 +784,10 @@ body[data-theme='light'] {
   }
 }
 
-.add-to-cart.incompatibilities-btn {
-  color: var(--secondary);
-  border-color: var(--error);
-  background-color: var(--error-bg);
-  text-transform: capitalize;
-
-  svg {
-    position: absolute;
-    top: -15px;
-  }
+button.add-to-cart.incompatibilities-btn[disabled] {
+  color: rgba(255, 112, 112, 1);
+  border-color: rgba(255, 112, 112, 1);
+  filter: unset;
 }
 
 .selectedColorOption {

@@ -33,10 +33,11 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     disabled = false,
     style = {},
     Component = 'button',
+    onClick,
     ...rest
   } = props
   const theme = useGetTheme();
-  const ref = useRef<typeof Component>(null)
+  const ref = useRef<typeof Component>(null);
 
   const rootClassName = cn(
     s.root,
@@ -60,10 +61,19 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
         width,
         ...style,
       }}
+      onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (loading || disabled) {
+          e.preventDefault();
+          return
+        }
+        if (onClick) {
+          onClick(e);
+        }
+      }}
       {...rest}
     >
       {children}
-      {loading && (
+      {loading && !disabled && (
         <i className="pl-2">
           <LoadingDots />
         </i>

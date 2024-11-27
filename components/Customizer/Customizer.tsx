@@ -639,27 +639,19 @@ const Customizer: FC<Props> = (props) => {
                 </span>
                 <div id="bread-checkout-btn" />
               </div>
-              {Object.keys(incompatibleProducts).length ? (
-                <Button
-                  aria-label="Add to Cart"
-                  type="button"
-                  className="btn add-to-cart incompatibilities-btn"
-                >
-                  <WrongPassword />
-                  Fix Incompatibilities
-                </Button>
-              ) : (
-                <Button
-                  aria-label="Add to Cart"
-                  type="button"
-                  className="btn add-to-cart"
-                  onClick={addToCart}
-                  loading={loading}
-                  disabled={!variant}
-                >
-                  Add to Cart
-                </Button>
-              )}
+              <Button
+                aria-label="Add to Cart"
+                type="button"
+                className={classNames(
+                  "btn add-to-cart",
+                  Object.keys(incompatibleProducts).length > 0 && "incompatibilities-btn",
+                )}
+                onClick={addToCart}
+                loading={loading}
+                disabled={!variant || Object.keys(incompatibleProducts).length > 0}
+              >
+                Add to Cart
+              </Button>
               <button
                 className={
                   classNames(
