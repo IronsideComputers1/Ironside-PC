@@ -26,6 +26,7 @@ import { Floppy } from '@components/icons'
 import { Scroller } from './Scroller'
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import classNames from 'classnames'
+import { Separator } from './Separator'
 
 interface Props {
   className?: string
@@ -80,29 +81,11 @@ const Customizer: FC<Props> = (props) => {
   const removeItem = useRemoveItem()
   const router = useRouter()
 
-  const scrollToElement = (heading: string, isModalSelection?: boolean) => {
+  const scrollToElement = (heading: string) => {
+    const element = document?.getElementById(heading);
+    if (!element) return;
     console.log('scrollToElement');
-    
-    setTimeout(() => {
-      console.log({ heading });
-      
-      setActiveTab(heading)
-      const scrollElement: any = document.getElementById(
-        `${heading?.replace(/[ ,:]+/g, '-')}`
-      )
-      const targetPosition = scrollElement?.offsetTop
-      console.log({ targetPosition });
-      
-      if (targetPosition) {
-        console.log('scrolling');
-        
-        const element: any = document.getElementById('scroll-box')
-        element.scrollTo({
-          top: targetPosition - 298,
-          behavior: isModalSelection ? 'auto' : 'smooth',
-        })
-      }
-    }, 1)
+    element.scrollIntoView({ behavior: "smooth" });
   }
 
   // @ts-ignore next-line
@@ -574,15 +557,7 @@ const Customizer: FC<Props> = (props) => {
                                             />
                                           </Block>
                                           {index !== categories?.subCategory?.length - 1 && (
-                                            <hr
-                                              className={classNames(
-                                                "h-0 w-full my-1 border-t-0 border-b",
-                                                {
-                                                  "border-primary": theme === "dark",
-                                                  "border-light": theme === "light",
-                                                }
-                                              )}
-                                            />
+                                            <Separator theme={theme} />
                                           )}
                                         </div>
                                       )
@@ -597,19 +572,13 @@ const Customizer: FC<Props> = (props) => {
                     ))}
                 </div>
               </div>
-              <Scroller
-                onScroll={(heading: string) => {
-                  setActiveTab(heading)
-                }}
-                activeTab={activeTab}
-              />
+              <Scroller onScroll={setActiveTab} activeTab={activeTab} />
               {incompatibleModal && (
                 <IncompatibilitesModal
                   incompatibleProducts={incompatibleProducts}
                   setIncompatibleModal={setIncompatibleModal}
                   selectedIds={optionSelections}
-                  categoriesDataFiltered={categoriesDataFiltered}
-                  onModalSelection={onModalSelection}
+                  scrollToElement={scrollToElement}
                   setIncompatibleProducts={setIncompatibleProducts}
                 />
               )}
@@ -648,7 +617,7 @@ const Customizer: FC<Props> = (props) => {
                 )}
                 onClick={addToCart}
                 loading={loading}
-                disabled={!variant || Object.keys(incompatibleProducts).length > 0}
+                disabled={!variant}
               >
                 Add to Cart
               </Button>

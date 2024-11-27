@@ -6,20 +6,9 @@ import WrongPasswordIcon from '@components/icons/WrongPassword'
 const IncompatibilitesModal = ({
   incompatibleProducts,
   selectedIds,
-  categoriesDataFiltered,
-  onModalSelection,
-  setIncompatibleModal
+  setIncompatibleModal,
+  scrollToElement
 }: any) => {
-  const openSelectionModal = (category_name: string) => {
-    let filterCategory = {}
-    categoriesDataFiltered?.forEach((ele: any) => {
-      ele?.subCategory.find((cat: any) => {
-        if (cat?.categoryName === category_name) filterCategory = cat
-      })
-    })
-    setIncompatibleModal(false)
-    onModalSelection(filterCategory)
-  }
   return (
     <div className="modal incompatibilites-modal">
       <div className='w-full flex items-center justify-between text-gray-500 border-b border-primary h-10 pl-4'>
@@ -57,7 +46,8 @@ const IncompatibilitesModal = ({
                             type="button"
                             className="btn add-to-cart"
                             onClick={() => {
-                              openSelectionModal(prods?.category_name)
+                              scrollToElement(prods?.category_name.toLowerCase());
+                              setIncompatibleModal(false);
                             }}
                           >
                             Change {prods?.category_name}
@@ -66,7 +56,8 @@ const IncompatibilitesModal = ({
                             type="button"
                             className="btn add-to-cart"
                             onClick={() => {
-                              openSelectionModal(data?.category_name)
+                              scrollToElement(data?.category_name.toLowerCase());
+                              setIncompatibleModal(false);
                             }}
                           >
                             Change {data?.category_name}
