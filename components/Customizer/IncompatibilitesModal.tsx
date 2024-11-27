@@ -1,7 +1,9 @@
 import React from 'react'
+import classNames from 'classnames'
 import { Button } from '@components/ui'
 import { Cross } from '@components/icons'
 import WrongPasswordIcon from '@components/icons/WrongPassword'
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 
 const IncompatibilitesModal = ({
   incompatibleProducts,
@@ -9,9 +11,18 @@ const IncompatibilitesModal = ({
   setIncompatibleModal,
   scrollToElement
 }: any) => {
+  const theme = useGetTheme();
   return (
     <div className="modal incompatibilites-modal">
-      <div className='w-full flex items-center justify-between text-gray-500 border-b border-primary h-10 pl-4'>
+      <div className={
+        classNames(
+          'w-full flex items-center justify-between text-gray-500 border-b h-10 pl-4',
+          {
+            "border-primary": theme === "dark",
+            "border-light": theme === "light",
+          }
+        )}
+      >
         <p
           className='m-0 font-medium font-Inconsolata'
           style={{ color: 'rgba(255, 112, 112, 1)' }}
