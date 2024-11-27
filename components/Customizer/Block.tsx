@@ -100,7 +100,12 @@ export const Block = ({
         </div>
       </div>
       {isOpen && <div className='flex gap-3 flex-wrap'>
-        {children}
+        {/* {children} */}
+        {React.Children.map(children, (child) =>
+          React.cloneElement(child, { onClose: () => {
+            setIsOpen(false)
+          } })
+        )}
       </div>}
     </div>
   )

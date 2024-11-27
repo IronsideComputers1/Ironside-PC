@@ -28,6 +28,7 @@ const ProductSelectionModal = ({
   activeTab,
   defaultColors,
   setDefaultColors,
+  onClose,
 }: any) => {
   const { displayModal, closeModal } = useUI()
   const [toggle, setToggle] = useState(false)
@@ -91,8 +92,8 @@ const ProductSelectionModal = ({
     })
     if (!isStockOut) {
       setToggle(false)
-      scrollToElement(activeTab, true)
       setModal(false)
+      onClose()
     }
   }
 
@@ -193,9 +194,6 @@ const ProductSelectionModal = ({
     //     image = color?.product_image
     //   }
     // })
-    console.log(prod?.customFields?.edges);
-    console.log(prod?.images?.edges[0]?.node);
-    
     if (image === '') image = prod?.images?.edges[0]?.node?.urlOriginal
     return image
   }
@@ -239,8 +237,8 @@ const ProductSelectionModal = ({
       modalData?.categoryName,
       data?.prices?.price?.value
     )
-    scrollToElement(activeTab, true)
     setModal(false)
+    onClose();
   }
 
   const onSetProduct = (data: any) => {
