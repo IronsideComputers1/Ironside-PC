@@ -49,7 +49,7 @@ export const Block = ({
   };
   
   return (
-    <div ref={blockRef} className='flex flex-col w-full select-none'>
+    <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none'>
       <div
         className={classNames('flex items-center justify-between w-full', incompatibleCats?.some(
           (cat: any) =>
@@ -100,7 +100,12 @@ export const Block = ({
         </div>
       </div>
       {isOpen && <div className='flex gap-3 flex-wrap'>
-        {children}
+        {/* {children} */}
+        {React.Children.map(children, (child) =>
+          React.cloneElement(child, { onClose: () => {
+            setIsOpen(false)
+          } })
+        )}
       </div>}
     </div>
   )

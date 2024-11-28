@@ -36,7 +36,7 @@ export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
               style={getTabColor(tab)}
               onClick={() => { 
                 onScroll(tab);
-                document?.getElementById(tab)?.scrollIntoView({ behavior: "smooth"})
+                document?.getElementById(tab)?.scrollIntoView({ behavior: "smooth"});
               }}
             >
               {tab}
