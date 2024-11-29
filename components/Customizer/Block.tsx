@@ -1,9 +1,7 @@
 import DropdownArrow from '@components/icons/DropdownArrow'
 import EmptyProduct from '@components/icons/EmptyProduct'
 import React, { useEffect, useRef, useState } from 'react'
-import { BlockItem } from './BlockItem'
 import classNames from 'classnames'
-import { Product } from './types'
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 
 type Props = {
@@ -100,10 +98,9 @@ export const Block = ({
         </div>
       </div>
       {isOpen && <div className='flex gap-3 flex-wrap'>
-        {/* {children} */}
         {React.Children.map(children, (child) =>
           React.cloneElement(child, { onClose: () => {
-            setIsOpen(false)
+            setIsOpen(false);
           } })
         )}
       </div>}

@@ -4,28 +4,36 @@ import { Cross } from '@components/icons'
 import Slider from 'react-slick'
 interface Props {
   text?: any
-  productImages?: any
   button?: any
   heading?: any
   open?: boolean
   stock?: boolean
   onClose: () => void
   onEnter?: () => void | null
+  dataImages?: any
 }
 
 const ProductInfoModal: FC<Props> = ({
   text,
-  productImages,
   button,
   heading,
   open = false,
   stock,
+  dataImages,
 }: any) => {
   const [showModal, setShowModal] = useState(open);
   const [nav1, setNav1] = useState<any>(null)
   const [nav2, setNav2] = useState<any>(null)
   const [slider1, setSlider1] = useState(null)
   const [slider2, setSlider2] = useState(null)
+
+  const productInfoImages = () => {
+    const images = dataImages.map((image: any) => {
+      return image?.node?.urlOriginal
+    })
+    return images
+  }
+  const productImages = productInfoImages();
 
   useEffect(() => {
     setNav1(slider1)
