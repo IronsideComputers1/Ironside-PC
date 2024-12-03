@@ -471,29 +471,25 @@ const Customizer: FC<Props> = (props) => {
           ],
         }}
       />
-      
-
-      <div className="object-cover absolute inset-0 overflow-hidden">
-        <Video
-          src="/EdensVeil.mp4"
-          controls={false}
-          loop
-          muted
-          preload="auto"
-        />
-        <div
-          className='absolute inset-y-0 bg-theme right-0 left-1/2'
-          style={{
-            boxShadow: "-60px 8px 202px 99px #101010"
-          }}
-        />
-        {/* <div
-          className='absolute inset-y-0 bg-transparent left-0 right-1/2'
-          style={{
-        backdropFilter: "blur(10px)",
-          }}
-        /> */}
-      </div>
+      {productDescription[0]?.trim() === "Eden's Veil Platinum" && (
+        <div className="object-cover absolute inset-0 overflow-hidden">
+          {/* BG Video for eden'sveil */}
+          <Video
+            src="/EdensVeil.mp4"
+            controls={false}
+            loop
+            muted
+            preload="auto"
+          />
+          {/* Shadow on ProductLeft */}
+          <div
+            className='absolute inset-y-0 bg-theme right-0 left-1/2'
+            style={{
+              boxShadow: "-94px 8px 202px 99px #101010",
+            }}
+          />
+        </div>
+      )}
       <div className="customizer">
         <div
           className="customizer-product grid grid-cols-2"
