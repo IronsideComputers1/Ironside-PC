@@ -27,6 +27,7 @@ import { Scroller } from './Scroller'
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import classNames from 'classnames'
 import { Separator } from './Separator'
+import { Video } from '@components/ui/Video/Video'
 
 interface Props {
   className?: string
@@ -471,6 +472,28 @@ const Customizer: FC<Props> = (props) => {
         }}
       />
       
+
+      <div className="object-cover absolute inset-0 overflow-hidden">
+        <Video
+          src="/EdensVeil.mp4"
+          controls={false}
+          loop
+          muted
+          preload="auto"
+        />
+        <div
+          className='absolute inset-y-0 bg-theme right-0 left-1/2'
+          style={{
+            boxShadow: "-60px 8px 202px 99px #101010"
+          }}
+        />
+        {/* <div
+          className='absolute inset-y-0 bg-transparent left-0 right-1/2'
+          style={{
+        backdropFilter: "blur(10px)",
+          }}
+        /> */}
+      </div>
       <div className="customizer">
         <div
           className="customizer-product grid grid-cols-2"
@@ -480,13 +503,14 @@ const Customizer: FC<Props> = (props) => {
             <ProductLeft
               products={product.images?.edges}
               modalImage={modalImage}
+              currentProduct={productDescription[0]?.trim()}
             />
           </div>
 
           <div 
             className="customizer-product-content pt-10 mr-13 w-full relative overflow-y-scroll flex justify-end items-start"
             style={{
-              maxHeight: "85vh"
+              maxHeight: "85vh",
             }}
           >
             <div 
