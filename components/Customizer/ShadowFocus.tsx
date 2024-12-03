@@ -16,8 +16,9 @@ export const ShadowFocus = (props: ShadowFocusProps) => {
     <div
       style={{
         position: "absolute",
-        boxShadow: `-350px 8px 300px 200px ${theme === "dark" ? "#101010" : "#ffffff"}`,
-        // boxShadow: `-50px 8px 300px 200px ${theme === "dark" ? "#101010" : "#ffffff"}`,
+        // box-shadow: horizontal-offset vertical-offset blur-radius spread-radius color;
+        boxShadow: `-9.1vw 0.3vh 30vw 19vw ${theme === "dark" ? "#101010" : "#ffffff"}`,
+        // border: "1px solid red",
         ...props,
       }}
     />

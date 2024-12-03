@@ -483,30 +483,35 @@ const Customizer: FC<Props> = (props) => {
             preload="auto"
           />
           {/* Shadow BG on ProductLeft */}
-          <div className='absolute inset-y-0 bg-theme right-0 left-1/2'/>
+          <div
+            className='absolute inset-y-0 bg-theme right-0 left-1/2'
+            style={{
+              filter: "blur(5px)",
+            }}
+          />
           {/* Shadows Focuses */}
           <ShadowFocus
             rotate='8deg'
-            top='0%'
+            top='-16vh'
             left="32%"
             bottom='unset'
             width='500px'
             height="0"
           />
           <ShadowFocus
-            rotate='8deg'
-            top="0"
+            rotate='-18.5deg'
+            top="-8vh"
             left='70%'
             bottom="0"
             width='0'
             height='auto'
           />
           <ShadowFocus
-            rotate='46deg'
+            rotate='-46deg'
             top="unset"
-            left='50%'
-            bottom="-8%"
-            width='500px'
+            left='45%'
+            bottom="1vh"
+            width='400px'
             height="0"
           />
         </div>
