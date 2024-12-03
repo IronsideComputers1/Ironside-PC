@@ -28,6 +28,7 @@ import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import classNames from 'classnames'
 import { Separator } from './Separator'
 import { Video } from '@components/ui/Video/Video'
+import { ShadowFocus } from './ShadowFocus'
 
 interface Props {
   className?: string
@@ -481,12 +482,32 @@ const Customizer: FC<Props> = (props) => {
             muted
             preload="auto"
           />
-          {/* Shadow on ProductLeft */}
-          <div
-            className='absolute inset-y-0 bg-theme right-0 left-1/2'
-            style={{
-              boxShadow: "-94px 8px 202px 99px #101010",
-            }}
+          {/* Shadow BG on ProductLeft */}
+          <div className='absolute inset-y-0 bg-theme right-0 left-1/2'/>
+          {/* Shadows Focuses */}
+          <ShadowFocus
+            rotate='8deg'
+            top='0%'
+            left="32%"
+            bottom='unset'
+            width='500px'
+            height="0"
+          />
+          <ShadowFocus
+            rotate='8deg'
+            top="0"
+            left='70%'
+            bottom="0"
+            width='0'
+            height='auto'
+          />
+          <ShadowFocus
+            rotate='46deg'
+            top="unset"
+            left='50%'
+            bottom="-8%"
+            width='500px'
+            height="0"
           />
         </div>
       )}
