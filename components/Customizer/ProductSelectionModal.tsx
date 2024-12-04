@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
-import { Portal } from '@reach/portal'
+import classNames from 'classnames'
 import { ToastContainer, toast, Flip } from 'react-toastify'
-import { Cross } from '@components/icons'
+import Image from 'next/image'
+import { Portal } from '@reach/portal'
+
 import { useUI } from '@components/ui/context'
 import { ProductInfoModal } from '@components/product'
-import EmptyProduct from '@components/icons/EmptyProduct'
-import DropdownArrow from '@components/icons/DropdownArrow'
-import Image from 'next/image'
-import classNames from 'classnames'
 import Info from '@components/icons/Info'
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
+
+import { ProductAmountSelect } from './ProductBlock/ProductAmountSelect'
+import { ProductBody } from './ProductBlock/ProductBody'
+import EmptyProduct from '@components/icons/EmptyProduct'
 
 const ProductSelectionModal = ({
   setModal,
@@ -24,8 +26,6 @@ const ProductSelectionModal = ({
   setIncompatibleProdIds,
   setIncompatibleCats,
   optionSelections,
-  scrollToElement,
-  activeTab,
   defaultColors,
   setDefaultColors,
   onClose,
@@ -106,11 +106,11 @@ const ProductSelectionModal = ({
         }
       })
     })
-    let varaintPrice = 0
+    let variantPrice = 0
     if (selectedColor?.length) {
       selectedColor.forEach((color: any) => {
         if (color?.parent_id === data?.entityId) {
-          varaintPrice = color.productPrice
+          variantPrice = color.productPrice
         } else {
           if (data?.customFields?.edges?.length) {
             colorOpts?.forEach((options: any) => {
@@ -118,14 +118,14 @@ const ProductSelectionModal = ({
                 data?.customFields?.edges[0]?.node?.value?.split(',')[2] ==
                 options?.entityId
               ) {
-                varaintPrice =
+                variantPrice =
                   options?.prices.price.value - data?.prices?.price?.value
                 selectedColor.forEach((ele: any) => {
                   if (ele?.parent_id === data?.entityId) {
-                    varaintPrice =
+                    variantPrice =
                       options?.prices.price.value - ele?.productPrice
                     if (ele?.product_name === options?.name) {
-                      varaintPrice = 0
+                      variantPrice = 0
                     }
                   }
                 })
@@ -135,7 +135,7 @@ const ProductSelectionModal = ({
         }
       })
     }
-    const finalPrice = price + varaintPrice;
+    const finalPrice = price + variantPrice;
     return (
       <p
         className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs"
@@ -248,188 +248,114 @@ const ProductSelectionModal = ({
     return notify();
   }
 
-  const ProductImage = ({ data, index }: { data: any, index: number}) => {
-    if (data?.images?.edges.length === 0) {
-      return (
-        <div
-          className="flex items-center justify-center w-full"
-          onClick={() => {onSetProduct(data)}}
-        >
-          <EmptyProduct />
-        </div>
-      );
-    }
-    const isFirst = data?.customFields?.edges.length === 0 || isMerch;
-    const imageUrl = isFirst ? data?.images?.edges[0]?.node?.urlOriginal : loadImage(data)
-    return (
-      <div
-        className="flex items-center justify-center w-full"
-        onClick={() => {
-          if (isFirst) return onSetProduct(data);
-          setToggleIndex(index.toString())
-          setToggle(true)
-        }}
-      >
-        <Image width="130px" height="130px" src={imageUrl} objectFit="contain" />
-      </div>
-    );
-  }
-
   return (
     <div className="category-popup mt-2">
       <div className="flex flex-wrap pb-3" style={{ gap: "8px" }}>
-        {modalData?.products?.map((data: any, index: number) => (
-          <div
-            className={
-              classNames('w-56',{
-                "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
-              })
-            }
-            key={index}
-          >
+        {modalData?.products?.map((data: any, index: number) => {
+          const customFields = data?.customFields?.edges;
+          const dataName = data?.name.length > 23
+            ? `${data?.name?.substring(0, 23)}...`
+            : data?.name
+          const hasImage = data?.images?.edges.length > 0;
+          const hasProduct = data?.customFields?.edges.length === 0 || isMerch;
+          const imageUrl = hasProduct ? data?.images?.edges[0]?.node?.urlOriginal : loadImage(data)
+          return (
             <div
-              className={classNames("border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md",
-              {
-                "hover:border-black": theme === "light",
-                "hover:border-secondary": theme === "dark",
-              },
-              selectedIds?.some(
-                (product: any) =>
-                  product?.product === data?.entityId &&
-                  product?.cat === modalData?.categoryName
-              )
-                ? `productSelected ${
-                    incompatibleProdIds?.some(
-                      (id: any) => id === data?.entityId
-                    ) && 'incompatible'
-                  }`
-                : ''
-              )}
+              key={index}
+              className={
+                classNames('w-56',{
+                  "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
+                })
+              }
             >
-              <ProductInfoModal
-                open={displayModal}
-                onClose={closeModal}
-                heading={data?.name}
-                text={data?.description}
-                button={<Info height={18} width={18} className="fill-current text-basicDark" />}
-                productImages={productInfoImages(data)}
-                stock={data?.variants?.edges[0]?.node?.inventory?.isInStock}
-              />
-              <ProductImage index={index} data={data} />
-              <div className="flex flex-direction justify-space w-full">
-                <span className='mt-3 py-2'>
-                  {data?.customFields?.edges.length === 0 || isMerch ? (
+              <div
+                className={classNames("border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md",
+                {
+                  "hover:border-black": theme === "light",
+                  "hover:border-secondary": theme === "dark",
+                },
+                selectedIds?.some(
+                  (product: any) =>
+                    product?.product === data?.entityId &&
+                    product?.cat === modalData?.categoryName
+                )
+                  ? `productSelected ${
+                      incompatibleProdIds?.some(
+                        (id: any) => id === data?.entityId
+                      ) && 'incompatible'
+                    }`
+                  : ''
+                )}
+              >
+                <ProductInfoModal
+                  open={displayModal}
+                  onClose={closeModal}
+                  heading={data?.name}
+                  text={data?.description}
+                  button={<Info height={18} width={18} className="fill-current text-basicDark" />}
+                  dataImages={data?.images?.edges}
+                  stock={data?.variants?.edges[0]?.node?.inventory?.isInStock}
+                />
+                {/* IMAGE */}
+                <div
+                  className="flex items-center justify-center w-full"
+                  onClick={() => {
+                    if (hasProduct || !hasImage) return onSetProduct(data);
+                    setToggleIndex(index.toString())
+                    setToggle(true)
+                  }}
+                >
+                  {hasImage ? 
+                    (
+                      <Image width="130px" height="130px" src={imageUrl} objectFit="contain" />
+                    ) : (
+                      <EmptyProduct />
+                    )}
+                </div>
+                <div className="flex flex-direction justify-space w-full">
+                  {/* TITLE */}
+                  <span className='mt-3 py-2'>
                     <div
-                      key={index}
                       onClick={() => {
+                        if(customFields.length > 0 && !isMerch) return null;
                         onSetProduct(data);
                       }}
                     >
-                      {data?.name.length > 23
-                        ? `${data?.name?.substring(0, 23)}...`
-                        : data?.name}
+                      {dataName}
                     </div>
-                  ) : (
-                    <div key={index}>
-                      {data?.name.length > 23
-                        ? `${data?.name?.substring(0, 23)}...`
-                        : data?.name}
-                    </div>
-                  )}
-                </span>
-
-                <div className='h-8 flex item s-center justify-between mt-6'>
-                  <>
-                    {data?.customFields?.edges.length < 2 && !isMerch ? (
-                      <div className="flex w-full justify-end">
-                        {!selectedIds?.some(
-                          (product: any) =>
-                            product?.product === data?.entityId &&
-                            product?.cat === modalData?.categoryName
-                        ) && renderPrice(data)}
-                      </div>
-                    ) : (
-                      <>
-                        {toggle && parseInt(toggleIndex) === index && (
-                          <div className="colorPattelListSelect">
-                            <span
-                              className="flex justify-end"
-                              onClick={() => setToggle(false)}
-                            >
-                              <Cross />
-                            </span>
-                            <ul className="list-none">
-                              {data?.customFields?.edges?.map(
-                                (color: any, index: number) => (
-                                  <li key={index}>
-                                    <p
-                                      className="mb-0"
-                                      onClick={() => {
-                                        handleColorSelection(data, color)
-                                      }}
-                                    >
-                                      <span
-                                        className="colorPattelListBg"
-                                        style={{
-                                          backgroundColor:
-                                            color?.node?.value?.split(',')[1],
-                                        }}
-                                      ></span>
-                                      {color?.node?.value?.split(',')[0]}
-                                      {colorOpts?.map((options: any) => {
-                                        if (
-                                          color?.node?.value?.split(',')[2] ==
-                                          options?.entityId
-                                        ) {
-                                          return renderColorPrice(options, data)
-                                        }
-                                      })}
-                                    </p>
-                                  </li>
-                                )
-                              )}
-                            </ul>
-                          </div>
-                        )}
-                        {isMerch && (
-                          <p className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs" style={{ backgroundColor: '#1c1c1c' }}>
-                            {convertCurrency(data?.prices?.price?.value)}
-                          </p>
-                        )}
-                      </>
-                    )}
-                  </>
-                  {data?.customFields?.edges?.length >= 2 ? (
-                    <>
-                      <button
-                        className="multiColorOption flex items-center pl-4"
-                        style={{
-                          justifyContent: 'space-between',
-                        }}
-                        onClick={() => {
-                          setToggle(true)
-                          setToggleIndex(index.toString())
-                        }}
-                      >
-                        {renderColorName(data).split(',')[0]}
-                        <span className="arrow">
-                          <DropdownArrow />
-                        </span>
-                      </button>
-                      {!selectedIds?.some(
-                        (product: any) =>
-                          product?.product === data?.entityId &&
-                          product?.cat === modalData?.categoryName
-                      ) && renderPrice(data)}
-                    </>
-                  ) : (
-                    ''
-                  )}
+                  </span>
+                  <div className='h-8 flex item s-center justify-between mt-6'>
+                    <ProductBody
+                      data={data}
+                      renderColorPrice={renderColorPrice}
+                      selectedIds={selectedIds}
+                      modalData={modalData}
+                      convertCurrency={convertCurrency}
+                      renderPrice={renderPrice}
+                      toggle={toggle}
+                      isCurrentIndex={parseInt(toggleIndex) === index}
+                      setToggle={setToggle}
+                      customFields={data?.customFields?.edges}
+                      handleColorSelection={handleColorSelection}
+                      colorOpts={colorOpts}
+                      isMerch={isMerch}
+                    />
+                    <ProductAmountSelect
+                      data={data}
+                      index={index}
+                      setToggle={setToggle}
+                      setToggleIndex={setToggleIndex}
+                      selectedIds={selectedIds}
+                      modalData={modalData}
+                      renderColorName={renderColorName}
+                      renderPrice={renderPrice}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
       <Portal>
         <ToastContainer

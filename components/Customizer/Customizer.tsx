@@ -27,6 +27,8 @@ import { Scroller } from './Scroller'
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import classNames from 'classnames'
 import { Separator } from './Separator'
+import { Video } from '@components/ui/Video/Video'
+import { ShadowFocus } from './ShadowFocus'
 
 interface Props {
   className?: string
@@ -470,7 +472,50 @@ const Customizer: FC<Props> = (props) => {
           ],
         }}
       />
-      
+      {productDescription[0]?.trim() === "Eden's Veil Platinum" && (
+        <div className="object-cover absolute inset-0 overflow-hidden">
+          {/* BG Video for eden'sveil */}
+          <Video
+            src="/EdensVeil.mp4"
+            controls={false}
+            loop
+            muted
+            preload="auto"
+          />
+          {/* Shadow BG on ProductLeft */}
+          <div
+            className='absolute inset-y-0 bg-theme right-0 left-1/2'
+            style={{
+              filter: "blur(5px)",
+            }}
+          />
+          {/* Shadows Focuses */}
+          <ShadowFocus
+            rotate='8deg'
+            top='-16vh'
+            left="32%"
+            bottom='unset'
+            width='500px'
+            height="0"
+          />
+          <ShadowFocus
+            rotate='-18.5deg'
+            top="-8vh"
+            left='70%'
+            bottom="0"
+            width='0'
+            height='auto'
+          />
+          <ShadowFocus
+            rotate='-46deg'
+            top="unset"
+            left='45%'
+            bottom="1vh"
+            width='400px'
+            height="0"
+          />
+        </div>
+      )}
       <div className="customizer">
         <div
           className="customizer-product grid grid-cols-2"
@@ -480,13 +525,14 @@ const Customizer: FC<Props> = (props) => {
             <ProductLeft
               products={product.images?.edges}
               modalImage={modalImage}
+              currentProduct={productDescription[0]?.trim()}
             />
           </div>
 
           <div 
             className="customizer-product-content pt-10 mr-13 w-full relative overflow-y-scroll flex justify-end items-start"
             style={{
-              maxHeight: "85vh"
+              maxHeight: "85vh",
             }}
           >
             <div 

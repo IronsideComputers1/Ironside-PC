@@ -2,16 +2,20 @@ import React from 'react'
 import Slider from 'react-slick'
 import Image from 'next/image'
 import SliderSettings from './SliderSettings'
+import { Video } from '@components/ui/Video/Video'
 
 type Props = {
   products?: any
   modalImage: any
+  currentProduct?: string 
 }
 
-export const ProductLeft = ({ products, modalImage }: Props) => {
+export const ProductLeft = ({ products, modalImage, currentProduct }: Props) => {
   return (
     <div className="customizer-product-left">
       {products?.map((img: any, idx: number) => {
+        // We have a video for "Eden's Veil Platinum"
+        if(currentProduct === "Eden's Veil Platinum") return null;
         return (
           <div key={idx}>
             <div

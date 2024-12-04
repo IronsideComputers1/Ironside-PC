@@ -50,6 +50,7 @@ module.exports = {
         blue: 'var(--blue)',
         green: 'var(--green)',
         red: 'var(--red)',
+        theme: 'var(--theme-bg)',
       },
       borderColor: theme => ({
         ...theme('colors'),
