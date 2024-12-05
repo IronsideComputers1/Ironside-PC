@@ -37,7 +37,7 @@ export const ProductLeft = ({ products, modalImage, currentProduct }: Props) => 
             <div>
               <Image
                 priority={true}
-                height={767}
+                height={770}
                 width={639}
                 className="customizer-product-image"
                 src={img?.node.urlOriginal!}
