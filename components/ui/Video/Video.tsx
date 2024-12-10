@@ -8,6 +8,8 @@ type VideoProps = {
   width?: number
   height?: number
   preload?: "auto" | "metadata" | "none"
+  className?: string
+  style?: React.CSSProperties
 }
 
 export const Video = ({ 
@@ -19,9 +21,13 @@ export const Video = ({
   width,
   height,
   preload,
+  className,
+  style,
 }: VideoProps) => {
   return (
     <video
+      className={className}
+      style={style}
       width={width}
       height={height}
       controls={controls}
