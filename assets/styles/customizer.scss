@@ -76,17 +76,6 @@
         @include align-center(center);
         @include justify-content(center);
         margin: auto;
-
-        // @include xl {
-        //   width: 639px;
-        //   height: 767px;
-        // }
-
-        // @include tablet-small {
-        //   width: 68.718vw;
-        //   height: 75.385vw;
-        //   padding: 0;
-        // }
       }
 
       .customizer-product-image {

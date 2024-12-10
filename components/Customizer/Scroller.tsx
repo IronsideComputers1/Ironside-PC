@@ -32,7 +32,7 @@ export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
         {tabs.map((tab) =>  (
           <li key={tab}>
             <a
-              className='cursor-pointer'
+              className='cursor-pointer font-Arimo'
               style={getTabColor(tab)}
               onClick={() => { 
                 onScroll(tab);

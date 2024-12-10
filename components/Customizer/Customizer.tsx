@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { ToastContainer, Flip, toast } from 'react-toastify'
 import { Portal } from '@reach/portal'
 import useAddItem from '@framework/cart/use-add-item'
@@ -29,6 +30,7 @@ import classNames from 'classnames'
 import { Separator } from './Separator'
 import { Video } from '@components/ui/Video/Video'
 import { ShadowFocus } from './ShadowFocus'
+import { VideoBG } from './Video-BG'
 
 interface Props {
   className?: string
@@ -472,64 +474,7 @@ const Customizer: FC<Props> = (props) => {
           ],
         }}
       />
-      {productDescription[0]?.trim() === "Eden's Veil Platinum" && (
-        <div className="absolute inset-0 overflow-hidden">
-          {/* BG Video for eden'sveil */}
-          <Video
-            className="max-w-none object-left h-screen w-screen object-contain"
-            src="/Edens.mp4"
-            controls={false}
-            loop
-            muted
-            preload="auto"
-            style={{
-              width: "102vw",
-              height: "116vh",
-              objectFit: "cover",
-              objectPosition: "-36px -100px"
-            }}
-          />
-          {/* Shadow BG on ProductLeft */}
-          <div
-            className='absolute inset-y-0 bg-theme right-0'
-            style={{
-              left: "52%"
-            }}
-          />
-          <div
-            className='absolute inset-y-0 bg-theme right-0'
-            style={{
-              filter: "blur(20px)",
-              left: "52%",
-            }}
-          />
-          {/* Shadows Focuses */}
-          <ShadowFocus
-            rotate='18deg'
-            top='-16vh'
-            left="32%"
-            bottom='unset'
-            width='100px'
-            height="0"
-          />
-          <ShadowFocus
-            rotate='-18.5deg'
-            top="-8vh"
-            left='65%'
-            bottom="0"
-            width='0'
-            height='auto'
-          />
-          <ShadowFocus
-            rotate='-46deg'
-            top="unset"
-            left='48%'
-            bottom="1vh"
-            width='400px'
-            height="0"
-          />
-        </div>
-      )}
+      {productDescription[0]?.trim() === "Eden's Veil Platinum" && <VideoBG />}
       <div className="customizer">
         <div
           className="customizer-product grid grid-cols-2"
@@ -544,14 +489,17 @@ const Customizer: FC<Props> = (props) => {
           </div>
 
           <div 
-            className="customizer-product-content pt-10 mr-13 w-full relative overflow-y-scroll flex justify-end items-start"
+            className="customizer-product-content mr-13 w-full relative overflow-y-scroll flex justify-end items-start"
             style={{
               maxHeight: "85vh",
             }}
           >
             <div 
               className="components flex items-center justify-center"
-              style={{ width: "86%" }}
+              style={{ 
+                width: "65%", 
+                // width: "86%" 
+              }}
             >
               <div
                 id='scroll-box'
@@ -560,7 +508,15 @@ const Customizer: FC<Props> = (props) => {
                 <div className="customizerProductGrid">
                   <div className="head flex justify-center items-center flex-col">
                     <div className='flex justify-center items-center'>
-                      <h1 className="text-center">{productDescription[0]?.trim()}</h1>
+                      {productDescription[0]?.trim() === "Eden's Veil Platinum" ? ( 
+                        <Image
+                          src={theme === 'dark' ? '/EdensVeilLogoBlack.png' : '/EdensVeilLogoWhite.png'}
+                          alt={productDescription[0]?.trim()}
+                          width={300}
+                          height={100}
+                        />) : (
+                        <h1 className="text-center">{productDescription[0]?.trim()}</h1>
+                      )}
                       <p className="mb-0">{productDescription[1]?.trim()}</p>
                     </div>
                     <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
@@ -570,7 +526,7 @@ const Customizer: FC<Props> = (props) => {
                       <>
                         <h2
                           id={categories?.categoryName}
-                          className="text-lg leading-4 font-bold mb-5 text-center font-Inconsolata weight-700 text-basicDark"
+                          className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark"
                         >
                           {categories?.categoryName}
                         </h2>
@@ -649,8 +605,9 @@ const Customizer: FC<Props> = (props) => {
               className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-top text-center"
               style={{ 
                 backdropFilter: "blur(10px)",
-                left: "55%",
-                justifyContent: 'space-evenly'
+                left: "62%",
+                // left: "55%",
+                justifyContent: 'space-around'
               }}
             >
               {getWarranty()}
