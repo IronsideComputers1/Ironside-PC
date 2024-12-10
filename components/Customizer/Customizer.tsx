@@ -497,8 +497,8 @@ const Customizer: FC<Props> = (props) => {
             <div 
               className="components flex items-center justify-center"
               style={{ 
-                width: "65%", 
-                // width: "86%" 
+                // width: "65%", 
+                width: "86%" 
               }}
             >
               <div
@@ -602,12 +602,12 @@ const Customizer: FC<Props> = (props) => {
 
             
             <div
-              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-top text-center"
+              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-top text-center gap-10 justify-center"
               style={{ 
                 backdropFilter: "blur(10px)",
-                left: "62%",
-                // left: "55%",
-                justifyContent: 'space-around'
+                // left: "62%",
+                left: "55%",
+                // justifyContent: 'space-around'
               }}
             >
               {getWarranty()}
@@ -625,37 +625,39 @@ const Customizer: FC<Props> = (props) => {
                 </span>
                 <div id="bread-checkout-btn" />
               </div>
-              <Button
-                aria-label="Add to Cart"
-                type="button"
-                className={classNames(
-                  "btn add-to-cart",
-                  Object.keys(incompatibleProducts).length > 0 && "incompatibilities-btn",
-                )}
-                onClick={addToCart}
-                loading={loading}
-                disabled={!variant}
-              >
-                Add to Cart
-              </Button>
-              <button
-                className={
-                  classNames(
-                    "dark box-border m-0 overflow-visible bg-none appearance-none shadow-none inline-flex justify-center uppercase items-center text-base leading-none font-secondary font-normal text-white bg-button-color text-center border rounded-full py-5 px-2.5 tracking-tighter cursor-pointer transition-all relative w-14 h-14",
-                    theme === "dark" ? "text-white" : "text-basicDark", 
-                  )
-                }
-                onClick={() => {
-                  SaveMyBuild(
-                    optionSelections,
-                    selectedColor,
-                    setBuildUrl
-                  )
-                  setSaveMyBuildModal(true)
-                }}
-              >
-                <Floppy className="fill-current" />
-              </button>
+              <div className='flex items-center justify-between gap-2'>
+                <Button
+                  aria-label="Add to Cart"
+                  type="button"
+                  className={classNames(
+                    "btn add-to-cart",
+                    Object.keys(incompatibleProducts).length > 0 && "incompatibilities-btn",
+                  )}
+                  onClick={addToCart}
+                  loading={loading}
+                  disabled={!variant}
+                >
+                  Add to Cart
+                </Button>
+                <button
+                  className={
+                    classNames(
+                      "dark box-border m-0 overflow-visible bg-none appearance-none shadow-none inline-flex justify-center uppercase items-center text-base leading-none font-secondary font-normal text-white bg-button-color text-center border rounded-full py-5 px-2.5 tracking-tighter cursor-pointer transition-all relative w-14 h-14",
+                      theme === "dark" ? "text-white" : "text-basicDark", 
+                    )
+                  }
+                  onClick={() => {
+                    SaveMyBuild(
+                      optionSelections,
+                      selectedColor,
+                      setBuildUrl
+                    )
+                    setSaveMyBuildModal(true)
+                  }}
+                >
+                  <Floppy className="fill-current" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
