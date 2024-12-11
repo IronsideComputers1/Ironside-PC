@@ -507,13 +507,13 @@ const Customizer: FC<Props> = (props) => {
               >
                 <div className="customizerProductGrid">
                   <div className="head flex justify-center items-center flex-col">
-                    <div className='flex justify-center items-center'>
+                    <div className='flex justify-center items-center mb-5'>
                       {productDescription[0]?.trim() === "Eden's Veil Platinum" ? ( 
                         <Image
-                          src={theme === 'dark' ? '/EdensVeilLogoBlack.png' : '/EdensVeilLogoWhite.png'}
+                          src={theme === 'dark' ? '/EdensVeilLogoDark.png' : '/EdensVeilLogoWhite.png'}
                           alt={productDescription[0]?.trim()}
                           width={300}
-                          height={100}
+                          height={50}
                         />) : (
                         <h1 className="text-center">{productDescription[0]?.trim()}</h1>
                       )}
