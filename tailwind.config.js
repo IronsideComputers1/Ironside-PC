@@ -20,7 +20,7 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        'dark': {'raw': '(prefers-color-scheme: dark)'},
+        'xxl': '1920px',
       },
       maxWidth: {
         '8xl': '1920px',

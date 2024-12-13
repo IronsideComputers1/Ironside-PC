@@ -494,13 +494,7 @@ const Customizer: FC<Props> = (props) => {
               maxHeight: "85vh",
             }}
           >
-            <div 
-              className="components flex items-center justify-center"
-              style={{ 
-                // width: "65%", 
-                width: "86%" 
-              }}
-            >
+            <div className="components flex items-center justify-center w-4/5 xxl:w-3/4">
               <div
                 id='scroll-box'
                 className="default-options overflow-y-auto overflow-x-hidden px-0 pr-10" 
@@ -602,12 +596,10 @@ const Customizer: FC<Props> = (props) => {
 
             
             <div
-              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-top text-center gap-10 justify-center"
+              className="flex items-start fixed right-0.5 bottom-0 py-6 pl-5 pr-8 border-top text-center gap-10 xxl:justify-end lg:justify-center"
               style={{ 
                 backdropFilter: "blur(10px)",
-                // left: "62%",
-                left: "55%",
-                // justifyContent: 'space-around'
+                left: "60%",
               }}
             >
               {getWarranty()}
