@@ -32,6 +32,7 @@ import { Video } from '@components/ui/Video/Video'
 import { ShadowFocus } from './ShadowFocus'
 import { VideoBG } from './Video-BG'
 import CustomizerButton from './CustomizerButton'
+import { SaveBuildButton } from './SaveBuildButton'
 
 interface Props {
   className?: string
@@ -619,25 +620,14 @@ const Customizer: FC<Props> = (props) => {
               </div>
               <div className='flex items-center justify-between gap-2'>
                 <CustomizerButton
-                  aria-label="Add to Cart"
                   isIncompatible={Object.keys(incompatibleProducts).length > 0}
-                  // className={classNames(
-                  //   "btn add-to-cart",
-                  //   Object.keys(incompatibleProducts).length > 0 && "incompatibilities-btn",
-                  // )}
                   onClick={addToCart}
                   isLoading={loading}
                   isDisabled={!variant}
                 >
                   Add to Cart
                 </CustomizerButton>
-                <button
-                  className={
-                    classNames(
-                      "dark box-border m-0 overflow-visible bg-none appearance-none shadow-none inline-flex justify-center uppercase items-center text-base leading-none font-secondary font-normal text-white bg-button-color text-center border rounded-full py-5 px-2.5 tracking-tighter cursor-pointer transition-all relative w-14 h-14",
-                      theme === "dark" ? "text-white" : "text-basicDark", 
-                    )
-                  }
+                <SaveBuildButton
                   onClick={() => {
                     SaveMyBuild(
                       optionSelections,
@@ -646,9 +636,7 @@ const Customizer: FC<Props> = (props) => {
                     )
                     setSaveMyBuildModal(true)
                   }}
-                >
-                  <Floppy className="fill-current" />
-                </button>
+                />
               </div>
             </div>
           </div>

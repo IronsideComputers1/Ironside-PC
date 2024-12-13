@@ -71,5 +71,5 @@ module.exports = {
     },
   },
   plugins: [],
-  darkMode: ['selector', '[data-mode="dark"]'],
+  darkMode: ['selector', '[data-theme="dark"]'],
 }
