@@ -4,14 +4,12 @@ module.exports = {
       './pages/**/*.{js,ts,jsx,tsx}',
       './components/**/*.{js,ts,jsx,tsx}',
     ],
-    preserveHtmlElements: false,
     options: {
       safelist: {
         standard: ['outline-none'],
       },
     },
   },
-  darkMode: false, // or 'media' or 'class'
   variants: {
     margin: ['last'],
   },
@@ -80,5 +78,5 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/ui')],
 }
