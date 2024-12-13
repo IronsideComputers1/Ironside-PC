@@ -485,6 +485,10 @@ body[data-theme='light'] {
   }
 }
 
+// .loading-dots span {
+//   background-color: var(--secondary);
+// }
+
 [data-theme='light'] {
   button.btn,
   .btn {
@@ -512,6 +516,7 @@ button.btn,
   font-weight: 400;
   text-align: center;
   border-radius: 79px;
+  // min-width: 226px;
   min-width: 178px;
   padding: 21px 10px;
   letter-spacing: -1.625px;
@@ -521,6 +526,11 @@ button.btn,
   transition: 1s;
   // border: 0;
   position: relative;
+
+  @include xl {
+    min-width: 226px;
+    padding: 21px 10px;
+  }
 
   @include tablet-small {
     min-width: 134px;

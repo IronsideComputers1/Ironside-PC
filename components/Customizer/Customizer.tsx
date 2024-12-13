@@ -31,6 +31,7 @@ import { Separator } from './Separator'
 import { Video } from '@components/ui/Video/Video'
 import { ShadowFocus } from './ShadowFocus'
 import { VideoBG } from './Video-BG'
+import CustomizerButton from './CustomizerButton'
 
 interface Props {
   className?: string
@@ -596,10 +597,9 @@ const Customizer: FC<Props> = (props) => {
 
             
             <div
-              className="flex items-start fixed right-0.5 bottom-0 py-6 pl-5 pr-8 border-top text-center gap-10 xxl:justify-end lg:justify-center"
+              className="flex items-start fixed right-0.5 bottom-0 py-6 pl-5 pr-8 border-top text-center gap-10 xxl:justify-end lg:justify-center xxl:left-[60%] left-[55%]"
               style={{ 
                 backdropFilter: "blur(10px)",
-                left: "60%",
               }}
             >
               {getWarranty()}
@@ -618,19 +618,19 @@ const Customizer: FC<Props> = (props) => {
                 <div id="bread-checkout-btn" />
               </div>
               <div className='flex items-center justify-between gap-2'>
-                <Button
+                <CustomizerButton
                   aria-label="Add to Cart"
-                  type="button"
-                  className={classNames(
-                    "btn add-to-cart",
-                    Object.keys(incompatibleProducts).length > 0 && "incompatibilities-btn",
-                  )}
+                  isIncompatible={Object.keys(incompatibleProducts).length > 0}
+                  // className={classNames(
+                  //   "btn add-to-cart",
+                  //   Object.keys(incompatibleProducts).length > 0 && "incompatibilities-btn",
+                  // )}
                   onClick={addToCart}
-                  loading={loading}
-                  disabled={!variant}
+                  isLoading={loading}
+                  isDisabled={!variant}
                 >
                   Add to Cart
-                </Button>
+                </CustomizerButton>
                 <button
                   className={
                     classNames(

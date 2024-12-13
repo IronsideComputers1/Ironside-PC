@@ -13,6 +13,7 @@ module.exports = {
       },
       colors: {
         primary: 'var(--primary)',
+        'button-color': 'var(--button-color)',
         'primary-2': 'var(--primary-2)',
         secondary: 'var(--secondary)',
         'secondary-2': 'var(--secondary-2)',
@@ -65,6 +66,7 @@ module.exports = {
         Inconsolata: ['Inconsolata', 'monospace'],
         Arimo: ['Arimo', 'sans-serif'],
         Ramabhadra: ['Ramabhadra','Arimo', 'sans-serif'],
+        Secondary: "var(--secondary-fonts)",
       }
     },
   },
