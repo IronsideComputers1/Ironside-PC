@@ -51,7 +51,6 @@
     "@reach/portal": "0.16.2",
     "@studio-freight/react-lenis": "^0.0.46",
     "@szhsin/react-menu": "^4.1.0",
-    "@tailwindcss/ui": "^0.6.2",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.4.20",
     "axios": "^0.21.1",
@@ -87,7 +86,6 @@
     "slick-carousel": "^1.8.1",
     "swr": "^0.4.0",
     "tabbable": "^5.1.5",
-    "tailwindcss": "2.2.16",
     "uuid": "^9.0.1"
   },
   "overrides": {
@@ -125,6 +123,7 @@
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-preset-env": "7.8.3",
     "prettier": "^2.1.2",
+    "tailwindcss": "2.2.16",
     "typescript": "^4.0.3"
   },
   "resolutions": {
