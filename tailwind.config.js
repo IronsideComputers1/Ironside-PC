@@ -67,7 +67,10 @@ module.exports = {
         Arimo: ['Arimo', 'sans-serif'],
         Ramabhadra: ['Ramabhadra','Arimo', 'sans-serif'],
         Secondary: "var(--secondary-fonts)",
-      }
+      },
+      letterSpacing: {
+        'custom-tight': '-1.625px',
+      },
     },
   },
   plugins: [],
