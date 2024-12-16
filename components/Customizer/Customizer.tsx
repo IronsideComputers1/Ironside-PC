@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { ToastContainer, Flip, toast } from 'react-toastify'
 import { Portal } from '@reach/portal'
 import useAddItem from '@framework/cart/use-add-item'
@@ -29,6 +30,9 @@ import classNames from 'classnames'
 import { Separator } from './Separator'
 import { Video } from '@components/ui/Video/Video'
 import { ShadowFocus } from './ShadowFocus'
+import { VideoBG } from './Video-BG'
+import CustomizerButton from './CustomizerButton'
+import { SaveBuildButton } from './SaveBuildButton'
 
 interface Props {
   className?: string
@@ -472,50 +476,7 @@ const Customizer: FC<Props> = (props) => {
           ],
         }}
       />
-      {productDescription[0]?.trim() === "Eden's Veil Platinum" && (
-        <div className="object-cover absolute inset-0 overflow-hidden">
-          {/* BG Video for eden'sveil */}
-          <Video
-            src="/EdensVeil.mp4"
-            controls={false}
-            loop
-            muted
-            preload="auto"
-          />
-          {/* Shadow BG on ProductLeft */}
-          <div
-            className='absolute inset-y-0 bg-theme right-0 left-1/2'
-            style={{
-              filter: "blur(5px)",
-            }}
-          />
-          {/* Shadows Focuses */}
-          <ShadowFocus
-            rotate='8deg'
-            top='-16vh'
-            left="32%"
-            bottom='unset'
-            width='500px'
-            height="0"
-          />
-          <ShadowFocus
-            rotate='-18.5deg'
-            top="-8vh"
-            left='70%'
-            bottom="0"
-            width='0'
-            height='auto'
-          />
-          <ShadowFocus
-            rotate='-46deg'
-            top="unset"
-            left='45%'
-            bottom="1vh"
-            width='400px'
-            height="0"
-          />
-        </div>
-      )}
+      {productDescription[0]?.trim() === "Eden's Veil Platinum" && <VideoBG />}
       <div className="customizer">
         <div
           className="customizer-product grid grid-cols-2"
@@ -530,23 +491,28 @@ const Customizer: FC<Props> = (props) => {
           </div>
 
           <div 
-            className="customizer-product-content pt-10 mr-13 w-full relative overflow-y-scroll flex justify-end items-start"
+            className="customizer-product-content mr-13 w-full relative overflow-y-scroll flex justify-end items-start"
             style={{
               maxHeight: "85vh",
             }}
           >
-            <div 
-              className="components flex items-center justify-center"
-              style={{ width: "86%" }}
-            >
+            <div className="components flex items-center justify-center w-4/5 xxl:w-3/4">
               <div
                 id='scroll-box'
                 className="default-options overflow-y-auto overflow-x-hidden px-0 pr-10" 
               >
                 <div className="customizerProductGrid">
                   <div className="head flex justify-center items-center flex-col">
-                    <div className='flex justify-center items-center'>
-                      <h1 className="text-center">{productDescription[0]?.trim()}</h1>
+                    <div className='flex justify-center items-center mb-5'>
+                      {productDescription[0]?.trim() === "Eden's Veil Platinum" ? ( 
+                        <Image
+                          src={theme === 'dark' ? '/EdensVeilLogoDark.png' : '/EdensVeilLogoWhite.png'}
+                          alt={productDescription[0]?.trim()}
+                          width={300}
+                          height={50}
+                        />) : (
+                        <h1 className="text-center">{productDescription[0]?.trim()}</h1>
+                      )}
                       <p className="mb-0">{productDescription[1]?.trim()}</p>
                     </div>
                     <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
@@ -556,7 +522,7 @@ const Customizer: FC<Props> = (props) => {
                       <>
                         <h2
                           id={categories?.categoryName}
-                          className="text-lg leading-4 font-bold mb-5 text-center font-Inconsolata weight-700 text-basicDark"
+                          className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark"
                         >
                           {categories?.categoryName}
                         </h2>
@@ -632,11 +598,9 @@ const Customizer: FC<Props> = (props) => {
 
             
             <div
-              className="flex items-start fixed right-0.5 bottom-0 py-6 px-5 border-top text-center"
+              className="flex items-start fixed right-0.5 bottom-0 py-6 pl-5 pr-8 border-top text-center gap-10 xxl:justify-end lg:justify-center xxl:left-[60%] left-[55%]"
               style={{ 
                 backdropFilter: "blur(10px)",
-                left: "55%",
-                justifyContent: 'space-evenly'
               }}
             >
               {getWarranty()}
@@ -654,37 +618,26 @@ const Customizer: FC<Props> = (props) => {
                 </span>
                 <div id="bread-checkout-btn" />
               </div>
-              <Button
-                aria-label="Add to Cart"
-                type="button"
-                className={classNames(
-                  "btn add-to-cart",
-                  Object.keys(incompatibleProducts).length > 0 && "incompatibilities-btn",
-                )}
-                onClick={addToCart}
-                loading={loading}
-                disabled={!variant}
-              >
-                Add to Cart
-              </Button>
-              <button
-                className={
-                  classNames(
-                    "dark box-border m-0 overflow-visible bg-none appearance-none shadow-none inline-flex justify-center uppercase items-center text-base leading-none font-secondary font-normal text-white bg-button-color text-center border rounded-full py-5 px-2.5 tracking-tighter cursor-pointer transition-all relative w-14 h-14",
-                    theme === "dark" ? "text-white" : "text-basicDark", 
-                  )
-                }
-                onClick={() => {
-                  SaveMyBuild(
-                    optionSelections,
-                    selectedColor,
-                    setBuildUrl
-                  )
-                  setSaveMyBuildModal(true)
-                }}
-              >
-                <Floppy className="fill-current" />
-              </button>
+              <div className='flex items-center justify-between gap-2'>
+                <CustomizerButton
+                  isIncompatible={Object.keys(incompatibleProducts).length > 0}
+                  onClick={addToCart}
+                  isLoading={loading}
+                  isDisabled={!variant}
+                >
+                  Add to Cart
+                </CustomizerButton>
+                <SaveBuildButton
+                  onClick={() => {
+                    SaveMyBuild(
+                      optionSelections,
+                      selectedColor,
+                      setBuildUrl
+                    )
+                    setSaveMyBuildModal(true)
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

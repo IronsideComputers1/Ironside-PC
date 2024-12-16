@@ -1,32 +1,19 @@
 module.exports = {
-  future: {
-    purgeLayersByDefault: true,
-    applyComplexClasses: true,
-  },
-  purge: {
-    content: [
-      './pages/**/*.{js,ts,jsx,tsx}',
-      './components/**/*.{js,ts,jsx,tsx}',
-    ],
-    options: {
-      safelist: {
-        standard: ['outline-none'],
-      },
-    },
-  },
-  variants: {
-    margin: ['last'],
-  },
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       screens: {
-        'dark': {'raw': '(prefers-color-scheme: dark)'},
+        'xxl': '1920px',
       },
       maxWidth: {
         '8xl': '1920px',
       },
       colors: {
         primary: 'var(--primary)',
+        'button-color': 'var(--button-color)',
         'primary-2': 'var(--primary-2)',
         secondary: 'var(--secondary)',
         'secondary-2': 'var(--secondary-2)',
@@ -79,8 +66,13 @@ module.exports = {
         Inconsolata: ['Inconsolata', 'monospace'],
         Arimo: ['Arimo', 'sans-serif'],
         Ramabhadra: ['Ramabhadra','Arimo', 'sans-serif'],
-      }
+        Secondary: "var(--secondary-fonts)",
+      },
+      letterSpacing: {
+        'custom-tight': '-1.625px',
+      },
     },
   },
-  plugins: [require('@tailwindcss/ui')],
+  plugins: [],
+  darkMode: ['selector', '[data-theme="dark"]'],
 }
