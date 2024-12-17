@@ -34,12 +34,6 @@ const ProductSelectionModal = ({
   const [toggle, setToggle] = useState(false)
   const [toggleIndex, setToggleIndex] = useState('')
   const theme = useGetTheme();
-  const productInfoImages = (data: any) => {
-    const images = data?.images?.edges.map((image: any) => {
-      return image?.node?.urlOriginal
-    })
-    return images
-  }
   let isMerch = false
 
   modalData?.products[1]?.categories?.edges?.forEach((ele: any) => {
