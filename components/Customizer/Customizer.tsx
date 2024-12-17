@@ -496,7 +496,7 @@ const Customizer: FC<Props> = (props) => {
               maxHeight: "85vh",
             }}
           >
-            <div className="components flex items-center justify-center w-4/5 xxl:w-3/4">
+            <div className="components flex items-center justify-center w-4/5 xxl:w-5/6">
               <div
                 id='scroll-box'
                 className="default-options overflow-y-auto overflow-x-hidden px-0 pr-10" 
@@ -526,7 +526,7 @@ const Customizer: FC<Props> = (props) => {
                         >
                           {categories?.categoryName}
                         </h2>
-                        <div className="grid-view flex flex-wrap border rounded-lg px-11 py-2.5 w-full last:mb-36">
+                        <div className="grid-view flex flex-wrap border rounded-lg pl-7 py-2.5 w-full last:mb-36">
                           {categories?.subCategory?.map(
                             (subs: any, index: number) => (
                               <>
@@ -569,7 +569,7 @@ const Customizer: FC<Props> = (props) => {
                                             />
                                           </Block>
                                           {index !== categories?.subCategory?.length - 1 && (
-                                            <Separator theme={theme} />
+                                            <Separator className="w-4/5" theme={theme} />
                                           )}
                                         </div>
                                       )

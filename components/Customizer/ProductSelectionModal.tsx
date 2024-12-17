@@ -132,10 +132,9 @@ const ProductSelectionModal = ({
     const finalPrice = price + variantPrice;
     return (
       <p
-        className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs"
+        className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2"
         style={{ 
           backgroundColor: theme === "dark" ? '#1c1c1c' : "rgba(0, 0, 0, 0.05)",
-          color: theme === "dark" ? '#fff' : "rgba(0, 0, 0, 0.5)"
         }}>
         {finalPrice?.toString().includes('-')
           ? convertCurrency(finalPrice)
@@ -243,7 +242,7 @@ const ProductSelectionModal = ({
   }
 
   return (
-    <div className="category-popup mt-2">
+    <div className="category-popup mt-1">
       <div className="flex flex-wrap pb-3" style={{ gap: "8px" }}>
         {modalData?.products?.map((data: any, index: number) => {
           const customFields = data?.customFields?.edges;
@@ -263,7 +262,7 @@ const ProductSelectionModal = ({
               }
             >
               <div
-                className={classNames("border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md",
+                className={classNames("border rounded-2xl w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md",
                 {
                   "hover:border-black": theme === "light",
                   "hover:border-secondary": theme === "dark",
@@ -286,7 +285,7 @@ const ProductSelectionModal = ({
                   onClose={closeModal}
                   heading={data?.name}
                   text={data?.description}
-                  button={<Info height={18} width={18} className="fill-current text-basicDark" />}
+                  button={<Info height={18} width={18} className="fill-current text-icon-gray" />}
                   dataImages={data?.images?.edges}
                   stock={data?.variants?.edges[0]?.node?.inventory?.isInStock}
                 />
@@ -308,7 +307,7 @@ const ProductSelectionModal = ({
                 </div>
                 <div className="flex flex-direction justify-space w-full">
                   {/* TITLE */}
-                  <span className='mt-3 py-2'>
+                  <span className='mt-3 py-2 px-1.5 font-Arimo text-[13px]'>
                     <div
                       onClick={() => {
                         if(customFields.length > 0 && !isMerch) return null;
@@ -318,7 +317,7 @@ const ProductSelectionModal = ({
                       {dataName}
                     </div>
                   </span>
-                  <div className='h-8 flex item s-center justify-between mt-6'>
+                  <div className='h-8 flex item s-center justify-between mt-4'>
                     <ProductBody
                       data={data}
                       renderColorPrice={renderColorPrice}

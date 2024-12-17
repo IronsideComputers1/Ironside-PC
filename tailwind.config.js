@@ -46,10 +46,11 @@ module.exports = {
         light: "#d2d6dc",
       }),
       textColor: {
-        // base: 'var(--text-base)',
         primary: 'var(--text-primary)',
+        'primary-2': 'var(--primary-2)',
         secondary: 'var(--text-secondary)',
         basicDark: '#757575',
+        "icon-gray": "rgba(255, 255, 255, 0.22)",
       },
       boxShadow: {
         'outline-2': '0 0 0 2px var(--accents-2)',
@@ -67,6 +68,9 @@ module.exports = {
         Arimo: ['Arimo', 'sans-serif'],
         Ramabhadra: ['Ramabhadra','Arimo', 'sans-serif'],
         Secondary: "var(--secondary-fonts)",
+      },
+      fontSize: {
+        "2xs": "11px"
       },
       letterSpacing: {
         'custom-tight': '-1.625px',

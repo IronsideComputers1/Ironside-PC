@@ -47,7 +47,7 @@ export const Block = ({
   };
   
   return (
-    <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none'>
+    <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none pr-7'>
       <div
         className={classNames('flex items-center justify-between w-full h-20', incompatibleCats?.some(
           (cat: any) =>
