@@ -72,17 +72,19 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
-  const { products } = await getAllProductPaths()
+  const { products } = await getAllProductPaths();
+
+  if(!locales) {
+    return {
+      paths: products?.map(({ node: path }) => path ? `/customizer${path}` : null).filter(Boolean),
+      fallback: 'blocking',
+    }
+  }
+  const paths = locales.flatMap((locale) => {
+    return products?.map(({ node }) => node.path ? `/${locale}/customizer${node.path}` : null).filter(Boolean)
+  });
   return {
-    paths: locales
-      ? locales.reduce<string[]>((arr, locale) => {
-          // Add a product path for every locale
-          products?.forEach((product) => {
-            arr.push(`/${locale}/customizer${product.node.path}`)
-          })
-          return arr
-        }, [])
-      : products?.map((product) => `/customizer${product.node.path}`),
+    paths,
     fallback: 'blocking',
   }
 }
