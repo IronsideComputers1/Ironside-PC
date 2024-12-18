@@ -82,36 +82,8 @@
         object-fit: cover;
       }
     }
-
-    &-content {
-      .customizer-total-price {
-        @include mobile-small {
-          font-size: 16px;
-          letter-spacing: 0;
-          margin: 4px 0 0;
-        }
-      }
-    }
   }
 
-  &-total {
-    &-price {
-      font-size: 24px;
-      line-height: 24px;
-      font-weight: 700;
-      font-family: var(--heading-fonts);
-      display: block;
-      margin: 4px 0 6px;
-
-      + span {
-        font-size: 13px;
-        color: #747474;
-        @include mobile {
-          letter-spacing: -0.02em;
-        }
-      }
-    }
-  }
   .customizerProductGrid .incompatible .options-image,
   .category-popup .incompatible {
     background-color: var(--error-bg);
@@ -138,57 +110,6 @@ button.add-to-cart {
 
   &:hover {
     border-color: var(--secondary);
-  }
-}
-
-.customizer-product-content {
-  .head {
-    padding-top: 18px;
-    padding-bottom: 15px;
-    z-index: 1;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    @include tablet-small {
-      position: unset;
-      border-bottom: 0;
-      padding-bottom: 34px;
-    }
-
-    h1 {
-      @extend .fs-32;
-      margin-bottom: 11px;
-      letter-spacing: 0.025em;
-
-      @include mobile {
-        margin-bottom: 6px;
-      }
-
-      + p {
-        font-weight: 700;
-      }
-    }
-
-    div + div {
-      p {
-        margin-right: 15px;
-      }
-    }
-
-    button {
-      font-size: 13px;
-      line-height: 13px;
-      letter-spacing: -1.625px;
-      min-width: 128px;
-      padding: 13px 10px;
-      letter-spacing: -1.625px;
-      font-family: var(--secondary-fonts);
-    }
-
-    > div {
-      position: relative;
-      z-index: 2;
-    }
   }
 }
 
@@ -251,19 +172,6 @@ button.add-to-cart {
 
 .customizerProductGrid {
   padding-bottom: 20px;
-
-  h2 {
-    color: #757575;
-    padding-top: 30px;
-    margin-bottom: 20px;
-
-    @include mobile {
-      padding-top: 0;
-    }
-    &:first-child {
-      padding-top: 20px;
-    }
-  }
 
   > .grid-view {
     .options-image {

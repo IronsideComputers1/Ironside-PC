@@ -8,7 +8,7 @@ export const Separator = ({ theme, className }: { theme : "dark" | "light", clas
         "h-0 w-full my-1 border-t-0 border-b",
         className,
         {
-          "border-primary": theme === "dark",
+          "border-dark": theme === "dark",
           "border-light": theme === "light",
         }
       )}

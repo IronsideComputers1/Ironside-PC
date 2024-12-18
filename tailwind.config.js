@@ -42,8 +42,8 @@ module.exports = {
       borderColor: theme => ({
         ...theme('colors'),
         primary: "#363636",
-        dark: "#636363",
-        light: "#d2d6dc",
+        dark: "rgba(255, 255, 255, 0.22)",
+        light: "rgba(0, 0, 0, 0.22)",
       }),
       textColor: {
         primary: 'var(--text-primary)',
