@@ -87,7 +87,10 @@ export const ProductBody = ({
         </div>
       )}
       {isMerch && (
-        <p className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs" style={{ backgroundColor: '#1c1c1c' }}>
+        <p
+          className="font-Arimo font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs"
+          style={{ backgroundColor: '#1c1c1c' }}
+        >
           {convertCurrency(data?.prices?.price?.value)}
         </p>
       )}

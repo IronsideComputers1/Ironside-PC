@@ -45,21 +45,24 @@ export const Block = ({
     setIsOpen(!isOpen);
     onModalSelection(subs);
   };
+
+  const incompatibleItems = incompatibleCats?.some(
+    (cat: any) =>
+      cat ===
+      subs.categoryName
+  );
+
+  const hasImages = prod?.images?.edges.length > 0;
   
   return (
-    <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none'>
+    <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none pr-7'>
       <div
-        className={classNames('flex items-center justify-between w-full', incompatibleCats?.some(
-          (cat: any) =>
-            cat ===
-            subs.categoryName
-        ) && 'incompatible')}
+        className={classNames('flex items-center justify-between w-full h-20', incompatibleItems && 'incompatible')}
         onClick={toggleAccordion}
       >
         <div className='flex items-center justify-start w-full'>
           <div className="p-3 mr-12">
-            {!!prod?.images?.edges
-              .length ? (
+            {hasImages ? (
               <img
                 width={50}
                 height={50}

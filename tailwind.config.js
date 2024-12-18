@@ -42,14 +42,21 @@ module.exports = {
       borderColor: theme => ({
         ...theme('colors'),
         primary: "#363636",
-        dark: "#636363",
-        light: "#d2d6dc",
+        dark: "rgba(255, 255, 255, 0.25)",
+        light: "rgba(0, 0, 0, 0.25)",
+      }),
+      outlineColor: theme => ({
+        ...theme('colors'),
+        primary: "#363636",
+        dark: "rgba(255, 255, 255, 0.5)",
+        light: "rgba(0, 0, 0, 1)",
       }),
       textColor: {
-        // base: 'var(--text-base)',
         primary: 'var(--text-primary)',
+        'primary-2': 'var(--primary-2)',
         secondary: 'var(--text-secondary)',
         basicDark: '#757575',
+        "icon-gray": "rgba(255, 255, 255, 0.22)",
       },
       boxShadow: {
         'outline-2': '0 0 0 2px var(--accents-2)',
@@ -67,6 +74,9 @@ module.exports = {
         Arimo: ['Arimo', 'sans-serif'],
         Ramabhadra: ['Ramabhadra','Arimo', 'sans-serif'],
         Secondary: "var(--secondary-fonts)",
+      },
+      fontSize: {
+        "2xs": "11px"
       },
       letterSpacing: {
         'custom-tight': '-1.625px',

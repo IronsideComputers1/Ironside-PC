@@ -142,7 +142,7 @@ body {
     margin-top: 0;
     margin-bottom: 24px;
     color: var(--secondary);
-    font-family: var(--body-fonts);
+    // font-family: var(--body-fonts);
 
     @include desktop-small {
       font-size: 15px;
