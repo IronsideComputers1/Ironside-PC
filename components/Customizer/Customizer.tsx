@@ -521,7 +521,15 @@ const Customizer: FC<Props> = (props) => {
                         >
                           {categories?.categoryName}
                         </h2>
-                        <div className="grid-view flex flex-wrap border rounded-lg pl-7 py-2.5 w-full last:mb-36">
+                        <div
+                          className={classNames(
+                            "grid-view flex flex-wrap border-[1px] rounded-lg pl-7 py-2.5 w-full last:mb-36",
+                            {
+                              "border-dark": theme === "dark",
+                              "border-light": theme === "light",
+                            }
+                          )}
+                          >
                           {categories?.subCategory?.map(
                             (subs: any, index: number) => (
                               <>

@@ -42,8 +42,8 @@ module.exports = {
       borderColor: theme => ({
         ...theme('colors'),
         primary: "#363636",
-        dark: "rgba(255, 255, 255, 0.22)",
-        light: "rgba(0, 0, 0, 0.22)",
+        dark: "rgba(255, 255, 255, 0.25)",
+        light: "rgba(0, 0, 0, 0.25)",
       }),
       outlineColor: theme => ({
         ...theme('colors'),
