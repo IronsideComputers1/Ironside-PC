@@ -251,7 +251,12 @@ const ProductSelectionModal = ({
             : data?.name
           const hasImage = data?.images?.edges.length > 0;
           const hasProduct = data?.customFields?.edges.length === 0 || isMerch;
-          const imageUrl = hasProduct ? data?.images?.edges[0]?.node?.urlOriginal : loadImage(data)
+          const imageUrl = hasProduct ? data?.images?.edges[0]?.node?.urlOriginal : loadImage(data);
+          const isSelected = selectedIds?.some(
+            (product: any) =>
+              product?.product === data?.entityId &&
+              product?.cat === modalData?.categoryName
+          )
           return (
             <div
               key={index}
@@ -262,22 +267,23 @@ const ProductSelectionModal = ({
               }
             >
               <div
-                className={classNames("border rounded-2xl w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md",
+                className={classNames("border-[1px] rounded-2xl w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:outline hover:outline-2",
                 {
-                  "hover:border-black": theme === "light",
-                  "hover:border-secondary": theme === "dark",
+                  "border-dark hover:outline-dark": theme === "dark",
+                  "border-light hover:outline-light": theme === "light",
                 },
-                selectedIds?.some(
-                  (product: any) =>
-                    product?.product === data?.entityId &&
-                    product?.cat === modalData?.categoryName
-                )
-                  ? `productSelected ${
-                      incompatibleProdIds?.some(
-                        (id: any) => id === data?.entityId
-                      ) && 'incompatible'
-                    }`
-                  : ''
+                {
+                  "outline outline-2": isSelected,
+                  "outline-dark": isSelected && theme === "dark",
+                  "outline-light": isSelected && theme === "light",
+                },
+                // isSelected
+                //   ? `outline outline-2 outline-slate-50 ${
+                //       incompatibleProdIds?.some(
+                //         (id: any) => id === data?.entityId
+                //       ) && 'incompatible'
+                //     }`
+                //   : ''
                 )}
               >
                 <ProductInfoModal

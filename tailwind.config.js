@@ -45,6 +45,12 @@ module.exports = {
         dark: "rgba(255, 255, 255, 0.22)",
         light: "rgba(0, 0, 0, 0.22)",
       }),
+      outlineColor: theme => ({
+        ...theme('colors'),
+        primary: "#363636",
+        dark: "rgba(255, 255, 255, 0.5)",
+        light: "rgba(0, 0, 0, 0.5)",
+      }),
       textColor: {
         primary: 'var(--text-primary)',
         'primary-2': 'var(--primary-2)',
