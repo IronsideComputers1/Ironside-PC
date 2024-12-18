@@ -261,29 +261,24 @@ const ProductSelectionModal = ({
             <div
               key={index}
               className={
-                classNames('w-56',{
+                classNames('w-56', {
                   "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
                 })
               }
             >
               <div
-                className={classNames("border-[1px] rounded-2xl w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:outline hover:outline-2",
-                {
-                  "border-dark hover:outline-dark": theme === "dark",
-                  "border-light hover:outline-light": theme === "light",
-                },
-                {
-                  "outline outline-2": isSelected,
-                  "outline-dark": isSelected && theme === "dark",
-                  "outline-light": isSelected && theme === "light",
-                },
-                // isSelected
-                //   ? `outline outline-2 outline-slate-50 ${
-                //       incompatibleProdIds?.some(
-                //         (id: any) => id === data?.entityId
-                //       ) && 'incompatible'
-                //     }`
-                //   : ''
+                className={classNames(
+                  "border-[1px] rounded-2xl w-56 h-auto flex items-start justify-between p-3 flex-col relative",
+                  "hover:outline hover:outline-2",
+                  {
+                    "border-dark hover:outline-dark": theme === "dark",
+                    "border-light hover:outline-light": theme === "light",
+                  },
+                  {
+                    "outline outline-2": isSelected,
+                    "outline-dark": isSelected && theme === "dark",
+                    "outline-light": isSelected && theme === "light",
+                  },
                 )}
               >
                 <ProductInfoModal
