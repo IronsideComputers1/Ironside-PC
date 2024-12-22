@@ -91,7 +91,6 @@ const Customizer: FC<Props> = (props) => {
   const scrollToElement = (heading: string) => {
     const element = document?.getElementById(heading);
     if (!element) return;
-    console.log('scrollToElement');
     element.scrollIntoView({ behavior: "smooth" });
   }
 
@@ -566,8 +565,6 @@ const Customizer: FC<Props> = (props) => {
                                               convertCurrency={convertCurrency}
                                               setIncompatibleProdIds={setIncompatibleProdIds}
                                               setIncompatibleCats={setIncompatibleCats}
-                                              scrollToElement={scrollToElement}
-                                              activeTab={activeTab}
                                               setDefaultColors={setDefaultColors}
                                             />
                                           </Block>

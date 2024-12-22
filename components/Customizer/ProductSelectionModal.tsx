@@ -12,6 +12,7 @@ import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import { ProductAmountSelect } from './ProductBlock/ProductAmountSelect'
 import { ProductBody } from './ProductBlock/ProductBody'
 import EmptyProduct from '@components/icons/EmptyProduct'
+import { ModalData } from './types'
 
 interface ColorSelectionData {
   entityId: string;
@@ -33,6 +34,25 @@ interface ColorSelection {
   color: ColorOption;
 }
 
+
+interface ProductSelectionModalProps {
+  setModal: (arg: boolean) => void;
+  modalData: ModalData;
+  selectedIds: { product: string; cat: string }[];
+  onOptionSelections: any;
+  selectedColor: { parent_id: string; productPrice: number; product_name: string; product_id: string }[];
+  colorOpts: ColorOption[];
+  convertCurrency: (value: number) => string;
+  setIncompatibleProducts: (products: Record<string, unknown>) => void;
+  incompatibleProdIds: string[];
+  setIncompatibleProdIds: (ids: string[]) => void;
+  setIncompatibleCats: (categories: string[]) => void;
+  optionSelections: { category_name: string; productPrice: number }[];
+  defaultColors: ColorSelection[];
+  setDefaultColors: (colors: ColorSelection[]) => void;
+  onClose?: () => void;
+}
+
 const ProductSelectionModal = ({
   setModal,
   modalData,
@@ -46,33 +66,14 @@ const ProductSelectionModal = ({
   setIncompatibleProdIds,
   setIncompatibleCats,
   optionSelections,
-  defaultColors: _defaultColors,
+  defaultColors,
   setDefaultColors,
   onClose,
-}: {
-  setModal: any;
-  modalData: any;
-  selectedIds: any;
-  onOptionSelections: any;
-  selectedColor: any;
-  colorOpts: any;
-  convertCurrency: any;
-  setIncompatibleProducts: any;
-  incompatibleProdIds: any;
-  setIncompatibleProdIds: any;
-  setIncompatibleCats: any;
-  optionSelections: any;
-  defaultColors: ColorSelection[];
-  setDefaultColors: any;
-  onClose: any;
-}) => {
+}: ProductSelectionModalProps) => {
   const { displayModal, closeModal } = useUI()
   const [toggle, setToggle] = useState(false)
   const [toggleIndex, setToggleIndex] = useState('')
   const theme = useGetTheme();
-  const defaultColors = _defaultColors.filter((color, index, self) =>
-    index === self.findIndex((c) => c.entityId === color.entityId)
-  )
   let isMerch = false
 
   modalData?.products[1]?.categories?.edges?.forEach((ele: any) => {
@@ -90,7 +91,7 @@ const ProductSelectionModal = ({
     const selectedOption = colorOpts?.find((option: ColorOption) => option.entityId.toString() === selectedValue);
     
     // Handle out of stock
-    if(!selectedOption.variants.edges[0].node.inventory.isInStock) return notify();
+    if(!selectedOption?.variants.edges[0].node.inventory.isInStock) return notify();
 
     // Get category by name
     const category = defaultColors?.find(
@@ -112,7 +113,7 @@ const ProductSelectionModal = ({
     // Handle already has category
     if(category && !!category.categoryName) {
       // Replace old value by new selected value
-      const colorSelection: ColorSelection[] = defaultColors.map((color: ColorSelection) => {
+      const colorSelection = defaultColors.map((color: ColorSelection) => {
         if(color?.categoryName !== category?.categoryName) return color;
         return {
           ...color,
@@ -133,7 +134,7 @@ const ProductSelectionModal = ({
     )
     setToggle(false)
     setModal(false)
-    onClose()
+    if (onClose) onClose()
   };
 
   const renderPrice = (data: any) => {
@@ -276,7 +277,7 @@ const ProductSelectionModal = ({
       data?.prices?.price?.value
     )
     setModal(false)
-    onClose();
+    if (onClose) onClose();
   }
 
   const onSetProduct = (data: any) => {
