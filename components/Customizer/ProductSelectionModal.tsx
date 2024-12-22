@@ -45,11 +45,11 @@ interface ProductSelectionModalProps {
   convertCurrency: (value: number) => string;
   setIncompatibleProducts: (products: Record<string, unknown>) => void;
   incompatibleProdIds: string[];
-  setIncompatibleProdIds: (ids: string[]) => void;
-  setIncompatibleCats: (categories: string[]) => void;
+  setIncompatibleProdIds: any;
+  setIncompatibleCats: any;
   optionSelections: { category_name: string; productPrice: number }[];
   defaultColors: ColorSelection[];
-  setDefaultColors: (colors: ColorSelection[]) => void;
+  setDefaultColors: any;
   onClose?: () => void;
 }
 
