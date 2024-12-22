@@ -29,7 +29,7 @@ export const Block = ({
   const handleClickOutside = (event: MouseEvent) => {
     if (blockRef.current && !blockRef.current.contains(event.target as Node)) {
       console.log('Clicked outside the component');
-      // setIsOpen(false);
+      setIsOpen(false);
     }
   };
 
@@ -104,7 +104,7 @@ export const Block = ({
         {React.Children.map(children, (child) =>
           React.cloneElement(child, { onClose: () => {
             setIsOpen(true);
-            // setIsOpen(false);
+            setIsOpen(false);
           } })
         )}
       </div>}
