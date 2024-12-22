@@ -13,6 +13,26 @@ import { ProductAmountSelect } from './ProductBlock/ProductAmountSelect'
 import { ProductBody } from './ProductBlock/ProductBody'
 import EmptyProduct from '@components/icons/EmptyProduct'
 
+interface ColorSelectionData {
+  entityId: string;
+  categories: { edges: { node: { name: string } }[] };
+  prices: { price: { value: number } };
+}
+
+interface ColorOption {
+  entityId: string;
+  variants: { edges: { node: { inventory: { isInStock: boolean } } }[] };
+  prices: { price: { value: number } };
+  name: string;
+}
+
+interface ColorSelection {
+  entityId: string;
+  categoryName: string;
+  price: number;
+  color: ColorOption;
+}
+
 const ProductSelectionModal = ({
   setModal,
   modalData,
@@ -26,14 +46,33 @@ const ProductSelectionModal = ({
   setIncompatibleProdIds,
   setIncompatibleCats,
   optionSelections,
-  defaultColors,
+  defaultColors: _defaultColors,
   setDefaultColors,
   onClose,
-}: any) => {
+}: {
+  setModal: any;
+  modalData: any;
+  selectedIds: any;
+  onOptionSelections: any;
+  selectedColor: any;
+  colorOpts: any;
+  convertCurrency: any;
+  setIncompatibleProducts: any;
+  incompatibleProdIds: any;
+  setIncompatibleProdIds: any;
+  setIncompatibleCats: any;
+  optionSelections: any;
+  defaultColors: ColorSelection[];
+  setDefaultColors: any;
+  onClose: any;
+}) => {
   const { displayModal, closeModal } = useUI()
   const [toggle, setToggle] = useState(false)
   const [toggleIndex, setToggleIndex] = useState('')
   const theme = useGetTheme();
+  const defaultColors = _defaultColors.filter((color, index, self) =>
+    index === self.findIndex((c) => c.entityId === color.entityId)
+  )
   let isMerch = false
 
   modalData?.products[1]?.categories?.edges?.forEach((ele: any) => {
@@ -43,53 +82,59 @@ const ProductSelectionModal = ({
     toast.error('Insufficient stock')
   }
 
-  const handleColorSelection = (data: any, color: { node: any }) => {
-    let isStockOut = false
-    colorOpts?.forEach((option: any) => {
-      if (option.entityId == color?.node.value.split(',')[2]) {
-        if (!option?.variants.edges[0].node.inventory.isInStock) {
-          isStockOut = true
-          notify()
-          return
-        } else {
-          const colorSelection = [...defaultColors]
-          colorSelection?.forEach((clr: any) => {
-            if (clr?.entityId === data?.entityId) clr['color'] = option
-          })
-          const hasMemoryCategory = colorSelection?.some(
-            (item: any) =>
-              item.categoryName === data?.categories?.edges[0]?.node?.name
-          )
-          if (!hasMemoryCategory) {
-            const temp = {
-              entityId: data?.entityId,
-              categoryName: data?.categories?.edges[0]?.node?.name,
-              price: data?.prices.price.value,
-              color: option,
-            }
-            colorSelection.push(temp)
-            setDefaultColors([...colorSelection])
-          } else {
-            setDefaultColors([...colorSelection])
-          }
-          setIncompatibleProducts({})
-          setIncompatibleProdIds([])
-          setIncompatibleCats([])
-          onOptionSelections(
-            data?.entityId,
-            modalData?.categoryName,
-            option?.prices.price.value,
-            option
-          )
-        }
+  const handleColorSelection = (
+    data: ColorSelectionData, 
+    color: { node: { value: string } },
+  ) => {
+    const selectedValue = color?.node?.value.split(',')[2];
+    const selectedOption = colorOpts?.find((option: ColorOption) => option.entityId.toString() === selectedValue);
+    
+    // Handle out of stock
+    if(!selectedOption.variants.edges[0].node.inventory.isInStock) return notify();
+
+    // Get category by name
+    const category = defaultColors?.find(
+      (color: ColorSelection) =>
+        color.categoryName === data?.categories?.edges[0]?.node?.name
+    );
+    
+    const finalColors = [];
+    // Handle is new category
+    if (typeof category === "undefined" || !category) {
+      const newCategoryWithValue = {
+        entityId: data?.entityId,
+        categoryName: data?.categories?.edges[0]?.node?.name,
+        price: data?.prices.price.value,
+        color: selectedOption,
       }
-    })
-    if (!isStockOut) {
-      setToggle(false)
-      setModal(false)
-      onClose()
+      finalColors.push([...defaultColors, newCategoryWithValue])
     }
-  }
+    // Handle already has category
+    if(category && !!category.categoryName) {
+      // Replace old value by new selected value
+      const colorSelection: ColorSelection[] = defaultColors.map((color: ColorSelection) => {
+        if(color?.categoryName !== category?.categoryName) return color;
+        return {
+          ...color,
+          color: selectedOption,
+        };
+      });
+      finalColors.push([...colorSelection])
+    }
+
+    setIncompatibleProducts({})
+    setIncompatibleProdIds([])
+    setIncompatibleCats([])
+    onOptionSelections(
+      data?.entityId,
+      modalData?.categoryName,
+      selectedOption?.prices.price.value,
+      selectedOption
+    )
+    setToggle(false)
+    setModal(false)
+    onClose()
+  };
 
   const renderPrice = (data: any) => {
     let price = 0
