@@ -65,6 +65,7 @@ const Customizer: FC<Props> = (props) => {
     warranties,
     shippingDays,
   } = OptionSelectionController({ product, categoriesDataFiltered })
+  console.log({optionSelections});
   
   const [basePrice, setBasePrice] = useState<number>(0)
   const [modalData, setModalData] = useState<any>({})
@@ -357,39 +358,41 @@ const Customizer: FC<Props> = (props) => {
     return formattedDate
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (typeof window !== 'undefined') {
-        const element: any = document.querySelector('#scroll-box')
-        if (element) {
-          element.onscroll = function (e: any) {
-            const contentBlocks: any =
-              document.querySelectorAll('.content-item')
-            for (let i = 0; i < contentBlocks?.length; i++) {
-              const block = contentBlocks[i] as HTMLElement
-              const blockTop = block?.offsetTop
-              const blockBottom = blockTop + block?.offsetHeight
-              const currentScrollPosition =
-                element?.scrollTop + contentBlocks[0]?.offsetTop
-              if (
-                currentScrollPosition >= blockTop &&
-                currentScrollPosition < blockBottom
-              ) {
-                setActiveTab(block?.innerHTML)
-                break
-              }
-              if (
-                element.scrollTop + element.clientHeight >=
-                element.scrollHeight
-              ) {
-                setActiveTab(contentBlocks[contentBlocks?.length - 1].innerHTML)
-              }
-            }
-          }
-        }
-      }
-    }, 8000)
-  }, [])
+  // TODO: Check what this does
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (typeof window !== 'undefined') {
+  //       const element: any = document.querySelector('#scroll-box')
+  //       if (element) {
+  //         element.onscroll = function (e: any) {
+  //           const contentBlocks: any =
+  //             document.querySelectorAll('.content-item')
+  //           for (let i = 0; i < contentBlocks?.length; i++) {
+  //             const block = contentBlocks[i] as HTMLElement
+  //             const blockTop = block?.offsetTop
+  //             const blockBottom = blockTop + block?.offsetHeight
+  //             const currentScrollPosition =
+  //               element?.scrollTop + contentBlocks[0]?.offsetTop
+  //             if (
+  //               currentScrollPosition >= blockTop &&
+  //               currentScrollPosition < blockBottom
+  //             ) {
+  //               setActiveTab(block?.innerHTML)
+  //               break
+  //             }
+  //             if (
+  //               element.scrollTop + element.clientHeight >=
+  //               element.scrollHeight
+  //             ) {
+  //               setActiveTab(contentBlocks[contentBlocks?.length - 1].innerHTML)
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }, 8000)
+  // }, [])
+  
   useEffect(() => {
     {
       /* breadPay rendering on pdp page load */
