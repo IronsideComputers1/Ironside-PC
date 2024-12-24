@@ -16,7 +16,6 @@ interface SelectProps {
 }
 
 export const CustomFieldSelect: React.FC<SelectProps> = ({ options, onChange }) => {
-  console.log({options});
   const hasOptions = options.length > 0;
   if (!hasOptions) return null;
   return (

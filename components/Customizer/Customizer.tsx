@@ -91,7 +91,6 @@ const Customizer: FC<Props> = (props) => {
   const scrollToElement = (heading: string) => {
     const element = document?.getElementById(heading);
     if (!element) return;
-    console.log('scrollToElement');
     element.scrollIntoView({ behavior: "smooth" });
   }
 
@@ -358,39 +357,41 @@ const Customizer: FC<Props> = (props) => {
     return formattedDate
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (typeof window !== 'undefined') {
-        const element: any = document.querySelector('#scroll-box')
-        if (element) {
-          element.onscroll = function (e: any) {
-            const contentBlocks: any =
-              document.querySelectorAll('.content-item')
-            for (let i = 0; i < contentBlocks?.length; i++) {
-              const block = contentBlocks[i] as HTMLElement
-              const blockTop = block?.offsetTop
-              const blockBottom = blockTop + block?.offsetHeight
-              const currentScrollPosition =
-                element?.scrollTop + contentBlocks[0]?.offsetTop
-              if (
-                currentScrollPosition >= blockTop &&
-                currentScrollPosition < blockBottom
-              ) {
-                setActiveTab(block?.innerHTML)
-                break
-              }
-              if (
-                element.scrollTop + element.clientHeight >=
-                element.scrollHeight
-              ) {
-                setActiveTab(contentBlocks[contentBlocks?.length - 1].innerHTML)
-              }
-            }
-          }
-        }
-      }
-    }, 8000)
-  }, [])
+  // TODO: Check what this does
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (typeof window !== 'undefined') {
+  //       const element: any = document.querySelector('#scroll-box')
+  //       if (element) {
+  //         element.onscroll = function (e: any) {
+  //           const contentBlocks: any =
+  //             document.querySelectorAll('.content-item')
+  //           for (let i = 0; i < contentBlocks?.length; i++) {
+  //             const block = contentBlocks[i] as HTMLElement
+  //             const blockTop = block?.offsetTop
+  //             const blockBottom = blockTop + block?.offsetHeight
+  //             const currentScrollPosition =
+  //               element?.scrollTop + contentBlocks[0]?.offsetTop
+  //             if (
+  //               currentScrollPosition >= blockTop &&
+  //               currentScrollPosition < blockBottom
+  //             ) {
+  //               setActiveTab(block?.innerHTML)
+  //               break
+  //             }
+  //             if (
+  //               element.scrollTop + element.clientHeight >=
+  //               element.scrollHeight
+  //             ) {
+  //               setActiveTab(contentBlocks[contentBlocks?.length - 1].innerHTML)
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }, 8000)
+  // }, [])
+  
   useEffect(() => {
     {
       /* breadPay rendering on pdp page load */
@@ -566,8 +567,6 @@ const Customizer: FC<Props> = (props) => {
                                               convertCurrency={convertCurrency}
                                               setIncompatibleProdIds={setIncompatibleProdIds}
                                               setIncompatibleCats={setIncompatibleCats}
-                                              scrollToElement={scrollToElement}
-                                              activeTab={activeTab}
                                               setDefaultColors={setDefaultColors}
                                             />
                                           </Block>

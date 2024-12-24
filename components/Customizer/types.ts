@@ -3,68 +3,67 @@ interface Price {
   currencyCode?: string;
 }
 
-interface ImageNode {
-  urlOriginal: string;
-  altText: string;
-  isDefault: boolean;
-}
-
-interface ImageEdge {
-  node: ImageNode;
-}
-
-interface VariantNode {
-  prices: {
-    price: Price;
+interface Image {
+  node: {
+    urlOriginal: string;
+    altText: string;
+    isDefault: boolean;
   };
-  sku: string;
-  inventory: {
-    isInStock: boolean;
+}
+
+interface Variant {
+  node: {
+    prices: {
+      price: Price;
+    };
+    sku: string;
+    inventory: {
+      isInStock: boolean;
+    };
+    options: {
+      edges: any[];
+    };
+    entityId: number;
+    defaultImage: any;
   };
-  options: {
-    edges: any[];
+}
+
+
+interface Category {
+  node: {
+    id: string;
+    name: string;
   };
-  entityId: number;
-  defaultImage: any;
 }
 
-interface VariantEdge {
-  node: VariantNode;
-}
-
-interface CategoryNode {
-  id: string;
-  name: string;
-}
-
-interface CategoryEdge {
-  node: CategoryNode;
+interface CustomField {
+  node: {
+    value: string;
+  };
 }
 
 export interface Product {
-  entityId: number;
+  entityId: string;
   name: string;
-  path: string;
-  brand: string | null;
   description: string;
-  prices: {
-    price: Price;
-    salePrice: Price | null;
-    retailPrice: Price | null;
-  };
   images: {
-    edges: ImageEdge[];
+    edges: Image[]
   };
-  variants: {
-    edges: VariantEdge[];
+  categories: { 
+    edges: Category[] 
   };
-  productOptions: {
-    edges: any[];
-  };
-  categories: {
-    edges: CategoryEdge[];
+  prices: { 
+    price: Price 
   };
   customFields: {
-    edges: any[];
+    edges: CustomField[]
   };
+  variants: {
+    edges: Variant[] 
+  };
+}
+
+export interface ModalData {
+  categoryName: string;
+  products: Product[];
 }
