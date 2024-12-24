@@ -34,12 +34,6 @@ const ProductSelectionModal = ({
   const [toggle, setToggle] = useState(false)
   const [toggleIndex, setToggleIndex] = useState('')
   const theme = useGetTheme();
-  const productInfoImages = (data: any) => {
-    const images = data?.images?.edges.map((image: any) => {
-      return image?.node?.urlOriginal
-    })
-    return images
-  }
   let isMerch = false
 
   modalData?.products[1]?.categories?.edges?.forEach((ele: any) => {
@@ -138,10 +132,9 @@ const ProductSelectionModal = ({
     const finalPrice = price + variantPrice;
     return (
       <p
-        className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-xs"
+        className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2"
         style={{ 
           backgroundColor: theme === "dark" ? '#1c1c1c' : "rgba(0, 0, 0, 0.05)",
-          color: theme === "dark" ? '#fff' : "rgba(0, 0, 0, 0.5)"
         }}>
         {finalPrice?.toString().includes('-')
           ? convertCurrency(finalPrice)
@@ -249,7 +242,7 @@ const ProductSelectionModal = ({
   }
 
   return (
-    <div className="category-popup mt-2">
+    <div className="category-popup mt-1">
       <div className="flex flex-wrap pb-3" style={{ gap: "8px" }}>
         {modalData?.products?.map((data: any, index: number) => {
           const customFields = data?.customFields?.edges;
@@ -258,33 +251,34 @@ const ProductSelectionModal = ({
             : data?.name
           const hasImage = data?.images?.edges.length > 0;
           const hasProduct = data?.customFields?.edges.length === 0 || isMerch;
-          const imageUrl = hasProduct ? data?.images?.edges[0]?.node?.urlOriginal : loadImage(data)
+          const imageUrl = hasProduct ? data?.images?.edges[0]?.node?.urlOriginal : loadImage(data);
+          const isSelected = selectedIds?.some(
+            (product: any) =>
+              product?.product === data?.entityId &&
+              product?.cat === modalData?.categoryName
+          )
           return (
             <div
               key={index}
               className={
-                classNames('w-56',{
+                classNames('w-56', {
                   "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
                 })
               }
             >
               <div
-                className={classNames("border rounded-lg w-56 h-auto flex items-start justify-between p-3 flex-col relative hover:rounded-md",
-                {
-                  "hover:border-black": theme === "light",
-                  "hover:border-secondary": theme === "dark",
-                },
-                selectedIds?.some(
-                  (product: any) =>
-                    product?.product === data?.entityId &&
-                    product?.cat === modalData?.categoryName
-                )
-                  ? `productSelected ${
-                      incompatibleProdIds?.some(
-                        (id: any) => id === data?.entityId
-                      ) && 'incompatible'
-                    }`
-                  : ''
+                className={classNames(
+                  "border-[1px] rounded-2xl w-56 h-auto flex items-start justify-between p-3 flex-col relative overflow-hidden",
+                  "hover:outline hover:outline-2",
+                  {
+                    "border-dark hover:outline-dark": theme === "dark",
+                    "border-light hover:outline-light": theme === "light",
+                  },
+                  {
+                    "outline outline-2": isSelected,
+                    "outline-dark": isSelected && theme === "dark",
+                    "outline-light": isSelected && theme === "light",
+                  },
                 )}
               >
                 <ProductInfoModal
@@ -292,7 +286,7 @@ const ProductSelectionModal = ({
                   onClose={closeModal}
                   heading={data?.name}
                   text={data?.description}
-                  button={<Info height={18} width={18} className="fill-current text-basicDark" />}
+                  button={<Info height={18} width={18} className="fill-current text-icon-gray" />}
                   dataImages={data?.images?.edges}
                   stock={data?.variants?.edges[0]?.node?.inventory?.isInStock}
                 />
@@ -314,7 +308,7 @@ const ProductSelectionModal = ({
                 </div>
                 <div className="flex flex-direction justify-space w-full">
                   {/* TITLE */}
-                  <span className='mt-3 py-2'>
+                  <span className='mt-3 py-2 px-1.5 font-Arimo text-[13px]'>
                     <div
                       onClick={() => {
                         if(customFields.length > 0 && !isMerch) return null;
@@ -324,7 +318,7 @@ const ProductSelectionModal = ({
                       {dataName}
                     </div>
                   </span>
-                  <div className='h-8 flex item s-center justify-between mt-6'>
+                  <div className='h-8 flex item s-center justify-between mt-4'>
                     <ProductBody
                       data={data}
                       renderColorPrice={renderColorPrice}

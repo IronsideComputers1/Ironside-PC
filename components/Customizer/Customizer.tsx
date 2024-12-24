@@ -33,6 +33,7 @@ import { ShadowFocus } from './ShadowFocus'
 import { VideoBG } from './Video-BG'
 import CustomizerButton from './CustomizerButton'
 import { SaveBuildButton } from './SaveBuildButton'
+import { FixedBottomBar } from './FixedBottomBar'
 
 interface Props {
   className?: string
@@ -316,13 +317,7 @@ const Customizer: FC<Props> = (props) => {
       if (cat?.category_name === 'Warranty') return cat
     })
     const warranty = warranties(selectedWarranty[0]?.product_name)
-    if (selectedWarranty[0]?.product_name && warranty?.length)
-      return (
-        <div>
-          <label>Warranty</label>
-          <span className="customizer-total-price">{warranty}</span>
-        </div>
-      )
+    if (selectedWarranty[0]?.product_name && warranty?.length) return warranty
   }
 
   const renderColorName = (prod: any) => {
@@ -496,13 +491,13 @@ const Customizer: FC<Props> = (props) => {
               maxHeight: "85vh",
             }}
           >
-            <div className="components flex items-center justify-center w-4/5 xxl:w-3/4">
+            <div className="components flex items-center justify-center w-4/5 xxl:w-5/6">
               <div
                 id='scroll-box'
                 className="default-options overflow-y-auto overflow-x-hidden px-0 pr-10" 
               >
                 <div className="customizerProductGrid">
-                  <div className="head flex justify-center items-center flex-col">
+                  <div className="flex justify-center items-center flex-col">
                     <div className='flex justify-center items-center mb-5'>
                       {productDescription[0]?.trim() === "Eden's Veil Platinum" ? ( 
                         <Image
@@ -522,11 +517,19 @@ const Customizer: FC<Props> = (props) => {
                       <>
                         <h2
                           id={categories?.categoryName}
-                          className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark"
+                          className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark mt-20"
                         >
                           {categories?.categoryName}
                         </h2>
-                        <div className="grid-view flex flex-wrap border rounded-lg px-11 py-2.5 w-full last:mb-36">
+                        <div
+                          className={classNames(
+                            "grid-view flex flex-wrap border-[1px] rounded-lg pl-7 py-2.5 w-full last:mb-36",
+                            {
+                              "border-dark": theme === "dark",
+                              "border-light": theme === "light",
+                            }
+                          )}
+                          >
                           {categories?.subCategory?.map(
                             (subs: any, index: number) => (
                               <>
@@ -569,7 +572,7 @@ const Customizer: FC<Props> = (props) => {
                                             />
                                           </Block>
                                           {index !== categories?.subCategory?.length - 1 && (
-                                            <Separator theme={theme} />
+                                            <Separator className="w-[96.5%]" theme={theme} />
                                           )}
                                         </div>
                                       )
@@ -595,29 +598,12 @@ const Customizer: FC<Props> = (props) => {
                 />
               )}
             </div>
-
             
-            <div
-              className="flex items-start fixed right-0.5 bottom-0 py-6 pl-5 pr-8 border-top text-center gap-10 xxl:justify-end lg:justify-center xxl:left-[60%] left-[55%]"
-              style={{ 
-                backdropFilter: "blur(10px)",
-              }}
+            <FixedBottomBar
+              warranty={getWarranty()}
+              shippingDate={getShippingDate()}
+              totalPrice={convertCurrency(totalPrice)}
             >
-              {getWarranty()}
-              <div>
-                <label>Ships by</label>
-                <span className="customizer-total-price">
-                  {getShippingDate()}
-                </span>
-              </div>
-              <div>
-                <label>Total</label>
-                {/* DemoID to render breadPay placement */}
-                <span className="customizer-total-price">
-                  {convertCurrency(totalPrice)}
-                </span>
-                <div id="bread-checkout-btn" />
-              </div>
               <div className='flex items-center justify-between gap-2'>
                 <CustomizerButton
                   isIncompatible={Object.keys(incompatibleProducts).length > 0}
@@ -638,7 +624,7 @@ const Customizer: FC<Props> = (props) => {
                   }}
                 />
               </div>
-            </div>
+            </FixedBottomBar>
           </div>
         </div>
       </div>
