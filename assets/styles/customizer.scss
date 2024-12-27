@@ -312,49 +312,49 @@ button.add-to-cart {
   font-weight: 700;
 }
 
-.colorPattelListSelect {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 14px;
-  border-radius: 4px;
-  background-color: var(--primary);
+// .colorPattelListSelect {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   padding: 14px;
+//   border-radius: 4px;
+//   background-color: var(--primary);
 
-  svg {
-    fill: var(--secondary);
-    cursor: pointer;
-    margin-bottom: 14px;
-  }
+//   svg {
+//     fill: var(--secondary);
+//     cursor: pointer;
+//     margin-bottom: 14px;
+//   }
 
-  li {
-    padding: 5px 0 5px 5px;
+//   li {
+//     padding: 5px 0 5px 5px;
 
-    &:hover {
-      background-color: var(--bg-color);
-      cursor: pointer;
-    }
-  }
+//     &:hover {
+//       background-color: var(--bg-color);
+//       cursor: pointer;
+//     }
+//   }
 
-  p {
-    font-size: 14px;
-    font-weight: 700;
+//   p {
+//     font-size: 14px;
+//     font-weight: 700;
 
-    span {
-      white-space: nowrap;
-      font-weight: 400;
-    }
-  }
-}
+//     span {
+//       white-space: nowrap;
+//       font-weight: 400;
+//     }
+//   }
+// }
 
-.colorPattelListBg {
-  width: 9px;
-  height: 9px;
-  border-radius: 100%;
-  display: inline-block;
-  margin-right: 6px;
-}
+// .colorPattelListBg {
+//   width: 9px;
+//   height: 9px;
+//   border-radius: 100%;
+//   display: inline-block;
+//   margin-right: 6px;
+// }
 
 .multiColorOption {
   width: 106px;

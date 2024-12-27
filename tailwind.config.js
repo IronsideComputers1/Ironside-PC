@@ -30,6 +30,8 @@ module.exports = {
         'accents-7': 'var(--accents-7)',
         'accents-8': 'var(--accents-8)',
         'accents-9': 'var(--accents-9)',
+        'accents-12': 'var(--accents-12)',
+        'accents-23': 'var(--accents-23)',
         violet: 'var(--violet)',
         'violet-light': 'var(--violet-light)',
         pink: 'var(--pink)',

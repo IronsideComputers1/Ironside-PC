@@ -12,20 +12,7 @@ import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import { ProductAmountSelect } from './ProductBlock/ProductAmountSelect'
 import { ProductBody } from './ProductBlock/ProductBody'
 import EmptyProduct from '@components/icons/EmptyProduct'
-import { ModalData } from './types'
-
-interface ColorSelectionData {
-  entityId: string;
-  categories: { edges: { node: { name: string } }[] };
-  prices: { price: { value: number } };
-}
-
-interface ColorOption {
-  entityId: string;
-  variants: { edges: { node: { inventory: { isInStock: boolean } } }[] };
-  prices: { price: { value: number } };
-  name: string;
-}
+import { ColorOption, ModalData, Product, SelectedOption } from './types'
 
 interface ColorSelection {
   entityId: string;
@@ -40,7 +27,7 @@ interface ProductSelectionModalProps {
   modalData: ModalData;
   selectedIds: { product: string; cat: string }[];
   onOptionSelections: any;
-  selectedColor: { parent_id: string; productPrice: number; product_name: string; product_id: string }[];
+  selectedColor: SelectedOption[];
   colorOpts: ColorOption[];
   convertCurrency: (value: number) => string;
   setIncompatibleProducts: (products: Record<string, unknown>) => void;
@@ -84,7 +71,7 @@ const ProductSelectionModal = ({
   }
 
   const handleColorSelection = (
-    data: ColorSelectionData, 
+    data: Product, 
     color: { node: { value: string } },
   ) => {
     const selectedValue = color?.node?.value.split(',')[2];
@@ -178,7 +165,7 @@ const ProductSelectionModal = ({
     const finalPrice = price + variantPrice;
     return (
       <p
-        className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2"
+        className="font-bold w-auto h-7 py-0.5 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2 m-0"
         style={{ 
           backgroundColor: theme === "dark" ? '#1c1c1c' : "rgba(0, 0, 0, 0.05)",
         }}>
@@ -209,11 +196,11 @@ const ProductSelectionModal = ({
     })
     const finalPrice = price + optionAmout
     if (finalPrice?.toString().includes('-')) {
-      if (price === undefined) return
-      return <span> {convertCurrency(finalPrice)}</span>
+      if (price === undefined) return null
+      return <> {convertCurrency(finalPrice)}</>
     } else {
-      if (price === undefined) return
-      return <span> +{convertCurrency(finalPrice)}</span>
+      if (price === undefined) return null
+      return <> +{convertCurrency(finalPrice)}</>
     }
   }
 
@@ -379,6 +366,7 @@ const ProductSelectionModal = ({
                       handleColorSelection={handleColorSelection}
                       colorOpts={colorOpts}
                       isMerch={isMerch}
+                      selectedOptions={selectedColor}
                     />
                     <ProductAmountSelect
                       data={data}

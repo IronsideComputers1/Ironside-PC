@@ -1,20 +1,22 @@
-import { Cross } from '@components/icons'
+import classNames from 'classnames'
 import React from 'react'
+import { ColorOption, CustomFieldEdge, Product, SelectedOption } from '../types';
 
-type ProductBodyProps = {
-  data: any
-  isMerch: boolean
-  toggle: boolean
-  setToggle: (toggle: boolean) => void
-  handleColorSelection: (data: any, color: any) => void
-  colorOpts: any
-  renderPrice: (data: any) => any
-  renderColorPrice: (data: any, color: any) => any
-  selectedIds: any
-  modalData: any
-  isCurrentIndex: boolean
-  convertCurrency: (price: number) => string
-  customFields: any
+interface ProductBodyProps {
+  data: Product;
+  isMerch: boolean;
+  toggle: boolean;
+  setToggle: (toggle: boolean) => void;
+  handleColorSelection: (data: Product, color: { node: { value: string } }) => void;
+  colorOpts: ColorOption[];
+  renderPrice: (data: Product) => JSX.Element;
+  renderColorPrice: (data: Product, color: Product) => React.ReactNode;
+  selectedIds: { product: string; cat: string; }[];
+  modalData: any;
+  isCurrentIndex: boolean;
+  convertCurrency: (price: number) => string;
+  customFields: CustomFieldEdge[];
+  selectedOptions?: SelectedOption[];
 }
 
 export const ProductBody = ({
@@ -31,57 +33,65 @@ export const ProductBody = ({
   modalData,
   convertCurrency,
   customFields,
+  selectedOptions,
 }: ProductBodyProps) => {
   if(customFields && customFields.length < 2 && !isMerch) {
     return (
       <div className="flex w-full justify-end">
-        {!selectedIds?.some(
-          (product: any) =>
-            product?.product === data?.entityId &&
-            product?.cat === modalData?.categoryName
+        {!selectedIds?.some((product: any) =>
+          product?.product === data?.entityId &&
+          product?.cat === modalData?.categoryName
         ) && renderPrice(data)}
-      </div>
-    )
+      </div>)
   }
+  
+  const selectedOption = selectedOptions?.find(
+    (product: any) =>
+      product?.parent_id === data?.entityId 
+  );
   return (
     <>
       {toggle && isCurrentIndex && (
-        <div className="colorPattelListSelect">
-          <span
-            className="flex justify-end"
-            onClick={() => setToggle(false)}
-          >
-            <Cross />
-          </span>
-          <ul className="list-none">
+        <div className="top-0 inset-0 bg-white absolute">
+          <ul className="list-none flex flex-col gap-0.5">
             {customFields?.map(
-              (color: any, index: number) => (
-                <li key={index}>
-                  <p
-                    className="mb-0"
+              (field: any, index: number) => {
+                const name = field?.node?.value?.split(',')[0];
+                const fieldId = field?.node?.value?.split(',')[2];
+                const isSelected = selectedOption?.product_id?.toString() === fieldId;
+                return (
+                  <li
+                    key={`${index}-${name}`} 
+                    className={classNames(
+                      "mb-0 bg-accents-12 h-10 flex items-center justify-between pl-5 pr-2 cursor-pointer rounded-3xl hover:bg-accents-23 font-Arimo text-xs",
+                      {
+                        "bg-accents-12": !isSelected,
+                        "bg-accents-23": isSelected,
+                      }
+                    )}
                     onClick={() => {
-                      handleColorSelection(data, color)
+                      handleColorSelection(data, field)
                     }}
                   >
-                    <span
-                      className="colorPattelListBg"
-                      style={{
-                        backgroundColor:
-                          color?.node?.value?.split(',')[1],
-                      }}
-                    />
-                    {color?.node?.value?.split(',')[0]}
-                    {colorOpts?.map((options: any) => {
-                      if (
-                        color?.node?.value?.split(',')[2] ==
-                        options?.entityId
-                      ) {
-                        return renderColorPrice(options, data)
-                      }
-                    })}
-                  </p>
-                </li>
-              )
+                    <span>{name}</span>
+                    <span>
+                      {colorOpts?.map((option: any) => {
+                        if (fieldId !== option?.entityId.toString()) return null;    
+                        const price = renderColorPrice(option, data);
+                        if (!price) return null;
+                        return (
+                          <span
+                            key={option?.entityId}
+                            className="min-w-[60px] cursor-pointer font-bold w-auto h-7 py-0.5 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2 m-0 bg-accents-12"
+                          >
+                            {price}
+                          </span>
+                        )
+                      })}
+                    </span>
+                  </li>
+                )
+              }
             )}
           </ul>
         </div>
