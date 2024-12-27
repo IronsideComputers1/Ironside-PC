@@ -53,6 +53,8 @@
   --accents-21: #686868;
   --accents-22: (255, 255, 255, 0.5);
   --accents-23: rgba(0, 0, 0, 0.22);
+  --accents-24: rgba(16, 16, 16, 1);
+  --accents-25: rgba(255, 255, 255, 0.22);
   --error: #FFB1B1;
   --error-bg: rgba(255, 0, 0, 0.20);
   --bg-color: #F0F0F0;

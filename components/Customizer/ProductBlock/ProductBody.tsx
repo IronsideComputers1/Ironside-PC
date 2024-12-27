@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 import { ColorOption, CustomFieldEdge, Product, SelectedOption } from '../types';
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode';
 
 interface ProductBodyProps {
   data: Product;
@@ -35,6 +36,8 @@ export const ProductBody = ({
   customFields,
   selectedOptions,
 }: ProductBodyProps) => {
+    const theme = useGetTheme();
+  
   if(customFields && customFields.length < 2 && !isMerch) {
     return (
       <div className="flex w-full justify-end">
@@ -52,7 +55,13 @@ export const ProductBody = ({
   return (
     <>
       {toggle && isCurrentIndex && (
-        <div className="top-0 inset-0 bg-white absolute">
+        <div
+          className={classNames("top-0 inset-0 absolute",
+            {
+              "bg-white": theme === 'light',
+              "bg-accents-24": theme === 'dark'
+            }
+        )}>
           <ul className="list-none flex flex-col gap-0.5">
             {customFields?.map(
               (field: any, index: number) => {
@@ -63,10 +72,13 @@ export const ProductBody = ({
                   <li
                     key={`${index}-${name}`} 
                     className={classNames(
-                      "mb-0 bg-accents-12 h-10 flex items-center justify-between pl-5 pr-2 cursor-pointer rounded-3xl hover:bg-accents-23 font-Arimo text-xs",
+                      "mb-0 bg-accents-12 h-10 flex items-center justify-between pl-5 pr-2 cursor-pointer rounded-3xl font-Arimo text-xs",
                       {
                         "bg-accents-12": !isSelected,
-                        "bg-accents-23": isSelected,
+                        "bg-accents-23": isSelected && theme === 'light',
+                        "bg-accents-25": isSelected && theme === 'dark',
+                        "hover:bg-accents-23" : theme === 'light',
+                        "hover:bg-accents-25" : theme === 'dark',
                       }
                     )}
                     onClick={() => {
