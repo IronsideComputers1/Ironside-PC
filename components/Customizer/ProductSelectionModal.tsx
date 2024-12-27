@@ -351,7 +351,7 @@ const ProductSelectionModal = ({
                       {dataName}
                     </div>
                   </span>
-                  <div className='h-8 flex item s-center justify-between mt-4'>
+                  <div className='h-8 gap-2 flex item s-center justify-between mt-4'>
                     <ProductBody
                       data={data}
                       renderColorPrice={renderColorPrice}

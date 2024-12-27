@@ -56,13 +56,13 @@ export const ProductBody = ({
     <>
       {toggle && isCurrentIndex && (
         <div
-          className={classNames("top-0 inset-0 absolute",
+          className={classNames("flex justify-center items-center top-0 inset-0 absolute py-1 px-2",
             {
               "bg-white": theme === 'light',
               "bg-accents-24": theme === 'dark'
             }
         )}>
-          <ul className="list-none flex flex-col gap-0.5">
+          <ul className="list-none flex flex-col gap-0.5 justify-start h-auto w-full self-start">
             {customFields?.map(
               (field: any, index: number) => {
                 const name = field?.node?.value?.split(',')[0];
@@ -72,7 +72,7 @@ export const ProductBody = ({
                   <li
                     key={`${index}-${name}`} 
                     className={classNames(
-                      "mb-0 bg-accents-12 h-10 flex items-center justify-between pl-5 pr-2 cursor-pointer rounded-3xl font-Arimo text-xs",
+                      "mb-0 bg-accents-12 h-9 flex items-center justify-between pl-5 pr-2 cursor-pointer rounded-3xl font-Arimo text-xs",
                       {
                         "bg-accents-12": !isSelected,
                         "bg-accents-23": isSelected && theme === 'light',
@@ -94,7 +94,7 @@ export const ProductBody = ({
                         return (
                           <span
                             key={option?.entityId}
-                            className="min-w-[60px] cursor-pointer font-bold w-auto h-7 py-0.5 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2 m-0 bg-accents-12"
+                            className="min-w-[60px] cursor-pointer font-bold w-auto h-6 py-0.5 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2 m-0 bg-accents-12"
                           >
                             {price}
                           </span>

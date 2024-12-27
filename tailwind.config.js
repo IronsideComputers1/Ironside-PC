@@ -11,6 +11,9 @@ module.exports = {
       maxWidth: {
         '8xl': '1920px',
       },
+      width: {
+        "available": "-webkit-fill-available"
+      },
       colors: {
         primary: 'var(--primary)',
         'button-color': 'var(--button-color)',
