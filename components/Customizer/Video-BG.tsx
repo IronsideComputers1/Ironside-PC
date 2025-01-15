@@ -1,13 +1,12 @@
 import { Video } from '@components/ui/Video/Video'
 import { ShadowFocus } from './ShadowFocus'
 
-export const VideoBG = () => {
+export const VideoBG = (props: { src: string }) => {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* BG Video for eden'sveil */}
       <Video
         className="max-w-none object-left h-screen w-screen object-contain"
-        src="/Edens.mp4"
+        src={props.src}
         controls={false}
         loop
         muted
