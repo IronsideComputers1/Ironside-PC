@@ -6,11 +6,9 @@ import { ToastContainer, Flip, toast } from 'react-toastify'
 import { Portal } from '@reach/portal'
 import useAddItem from '@framework/cart/use-add-item'
 import type { ProductNode } from '@framework/api/operations/get-product'
-import { Button } from '@components/ui'
 import SaveBuildModal from '@components/ui/SaveBuildModal/SaveBuildModal'
 import SaveMyBuild from './SaveMyBuild'
 import axios from 'axios'
-import WrongPassword from '@components/icons/WrongPassword'
 import usePrice from '@commerce/use-price'
 import useCart from '@framework/cart/use-cart'
 import useRemoveItem from '@framework/cart/use-remove-item'
@@ -21,15 +19,11 @@ import { Error404 } from './Error404'
 import { Block } from './Block'
 import { ProductLeft } from './ProductLeft'
 import { getCurrentVariant } from '../product/helpers'
-import { ItemBody } from '@framework/api/wishlist'
 import ProductSelectionModal from './ProductSelectionModal'
-import { Floppy } from '@components/icons'
 import { Scroller } from './Scroller'
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import classNames from 'classnames'
 import { Separator } from './Separator'
-import { Video } from '@components/ui/Video/Video'
-import { ShadowFocus } from './ShadowFocus'
 import { VideoBG } from './Video-BG'
 import CustomizerButton from './CustomizerButton'
 import { SaveBuildButton } from './SaveBuildButton'
@@ -95,6 +89,11 @@ const Customizer: FC<Props> = (props) => {
     element.scrollIntoView({ behavior: "smooth" });
   }
 
+  const logoDarkImage = product?.customFields?.edges?.find(({ node }: { node: any }) => node.name.includes("dark logo"));
+  const logoLightImage = product?.customFields?.edges?.find(({ node }: { node: any }) => node.name.includes("light logo"));
+  const bgVideo = product?.customFields?.edges?.find(({ node }: { node: any }) => node.name.includes("bg video"));
+  const hasLogoImage = !!(logoDarkImage || logoLightImage);
+
   // @ts-ignore next-line
   const variant =
     getCurrentVariant(product, {
@@ -119,7 +118,7 @@ const Customizer: FC<Props> = (props) => {
   //         node: { urlOriginal: item.url_standard, altText: product?.name },
   //       }))
   //     : null
-
+  
   useEffect(() => {
     setBasePrice(product?.variants?.edges[0]?.node?.prices?.price?.value)
     let products: any = []
@@ -473,7 +472,7 @@ const Customizer: FC<Props> = (props) => {
           ],
         }}
       />
-      {productDescription[0]?.trim() === "Eden's Veil Platinum" && <VideoBG />}
+      {!!bgVideo && <VideoBG src={bgVideo.node.value} />}
       <div className="customizer">
         <div
           className="customizer-product grid grid-cols-2"
@@ -501,9 +500,9 @@ const Customizer: FC<Props> = (props) => {
                 <div className="customizerProductGrid">
                   <div className="flex justify-center items-center flex-col">
                     <div className='flex justify-center items-center mb-5'>
-                      {productDescription[0]?.trim() === "Eden's Veil Platinum" ? ( 
+                      {hasLogoImage ? ( 
                         <Image
-                          src={theme === 'dark' ? '/EdensVeilLogoDark.png' : '/EdensVeilLogoWhite.png'}
+                          src={theme === 'dark' ? logoDarkImage.node.value : '/EdensVeilLogoWhite.png'}
                           alt={productDescription[0]?.trim()}
                           width={300}
                           height={50}
