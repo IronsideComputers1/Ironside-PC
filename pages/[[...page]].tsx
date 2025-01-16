@@ -22,6 +22,12 @@ export async function getStaticProps({
       })
       .toPromise()) || null
 
+  if (!page) {
+    return {
+      notFound: true, 
+    }
+  }
+
   return {
     props: {
       page,
@@ -40,8 +46,14 @@ export async function getStaticPaths() {
     omit: 'data.blocks',
   })
 
+  // FIXME: Investigate why /abd-test-2 is failling
+  const paths = pages.map((page) => {
+    if(page.data?.url === "/abd-test-2") return null;
+    return page.data?.url;
+  }).filter(Boolean);
+
   return {
-    paths: pages.map((page) => `${page.data?.url}`),
+    paths,
     fallback: true,
   }
 }
