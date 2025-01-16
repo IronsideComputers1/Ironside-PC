@@ -275,6 +275,25 @@ export default function Slug({
               categoryName: cat?.categoryName,
               subCategories: sortedSubCats,
             })
+            filteredSubCategories?.forEach((cat: any) => { 
+              // remove duplicate products assigned to different cats
+              const uniqueArray = cat?.subCategories?.reduce(
+                (acc: any[], current: any) => {
+                  if (
+                    !acc.some(
+                      (item: any) =>
+                        item.products.entityId === current.products.entityId &&
+                        item.categoryName === current.categoryName
+                    )
+                  ) {
+                    acc.push(current)
+                  }
+                  return acc
+                },
+                []
+              )
+              cat.subCategories = uniqueArray
+            })
           })
           setProductDetail(productCats)
           groupProductsByCategory(filteredSubCategories)
