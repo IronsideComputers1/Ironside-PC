@@ -477,13 +477,11 @@ const Customizer: FC<Props> = (props) => {
           className="customizer-product grid grid-cols-2"
           data-lenis-prevent
         >
-          <div className='flex items-center justify-center'>
-            <ProductLeft
-              products={product.images?.edges}
-              modalImage={modalImage}
-              currentProduct={productDescription[0]?.trim()}
-            />
-          </div>
+          <ProductLeft
+            products={product.images?.edges}
+            modalImage={modalImage}
+            currentProduct={productDescription[0]?.trim()}
+          />
 
           <div 
             className="customizer-product-content mr-13 w-full relative overflow-y-scroll flex justify-end items-start"

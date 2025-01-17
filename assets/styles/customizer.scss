@@ -51,15 +51,15 @@
       width: 41.406vw;
       padding-left: 8.125vw;
 
-      @include xl {
-        width: 795px;
-        padding-left: 156px;
-      }
+      // @include xl {
+      //   width: 795px;
+      //   padding-left: 156px;
+      // }
 
-      @include tablet-small {
-        width: 100%;
-        padding-left: 0;
-      }
+      // @include tablet-small {
+      //   width: 100%;
+      //   padding-left: 0;
+      // }
 
       .slick-dots {
         bottom: -50px;
@@ -70,8 +70,9 @@
       padding: 0 0 20px;
 
       > div {
-        width: 29vw;
-        height: 36vw;
+        // width: 29vw;
+        // width: auto;
+        // height: 36vw;
         @include display-flex(flex);
         @include align-center(center);
         @include justify-content(center);
