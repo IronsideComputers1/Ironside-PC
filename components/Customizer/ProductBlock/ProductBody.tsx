@@ -56,55 +56,57 @@ export const ProductBody = ({
     <>
       {toggle && isCurrentIndex && (
         <div
-          className={classNames("flex justify-center items-center top-0 inset-0 absolute py-1 px-2",
+          className={classNames(
+            "flex h-auto w-[291px] top-[256px] z-20 justify-center items-center absolute py-5 px-4",
+            "shadow-[4px_6px_0px_0px_rgba(0,0,0,0.5)] backdrop-blur-[27px]",
+            "border border-solid border-[rgba(255,255,255,0.2)] rounded-lg",
             {
               "bg-white": theme === 'light',
               "bg-accents-24": theme === 'dark'
             }
-        )}>
+          )}
+        >
           <ul className="list-none flex flex-col gap-0.5 justify-start h-auto w-full self-start">
-            {customFields?.map(
-              (field: any, index: number) => {
-                const name = field?.node?.value?.split(',')[0];
-                const fieldId = field?.node?.value?.split(',')[2];
-                const isSelected = selectedOption?.product_id?.toString() === fieldId;
-                return (
-                  <li
-                    key={`${index}-${name}`} 
-                    className={classNames(
-                      "mb-0 bg-accents-12 h-9 flex items-center justify-between pl-5 pr-2 cursor-pointer rounded-3xl font-Arimo text-xs",
-                      {
-                        "bg-accents-12": !isSelected,
-                        "bg-accents-23": isSelected && theme === 'light',
-                        "bg-accents-25": isSelected && theme === 'dark',
-                        "hover:bg-accents-23" : theme === 'light',
-                        "hover:bg-accents-25" : theme === 'dark',
-                      }
-                    )}
-                    onClick={() => {
-                      handleColorSelection(data, field)
-                    }}
-                  >
-                    <span>{name}</span>
-                    <span>
-                      {colorOpts?.map((option: any) => {
-                        if (fieldId !== option?.entityId.toString()) return null;    
-                        const price = renderColorPrice(option, data);
-                        if (!price) return null;
-                        return (
-                          <span
-                            key={option?.entityId}
-                            className="min-w-[60px] cursor-pointer font-bold w-auto h-6 py-0.5 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2 m-0 bg-accents-12"
-                          >
-                            {price}
-                          </span>
-                        )
-                      })}
-                    </span>
-                  </li>
-                )
+            {customFields?.map((field: any, index: number) => {
+              const name = field?.node?.value?.split(',')[0];
+              const fieldId = field?.node?.value?.split(',')[2];
+              const isSelected = selectedOption?.product_id?.toString() === fieldId;
+              return (
+          <li
+            key={`${index}-${name}`}
+            className={classNames(
+              "mb-0 h-9 flex items-center justify-between pl-5 pr-2 cursor-pointer rounded-3xl font-Arimo text-xs",
+              {
+                "bg-accents-12": !isSelected,
+                "bg-accents-23": isSelected && theme === 'light',
+                "bg-accents-25": isSelected && theme === 'dark',
+                "hover:bg-accents-23": theme === 'light',
+                "hover:bg-accents-25": theme === 'dark',
               }
             )}
+            onClick={() => {
+              handleColorSelection(data, field);
+            }}
+          >
+            <span>{name}</span>
+            <span>
+              {colorOpts?.map((option: any) => {
+                if (fieldId !== option?.entityId.toString()) return null;
+                const price = renderColorPrice(option, data);
+                if (!price) return null;
+                return (
+            <span
+              key={option?.entityId}
+              className="min-w-[60px] cursor-pointer font-bold w-auto h-6 py-0.5 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2 m-0 bg-accents-12"
+            >
+              {price}
+            </span>
+                );
+              })}
+            </span>
+          </li>
+              );
+            })}
           </ul>
         </div>
       )}

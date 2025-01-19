@@ -294,14 +294,14 @@ const ProductSelectionModal = ({
             <div
               key={index}
               className={
-                classNames('w-56', {
+                classNames('w-56 relative', {
                   "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
                 })
               }
             >
               <div
                 className={classNames(
-                  "border-[1px] rounded-2xl w-56 h-auto flex items-start justify-between p-3 flex-col relative overflow-hidden",
+                  "border-[1px] rounded-2xl w-56 h-auto flex items-start justify-between p-3 flex-col relative overflow-visible",
                   "hover:outline hover:outline-2",
                   {
                     "border-dark hover:outline-dark": theme === "dark",
