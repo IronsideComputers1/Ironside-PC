@@ -7,7 +7,7 @@ import { Video } from '@components/ui/Video/Video'
 type Props = {
   products?: any
   modalImage: any
-  currentProduct?: string 
+  currentProduct?: string
 }
 
 export const ProductLeft = ({ products, modalImage, currentProduct }: Props) => {
@@ -16,9 +16,10 @@ export const ProductLeft = ({ products, modalImage, currentProduct }: Props) => 
     <div className='flex items-center justify-center pb-8 xxl:pb-0 4-xl:items-end 4-xl:justify-end'>
       {products?.map((img: any, idx: number) => {
         // We have a video for "Eden's Veil Platinum"
+        // TODO: Check from custom fields insted of product name
         if(currentProduct === "Eden's Veil Platinum") return null;
         return (
-          <div key={idx}>
+          <div key={idx} className='md:hidden'>
             <div
               className="bg-img"
               style={{
@@ -28,7 +29,7 @@ export const ProductLeft = ({ products, modalImage, currentProduct }: Props) => 
           </div>
         );
       })}
-      <div className='w-[29vw] h-[72h] ml-20 xxl:w-[28vw] xxl:mt-4 xxl:ml-32 4-xl:w-[31.5vw]'>
+      <div className='w-[65vw] h-[72h] sm:w-[29vw] md:ml-20 xxl:w-[28vw] xxl:mt-4 xxl:ml-32 4-xl:w-[31.5vw]'>
         <Image
           objectFit="fill"
           priority={true}

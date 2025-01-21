@@ -4,7 +4,7 @@
   &-prod-modal {
     padding: 0;
     overflow: hidden;
-    
+
     .modal-content {
       height: 532px;
     }
@@ -39,13 +39,13 @@
 
   &-product {
 
-    @include tablet-small {
-      padding: 0 40px;
-    }
+    // @include tablet-small {
+    //   padding: 0 40px;
+    // }
 
-    @include mobile {
-      padding: 0 20px;
-    }
+    // @include mobile {
+    //   padding: 0 20px;
+    // }
 
     &-left {
       width: 41.406vw;
