@@ -3,7 +3,7 @@ import { ShadowFocus } from './ShadowFocus'
 
 export const VideoBG = (props: { src: string }) => {
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 top-[-112px] overflow-hidden">
       <Video
         className="max-w-none object-cover object-[position:-65px_-28px] w-screen h-[60vh] md:w-[102vw] md:h-[116vh] md:object-cover md:object-[position:-36px_-100px]"
         src={props.src}
