@@ -472,7 +472,7 @@ const Customizer: FC<Props> = (props) => {
         }}
       />
       {!!bgVideo && <VideoBG src={bgVideo.node.value} />}
-      <div className="customizer p-0 w-[102%] md:w-full">
+      <div className="customizer p-0">
         <div
           className="customizer-product h-screen md:h-auto grid grid-cols-1 md:grid-cols-2"
           data-lenis-prevent
@@ -484,10 +484,7 @@ const Customizer: FC<Props> = (props) => {
           />
 
           <div
-            className="customizer-product-content mr-0 md:mr-13 w-full relative overflow-visible md:overflow-y-scroll flex justify-end items-start"
-            style={{
-              maxHeight: "85vh",
-            }}
+            className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-4 pb-36 md:pb-0 md:px-0 md:max-h-[85vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
           >
             <div className="components flex items-center justify-center w-full md:w-4/5 xxl:w-5/6">
               <div
