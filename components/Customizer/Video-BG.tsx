@@ -5,18 +5,12 @@ export const VideoBG = (props: { src: string }) => {
   return (
     <div className="absolute inset-0 overflow-hidden">
       <Video
-        className="max-w-none object-left h-screen w-screen object-contain"
+        className="max-w-none object-cover object-[position:-65px_-28px] w-screen h-[60vh] md:w-[102vw] md:h-[116vh] md:object-cover md:object-[position:-36px_-100px]"
         src={props.src}
         controls={false}
         loop
         muted
         preload="auto"
-        style={{
-          width: "102vw",
-          height: "116vh",
-          objectFit: "cover",
-          objectPosition: "-36px -100px"
-        }}
       />
       <div className='hidden md:block'>
         {/* Shadow BG on ProductLeft */}
