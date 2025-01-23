@@ -484,7 +484,7 @@ const Customizer: FC<Props> = (props) => {
           />
 
           <div
-            className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-4 pb-36 md:pb-0 md:px-0 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
+            className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-4 pb-36 pt-8 md:pt-0 md:pb-0 md:px-0 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
           >
             <div className="components flex items-center justify-center w-full md:w-4/5 xxl:w-5/6">
               <div

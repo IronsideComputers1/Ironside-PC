@@ -12,7 +12,7 @@ const MobileMenu = ({ data, mobileMenu }: any) => {
 
 
   useEffect(() => {
-    
+
   }, [themeAttr])
   const onMenuSelected = (link: any) => {
     setTimeout(() => {
@@ -23,7 +23,7 @@ const MobileMenu = ({ data, mobileMenu }: any) => {
 
   return (
     <>
-      <div className="mobile-menu">
+      <div className="mobile-menu z-20">
         <UserNav mobileMenu={mobileMenu} device={'mobile'} />
         <div>
           <ul
