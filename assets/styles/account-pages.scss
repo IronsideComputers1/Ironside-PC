@@ -202,7 +202,8 @@ h1.Text_pageHeading__VhZNf {
 
   .account-grid-new .account-grid {
     @extend .align-v-center;
-    @extend .justify-center;
+    // @extend .justify-center;
+    justify-content: center;
   }
 
   .account-grid {

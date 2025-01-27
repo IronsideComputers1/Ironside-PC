@@ -14,7 +14,7 @@ type Props = {
   children?: any
 }
 
-export const Block = ({ 
+export const Block = ({
   prod,
   subs,
   incompatibleCats,
@@ -53,9 +53,9 @@ export const Block = ({
   );
 
   const hasImages = prod?.images?.edges.length > 0;
-  
+
   return (
-    <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none pr-7'>
+    <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none'>
       <div
         className={classNames('flex items-center justify-between w-full h-20', incompatibleItems && 'incompatible')}
         onClick={toggleAccordion}

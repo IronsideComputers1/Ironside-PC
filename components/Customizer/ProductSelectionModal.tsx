@@ -84,12 +84,12 @@ const ProductSelectionModal = ({
   }
 
   const handleColorSelection = (
-    data: ColorSelectionData, 
+    data: ColorSelectionData,
     color: { node: { value: string } },
   ) => {
     const selectedValue = color?.node?.value.split(',')[2];
     const selectedOption = colorOpts?.find((option: ColorOption) => option.entityId.toString() === selectedValue);
-    
+
     // Handle out of stock
     if(!selectedOption?.variants.edges[0].node.inventory.isInStock) return notify();
 
@@ -98,7 +98,7 @@ const ProductSelectionModal = ({
       (color: ColorSelection) =>
         color.categoryName === data?.categories?.edges[0]?.node?.name
     );
-    
+
     const finalColors = [];
     // Handle is new category
     if (typeof category === "undefined" || !category) {
@@ -179,7 +179,7 @@ const ProductSelectionModal = ({
     return (
       <p
         className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2"
-        style={{ 
+        style={{
           backgroundColor: theme === "dark" ? '#1c1c1c' : "rgba(0, 0, 0, 0.05)",
         }}>
         {finalPrice?.toString().includes('-')
@@ -289,7 +289,7 @@ const ProductSelectionModal = ({
 
   return (
     <div className="category-popup mt-1">
-      <div className="flex flex-wrap pb-3" style={{ gap: "8px" }}>
+      <div className="flex flex-wrap pb-3 gap-3 justify-center md:justify-start">
         {modalData?.products?.map((data: any, index: number) => {
           const customFields = data?.customFields?.edges;
           const dataName = data?.name.length > 23
@@ -307,14 +307,14 @@ const ProductSelectionModal = ({
             <div
               key={index}
               className={
-                classNames('w-56', {
+                classNames('min-w-[48%] max-w-[148px] md:max-w-[217px] md:min-w-[unset] md:w-56', {
                   "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
                 })
               }
             >
               <div
                 className={classNames(
-                  "border-[1px] rounded-2xl w-56 h-auto flex items-start justify-between p-3 flex-col relative overflow-hidden",
+                  "border-[1px] rounded-2xl w-auto h-[234px] md:h-auto flex items-start justify-between p-2 md:p-3 flex-col relative overflow-hidden md:w-auto",
                   "hover:outline hover:outline-2",
                   {
                     "border-dark hover:outline-dark": theme === "dark",
@@ -345,7 +345,7 @@ const ProductSelectionModal = ({
                     setToggle(true)
                   }}
                 >
-                  {hasImage ? 
+                  {hasImage ?
                     (
                       <Image width="130px" height="130px" src={imageUrl} objectFit="contain" />
                     ) : (
@@ -354,7 +354,7 @@ const ProductSelectionModal = ({
                 </div>
                 <div className="flex flex-direction justify-space w-full">
                   {/* TITLE */}
-                  <span className='mt-3 py-2 px-1.5 font-Arimo text-[13px]'>
+                  <span className='md:mt-3 py-2 px-1.5 font-Arimo text-[13px]'>
                     <div
                       onClick={() => {
                         if(customFields.length > 0 && !isMerch) return null;
@@ -364,7 +364,7 @@ const ProductSelectionModal = ({
                       {dataName}
                     </div>
                   </span>
-                  <div className='h-8 flex item s-center justify-between mt-4'>
+                  <div className='h-8 flex item s-center justify-between md:mt-4'>
                     <ProductBody
                       data={data}
                       renderColorPrice={renderColorPrice}

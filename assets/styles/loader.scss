@@ -13,7 +13,7 @@
   animation: rotation 1s linear infinite;
 }
 .loader::after {
-  content: '';  
+  content: '';
   box-sizing: border-box;
   position: absolute;
   left: 0;
@@ -35,7 +35,8 @@
 .fallback-loader {
   @extend .d-flex;
   @extend .align-v-center;
-  @extend .justify-center;
+  // @extend .justify-center;
+  justify-content: center;
   @extend .w-100;
   height: 100vh;
 }

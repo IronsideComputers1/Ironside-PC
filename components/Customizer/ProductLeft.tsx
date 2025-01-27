@@ -14,7 +14,7 @@ export const ProductLeft = ({ products, modalImage, currentProduct }: Props) => 
   const img = modalImage[0];
   return (
     <div className='flex items-center justify-center pb-8 xxl:pb-0 4-xl:items-end 4-xl:justify-end'>
-      {products?.map((img: any, idx: number) => {
+      {/* {products?.map((img: any, idx: number) => {
         // We have a video for "Eden's Veil Platinum"
         // TODO: Check from custom fields insted of product name
         if(currentProduct === "Eden's Veil Platinum") return null;
@@ -28,7 +28,7 @@ export const ProductLeft = ({ products, modalImage, currentProduct }: Props) => 
             />
           </div>
         );
-      })}
+      })} */}
       <div className='w-[65vw] h-[72h] sm:w-[29vw] md:ml-20 xxl:w-[28vw] xxl:mt-4 xxl:ml-32 4-xl:w-[31.5vw]'>
         <Image
           objectFit="fill"

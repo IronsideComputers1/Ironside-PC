@@ -484,7 +484,7 @@ const Customizer: FC<Props> = (props) => {
           />
 
           <div
-            className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-4 pb-36 pt-8 md:pt-0 md:pb-0 md:px-0 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
+            className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 md:pt-0 md:pb-0 md:px-0 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
           >
             <div className="components flex items-center justify-center w-full md:w-4/5 xxl:w-5/6">
               <div
@@ -518,7 +518,7 @@ const Customizer: FC<Props> = (props) => {
             </h2>
             <div
               className={classNames(
-                "grid-view flex flex-wrap border-[1px] rounded-lg pl-7 py-2.5 w-full last:mb-36",
+                "grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 md:px-5 last:mb-36",
                 {
                   "border-dark": theme === "dark",
                   "border-light": theme === "light",

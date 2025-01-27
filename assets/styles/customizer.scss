@@ -631,6 +631,12 @@ body[data-theme='light'] {
   top: 50%;
   left: 78%;
   right: unset;
+
+  @include mobile {
+    top: 50%;
+    left: 50%;
+    right: unset;
+  }
 }
 
 [data-theme='dark'] {
