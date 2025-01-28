@@ -28,6 +28,7 @@ import { VideoBG } from './Video-BG'
 import CustomizerButton from './CustomizerButton'
 import { SaveBuildButton } from './SaveBuildButton'
 import { FixedBottomBar } from './FixedBottomBar'
+import { BottomSheet } from './BottomSheet'
 
 interface Props {
   className?: string
