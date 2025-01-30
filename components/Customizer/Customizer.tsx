@@ -597,28 +597,19 @@ const Customizer: FC<Props> = (props) => {
               warranty={getWarranty()}
               shippingDate={getShippingDate()}
               totalPrice={convertCurrency(totalPrice)}
-            >
-              <div className='flex items-center justify-between gap-2'>
-                <CustomizerButton
-                  isIncompatible={Object.keys(incompatibleProducts).length > 0}
-                  onClick={addToCart}
-                  isLoading={loading}
-                  isDisabled={!variant}
-                >
-                  Add to Cart
-                </CustomizerButton>
-                <SaveBuildButton
-                  onClick={() => {
-                    SaveMyBuild(
-                      optionSelections,
-                      selectedColor,
-                      setBuildUrl
-                    )
-                    setSaveMyBuildModal(true)
-                  }}
-                />
-              </div>
-            </FixedBottomBar>
+              isIncompatible={Object.keys(incompatibleProducts).length > 0}
+              onAddToCart={addToCart}
+              isLoading={loading}
+              isDisabled={!variant}
+              onSaveBuild={() => {
+                SaveMyBuild(
+                  optionSelections,
+                  selectedColor,
+                  setBuildUrl
+                )
+                setSaveMyBuildModal(true)
+              }}
+              />
           </div>
         </div>
       </div>

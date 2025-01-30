@@ -31,6 +31,7 @@ module.exports = {
         'accents-7': 'var(--accents-7)',
         'accents-8': 'var(--accents-8)',
         'accents-9': 'var(--accents-9)',
+        'accents-12': 'var(--accents-12)',
         violet: 'var(--violet)',
         'violet-light': 'var(--violet-light)',
         pink: 'var(--pink)',
@@ -55,7 +56,8 @@ module.exports = {
       textColor: {
         primary: 'var(--text-primary)',
         'primary-2': 'var(--primary-2)',
-        secondary: 'var(--text-secondary)',
+        secondary: 'var(--secondary)',
+        "secondary-text": 'var(--text-secondary)',
         basicDark: '#757575',
         "icon-gray": "rgba(255, 255, 255, 0.22)",
       },
