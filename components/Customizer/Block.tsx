@@ -25,9 +25,21 @@ export const Block = ({
 }: Props) => {
   const theme = useGetTheme();
   const blockRef = useRef<HTMLDivElement>(null);
-
   const handleClickOutside = (event: MouseEvent) => {
-    if (blockRef.current && !blockRef.current.contains(event.target as Node)) {
+    const target = event.target as HTMLElement;
+    console.log(target.nodeName);
+
+    if (['svg', 'path'].includes(target.nodeName)) return;
+    let currentElement: HTMLElement | null = target;
+    while (currentElement) {
+      if (getComputedStyle(currentElement).position === 'fixed') return;
+      currentElement = currentElement.parentElement;
+    }
+
+    if (
+      blockRef.current &&
+      !blockRef.current.contains(target)
+    ) {
       console.log('Clicked outside the component');
       setIsOpen(false);
     }

@@ -13,40 +13,52 @@ interface Props {
   dataImages?: any
 }
 
-const ModalContent: FC<{
+export const ProductInfoContent: FC<{
   heading: any,
   text: any,
-  productImages: any,
-  settingsMain: any,
-  settingsThumbs: any,
-  nav1: any,
-  nav2: any,
-  setSlider1: any,
-  setSlider2: any,
-  onClose: () => void
+  dataImages?: any
 }> = ({
   heading,
   text,
-  productImages,
-  settingsMain,
-  settingsThumbs,
-  nav1,
-  nav2,
-  setSlider1,
-  setSlider2,
-  onClose
-}) => (
-  <div className="modal customizer-prod-modal" data-lenis-prevent>
-    <div className='w-full flex items-center justify-between text-gray-500 border-b border-primary h-12 pl-8'>
-      <p className='m-0 text-basicDark font-medium font-Inconsolata'>PRODUCT_OVERVIEW.EXE</p>
-      <button
-        onClick={onClose}
-        aria-label="Close panel"
-        className="m-6 border w-7 h-7 px-2 rounded-full flex items-center justify-center mr-3 hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none right-0 top-0"
-      >
-        <Cross className="h-3 w-3 fill-current" />
-      </button>
-    </div>
+  dataImages,
+}) => {
+
+  const productInfoImages = () => {
+    const images = dataImages.map((image: any) => {
+      return image?.node?.urlOriginal
+    })
+    return images
+  }
+  const productImages = productInfoImages();
+
+
+  const [nav1, setNav1] = useState<any>(null)
+  const [nav2, setNav2] = useState<any>(null)
+  const [slider1, setSlider1] = useState(null)
+  const [slider2, setSlider2] = useState(null)
+
+  useEffect(() => {
+    setNav1(slider1)
+    setNav2(slider2)
+  })
+
+  const settingsMain = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    fade: true,
+    asNavFor: '.slider-nav',
+  }
+
+  const settingsThumbs = {
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    asNavFor: '.slider-for',
+    swipeToSlide: true,
+    focusOnSelect: true,
+    infinite: false,
+  }
+  return (
     <div className="modal-content w-full grid grid-cols-1 md:grid-cols-2 pb-10 pl-4 md:pl-13 pt-2">
       <div className="product-thumbnail flex flex-direction justify-center items-center">
         <Slider
@@ -98,8 +110,8 @@ const ModalContent: FC<{
         )}
       </div>
     </div>
-  </div>
-);
+  )
+};
 
 const ProductInfoModal: FC<Props> = ({
   text,
@@ -110,39 +122,6 @@ const ProductInfoModal: FC<Props> = ({
   dataImages,
 }: any) => {
   const [showModal, setShowModal] = useState(open);
-  const [nav1, setNav1] = useState<any>(null)
-  const [nav2, setNav2] = useState<any>(null)
-  const [slider1, setSlider1] = useState(null)
-  const [slider2, setSlider2] = useState(null)
-
-  const productInfoImages = () => {
-    const images = dataImages.map((image: any) => {
-      return image?.node?.urlOriginal
-    })
-    return images
-  }
-  const productImages = productInfoImages();
-
-  useEffect(() => {
-    setNav1(slider1)
-    setNav2(slider2)
-  })
-  const settingsMain = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    fade: true,
-    asNavFor: '.slider-nav',
-  }
-
-  const settingsThumbs = {
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    asNavFor: '.slider-for',
-    swipeToSlide: true,
-    focusOnSelect: true,
-    infinite: false,
-  }
 
   useEffect(() => {
     const keyDownHandler = (event: {
@@ -183,18 +162,23 @@ const ProductInfoModal: FC<Props> = ({
         <div className='relative'>
           <div role="dialog">
             {showModal && (
-              <ModalContent
-                heading={heading}
-                text={text}
-                productImages={productImages}
-                settingsMain={settingsMain}
-                settingsThumbs={settingsThumbs}
-                nav1={nav1}
-                nav2={nav2}
-                setSlider1={setSlider1}
-                setSlider2={setSlider2}
-                onClose={() => setShowModal(false)}
-              />
+              <div className="modal customizer-prod-modal" data-lenis-prevent>
+                <div className='w-full flex items-center justify-between text-gray-500 border-b border-primary h-12 pl-8'>
+                  <p className='m-0 text-basicDark font-medium font-Inconsolata'>PRODUCT_OVERVIEW.EXE</p>
+                  <button
+                    onClick={() => setShowModal(false)}
+                    aria-label="Close panel"
+                    className="m-6 border w-7 h-7 px-2 rounded-full flex items-center justify-center mr-3 hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none right-0 top-0"
+                  >
+                    <Cross className="h-3 w-3 fill-current" />
+                  </button>
+                </div>
+                <ProductInfoContent
+                  heading={heading}
+                  text={text}
+                  dataImages={dataImages}
+                />
+              </div>
             )}
           </div>
         </div>

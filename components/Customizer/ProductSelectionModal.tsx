@@ -13,6 +13,8 @@ import { ProductAmountSelect } from './ProductBlock/ProductAmountSelect'
 import { ProductBody } from './ProductBlock/ProductBody'
 import EmptyProduct from '@components/icons/EmptyProduct'
 import { ModalData } from './types'
+import { BottomSheet } from './BottomSheet'
+import { ProductInfoContent } from '@components/product/ProductInfoModal/ProductInfoModal'
 
 interface ColorSelectionData {
   entityId: string;
@@ -327,15 +329,33 @@ const ProductSelectionModal = ({
                   },
                 )}
               >
-                <ProductInfoModal
-                  open={displayModal}
-                  onClose={closeModal}
-                  heading={data?.name}
-                  text={data?.description}
-                  button={<Info height={18} width={18} className="fill-current text-icon-gray" />}
-                  dataImages={data?.images?.edges}
-                  stock={data?.variants?.edges[0]?.node?.inventory?.isInStock}
-                />
+                {/* Desktop */}
+                <div className='hidden md:block'>
+                  <ProductInfoModal
+                    open={displayModal}
+                    onClose={closeModal}
+                    heading={data?.name}
+                    text={data?.description}
+                    button={<Info height={18} width={18} className="fill-current text-icon-gray" />}
+                    dataImages={data?.images?.edges}
+                    stock={data?.variants?.edges[0]?.node?.inventory?.isInStock}
+                  />
+                </div>
+                {/* Responsive */}
+                <div className='flex justify-end w-full'>
+                  <BottomSheet
+                    content={
+                      <ProductInfoContent
+                        heading={data?.name}
+                        text={data?.description}
+                        dataImages={data?.images?.edges}
+                      />
+                    }
+                  >
+                    <Info height={18} width={18} className="fill-current text-icon-gray" />
+                  </BottomSheet>
+                </div>
+
                 {/* IMAGE */}
                 <div
                   className="flex items-center justify-center w-full"

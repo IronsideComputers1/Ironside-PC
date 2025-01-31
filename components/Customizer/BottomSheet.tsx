@@ -16,7 +16,8 @@ export const BottomSheet = ({ children, content }: BottomSheetProps) => {
   let hideTimeout: NodeJS.Timeout;
   let showTimeout: NodeJS.Timeout;
 
-  const toggleBottomSheet = () => {
+  const toggleBottomSheet = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (visible) {
       setAnimate(false);
       hideTimeout = setTimeout(() => setVisible(false), 300); // Duration should match the CSS transition duration
