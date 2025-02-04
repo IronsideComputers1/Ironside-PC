@@ -66,7 +66,6 @@ const Customizer: FC<Props> = (props) => {
   const [activeTab, setActiveTab] = useState<string>('Aesthetics')
   const [loading, setLoading] = useState(false)
   const [modal, setModal] = useState(false)
-  const [saveMyBuildModal, setSaveMyBuildModal] = useState(false)
   const [incompatibleModal, setIncompatibleModal] = useState(false)
   const [cartIndex, setCartIndex] = useState<any>('')
   const [buildUrl, setBuildUrl] = useState('')
@@ -592,7 +591,6 @@ const Customizer: FC<Props> = (props) => {
                 />
               )}
             </div>
-
             <FixedBottomBar
               warranty={getWarranty()}
               shippingDate={getShippingDate()}
@@ -601,29 +599,26 @@ const Customizer: FC<Props> = (props) => {
               onAddToCart={addToCart}
               isLoading={loading}
               isDisabled={!variant}
+              saveMyBuildData={
+                {
+                  url: buildUrl,
+                  options: optionSelections,
+                  productDescription,
+                  totalPrice: convertCurrency(totalPrice),
+                  productImage: modalImage[0]?.node?.urlOriginal,
+                }
+              }
               onSaveBuild={() => {
                 SaveMyBuild(
                   optionSelections,
                   selectedColor,
                   setBuildUrl
                 )
-                setSaveMyBuildModal(true)
               }}
               />
           </div>
         </div>
       </div>
-
-      {saveMyBuildModal && (
-        <SaveBuildModal
-          url={buildUrl}
-          options={optionSelections}
-          productDescription={productDescription}
-          totalPrice={convertCurrency(totalPrice)}
-          setSaveMyBuildModal={setSaveMyBuildModal}
-          productImage={modalImage[0]?.node?.urlOriginal}
-        />
-      )}
       <Portal>
         <ToastContainer
           transition={Flip}

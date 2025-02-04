@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BottomSheet } from './BottomSheet';
 import DropdownArrow from '@components/icons/DropdownArrow';
 import CustomizerButton from './CustomizerButton';
@@ -6,6 +6,7 @@ import { SaveBuildButton } from './SaveBuildButton';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode';
+import SaveBuildModal, { SaveBuildContent } from '@components/ui/SaveBuildModal/SaveBuildModal';
 
 type FixedBottomBarProps = {
   warranty?: string;
@@ -18,6 +19,15 @@ type FixedBottomBarProps = {
   isDisabled?: boolean;
   onAddToCart: () => void;
   onSaveBuild: () => void;
+  saveMyBuildModal?: any;
+  setSaveMyBuildModal?: any;
+  saveMyBuildData?: {
+    url: any;
+    options: any;
+    totalPrice: any;
+    productDescription: any;
+    productImage: any;
+  };
 }
 
 type ActionButtonsProps = {
@@ -27,6 +37,15 @@ type ActionButtonsProps = {
   isLoading?: boolean;
   isDisabled?: boolean;
   hideSave?: boolean;
+  saveMyBuildData?: {
+    url: any;
+    options: any;
+    totalPrice: any;
+    productDescription: any;
+    productImage: any;
+  };
+  saveMyBuildModal?: any;
+  setSaveMyBuildModal?: any;
 };
 
 const ActionButtons = ({
@@ -36,7 +55,9 @@ const ActionButtons = ({
   isLoading,
   isDisabled,
   hideSave = false,
+  saveMyBuildData,
 }: ActionButtonsProps) => {
+  const [showSaveMyBuild, setShowSaveMyBuild] = useState(false);
   return (
     <div className={classNames('flex items-center justify-between gap-2', {
       'w-full': hideSave,
@@ -52,7 +73,42 @@ const ActionButtons = ({
       >
         Add to Cart
       </CustomizerButton>
-      {!hideSave && <SaveBuildButton onClick={onSaveBuild}/>}
+
+      <div className='md:hidden'>
+        <BottomSheet content={
+          <SaveBuildContent
+            url={saveMyBuildData?.url}
+            options={saveMyBuildData?.options}
+            totalPrice={saveMyBuildData?.totalPrice}
+            productDescription={saveMyBuildData?.productDescription}
+            productImage={saveMyBuildData?.productImage}
+          />
+        }>
+          {!hideSave && <SaveBuildButton onClick={onSaveBuild}/>}
+        </BottomSheet>
+      </div>
+      {!hideSave && (
+        <div className='hidden md:block'>
+          <SaveBuildButton
+            onClick={() => {
+              onSaveBuild();
+              setShowSaveMyBuild(true);
+            }}
+          />
+        </div>
+      )}
+      {showSaveMyBuild && (
+        <div className='hidden md:block'>
+          <SaveBuildModal
+            onClose={() => setShowSaveMyBuild(false)}
+            url={saveMyBuildData?.url}
+            options={saveMyBuildData?.options}
+            totalPrice={saveMyBuildData?.totalPrice}
+            productDescription={saveMyBuildData?.productDescription}
+            productImage={saveMyBuildData?.productImage}
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -61,12 +117,12 @@ const DesktopBottomBar = ({
   warranty,
   shippingDate,
   totalPrice,
-  children,
   isIncompatible,
   onAddToCart,
   onSaveBuild,
   isLoading,
   isDisabled,
+  saveMyBuildData,
 }: FixedBottomBarProps) => {
   return (
     <div className='hidden md:flex md:gap-10'>
@@ -84,6 +140,7 @@ const DesktopBottomBar = ({
           onSaveBuild={onSaveBuild}
           isLoading={isLoading}
           isDisabled={isDisabled}
+          saveMyBuildData={saveMyBuildData}
         />
       </div>
     </div>
@@ -118,12 +175,12 @@ const MobileBottomBar = ({
   warranty,
   shippingDate,
   totalPrice,
-  children,
   isIncompatible,
   onAddToCart,
   onSaveBuild,
   isLoading,
   isDisabled,
+  saveMyBuildData,
 }: FixedBottomBarProps) => {
   const theme = useGetTheme();
   return (
@@ -157,6 +214,7 @@ const MobileBottomBar = ({
           onSaveBuild={onSaveBuild}
           isLoading={isLoading}
           isDisabled={isDisabled}
+          saveMyBuildData={saveMyBuildData}
           hideSave
         />
       </div>
@@ -174,6 +232,7 @@ export const FixedBottomBar = (props: FixedBottomBarProps) => {
     isIncompatible,
     onAddToCart,
     onSaveBuild,
+    saveMyBuildData,
   } = props
   return (
     <div
@@ -214,6 +273,7 @@ export const FixedBottomBar = (props: FixedBottomBarProps) => {
           onSaveBuild={onSaveBuild}
           isLoading={isLoading}
           isDisabled={isDisabled}
+          saveMyBuildData={saveMyBuildData}
         />
       </div>
     </div>

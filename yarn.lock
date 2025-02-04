@@ -3043,6 +3043,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:17.0.14":
+  version: 17.0.14
+  resolution: "@types/react-dom@npm:17.0.14"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10c0/0168d77ff0ea0f8dd83f463dc0e542c0a8ab63638de3830d61dab0b97301ba06e8dc8833506a5de5d7fc92b08414359ea14ea78d5206acc17d8d413e4c299008
+  languageName: node
+  linkType: hard
+
 "@types/react-modal@npm:^3.16.0":
   version: 3.16.3
   resolution: "@types/react-modal@npm:3.16.3"
@@ -6253,6 +6262,7 @@ __metadata:
     "@types/lodash.throttle": "npm:^4.1.6"
     "@types/node": "npm:^14.14.16"
     "@types/react": "npm:^17.0.0"
+    "@types/react-dom": "npm:^19.0.3"
     "@types/react-modal": "npm:^3.16.0"
     "@types/react-slick": "npm:^0.23.10"
     "@types/uuid": "npm:^9.0.7"

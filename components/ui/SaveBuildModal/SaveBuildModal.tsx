@@ -1,28 +1,41 @@
-import { Cross } from '@components/icons'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Portal } from '@reach/portal'
+import { Cross } from '@components/icons'
 
-interface SaveBuildModalProps {
-  setSaveMyBuildModal: any
+type SaveBuildContentProps = {
   url: any
+  setCopyClicked?: React.Dispatch<React.SetStateAction<boolean>>
+  setEmailClicked?: React.Dispatch<React.SetStateAction<boolean>>
+  copyClicked?: boolean
+  emailClicked?: boolean
   options: any
   totalPrice: any
   productDescription?: any
   productImage?: any
 }
 
-const SaveBuildModal = ({
-  setSaveMyBuildModal,
+
+export const SaveBuildContent = ({
   url,
-  options,
-  totalPrice,
   productDescription,
   productImage,
-}: SaveBuildModalProps) => {
+  options,
+  totalPrice,
+}: SaveBuildContentProps) => {
   const emailApiUrl = 'https://fair-conduit-404516.uc.r.appspot.com/saveBuild'
+  const [email, setEmail] = useState('')
   const [copyClicked, setCopyClicked] = useState(false)
   const [emailClicked, setEmailClicked] = useState(false)
-  const [email, setEmail] = useState('')
+
+  useEffect(() => {
+    return () => {
+      setCopyClicked(false)
+      setEmailClicked(false)
+    }
+  }, [])
+
+
   const sendBuildEmail = async () => {
     const emailData = {
       productUrl: url,
@@ -47,70 +60,11 @@ const SaveBuildModal = ({
     }
   }
   return (
-    <div className="modal saveMyBuild" style={{ maxWidth: '442px' }}>
-      <h2 className="align-center">Save My Build</h2>
-      <button
-        className="modal-close"
-        onClick={() => {
-          setCopyClicked(false)
-          setEmailClicked(false)
-          setSaveMyBuildModal(false)
-        }}
-      >
-        <Cross />
-      </button>
-      <div>
-        <div className="align-center">
-          <label>Custom URL</label>
-          <div className="custom-box flex align-v-center">
-            <input placeholder={url} />
-            <button
-              className="btn-small"
-              onClick={() => {
-                navigator.clipboard.writeText(url)
-                setCopyClicked(true)
-                setEmailClicked(false)
-              }}
-            >
-              {copyClicked ? 'copied' : 'copy'}
-            </button>
-          </div>
-        </div>
-        <div className="align-center">
-          <label>Email</label>
-          <div className="custom-box flex align-v-center">
-            <input
-              placeholder="Enter email address"
-              type="email"
-              onChange={(e) => {
-                setEmail(e.target.value)
-              }}
-            ></input>
-            <button
-              className="btn-small"
-              onClick={() => {
-                sendBuildEmail()
-              }}
-            >
-              {emailClicked ? 'sent' : 'Email'}
-            </button>
-          </div>
-        </div>
-        <div className="spec-list">
-          <p className="head">
-            <span>Spec List</span>
-          </p>
-          <div className="product-description" data-lenis-prevent>
-            {options?.map((opt: any, index: number) => (
-              <div key={index} className="flex flex-col text-base">
-                <span>{opt?.category_name || opt?.name}: </span>
-                <span>{opt?.product_name || opt?.value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-5 flex justify-end align-v-center copy-bottom">
-          <label>Total: {totalPrice}</label>
+    <div>
+      <div className="align-center">
+        <label>Custom URL</label>
+        <div className="custom-box flex align-v-center">
+          <input placeholder={url} />
           <button
             className="btn-small"
             onClick={() => {
@@ -123,7 +77,95 @@ const SaveBuildModal = ({
           </button>
         </div>
       </div>
+      <div className="align-center">
+        <label>Email</label>
+        <div className="custom-box flex align-v-center">
+          <input
+            placeholder="Enter email address"
+            type="email"
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
+          ></input>
+          <button
+            className="btn-small"
+            onClick={() => {
+              sendBuildEmail()
+            }}
+          >
+            {emailClicked ? 'sent' : 'Email'}
+          </button>
+        </div>
+      </div>
+      <div className="spec-list">
+        <p className="head">
+          <span>Spec List</span>
+        </p>
+        <div className="product-description" data-lenis-prevent>
+          {options?.map((opt: any, index: number) => (
+            <div key={index} className="flex flex-col text-base">
+              <span>{opt?.category_name || opt?.name}: </span>
+              <span>{opt?.product_name || opt?.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-5 flex justify-end align-v-center copy-bottom">
+        <label>Total: {totalPrice}</label>
+        <button
+          className="btn-small"
+          onClick={() => {
+            navigator.clipboard.writeText(url)
+            setCopyClicked(true)
+            setEmailClicked(false)
+          }}
+        >
+          {copyClicked ? 'copied' : 'copy'}
+        </button>
+      </div>
     </div>
+  )
+}
+
+interface SaveBuildModalProps {
+  onClose?: any
+  url: any
+  options: any
+  totalPrice: any
+  productDescription?: any
+  productImage?: any
+}
+
+const SaveBuildModal = ({
+  onClose,
+  url,
+  options,
+  totalPrice,
+  productDescription,
+  productImage,
+}: SaveBuildModalProps) => {
+  return (
+    <Portal>
+      <div className="modal saveMyBuild" style={{ maxWidth: '442px', position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+      <h2 className="align-center">Save My Build</h2>
+      <button
+        className="modal-close"
+        onClick={() => {
+          if(!onClose) return;
+          onClose()
+        }}
+      >
+        <Cross />
+      </button>
+      <SaveBuildContent
+        url={url}
+        options={options}
+        totalPrice={totalPrice}
+        productDescription={productDescription}
+        productImage={productImage}
+      />
+      </div>
+    </Portal>
   )
 }
 
