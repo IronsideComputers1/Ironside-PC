@@ -330,7 +330,7 @@ const ProductSelectionModal = ({
                 )}
               >
                 {/* Desktop */}
-                <div className='hidden md:block'>
+                <div className='hidden self-end md:block'>
                   <ProductInfoModal
                     open={displayModal}
                     onClose={closeModal}
@@ -342,7 +342,7 @@ const ProductSelectionModal = ({
                   />
                 </div>
                 {/* Responsive */}
-                <div className='flex justify-end w-full'>
+                <div className='flex justify-end w-full self-end md:hidden'>
                   <BottomSheet
                     content={
                       <ProductInfoContent
