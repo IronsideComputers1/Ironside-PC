@@ -38,8 +38,8 @@ const Header = (props: any) => {
           <div className="header-left d-flex items-center">
             <Link href="/">
               <a className="logo" aria-label="Logo">
-                <IronSideLogo 
-                  whiteThemeLogo={data?.logo?.whiteThemeLogo} 
+                <IronSideLogo
+                  whiteThemeLogo={data?.logo?.whiteThemeLogo}
                   blackThemeLogo={data?.logo?.blackThemeLogo}
                 />
               </a>
@@ -48,7 +48,7 @@ const Header = (props: any) => {
               <Hamburgers />
             </div>
 
-            <nav className=" ml-6 space-x-4 lg:block">
+            <nav className="hidden ml-6 space-x-4 md:block">
               <ul className="list-none flex align-v-center">
                 {Object.keys(data?.categories || {}).map(
                   (key: any, index: any) => {

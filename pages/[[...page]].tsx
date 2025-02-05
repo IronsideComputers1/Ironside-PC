@@ -24,7 +24,7 @@ export async function getStaticProps({
 
   if (!page) {
     return {
-      notFound: true, 
+      notFound: true,
     }
   }
 

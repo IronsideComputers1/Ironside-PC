@@ -4,6 +4,7 @@ import { Button } from '@components/ui'
 import { Cross } from '@components/icons'
 import WrongPasswordIcon from '@components/icons/WrongPassword'
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
+import HealthIcon from '@components/icons/Health'
 
 const IncompatibilitesModal = ({
   incompatibleProducts,
@@ -14,20 +15,11 @@ const IncompatibilitesModal = ({
   const theme = useGetTheme();
   return (
     <div className="modal incompatibilites-modal">
-      <div className={
-        classNames(
-          'w-full flex items-center justify-between text-gray-500 border-b h-10 pl-4',
-          {
-            "border-primary": theme === "dark",
-            "border-light": theme === "light",
-          }
-        )}
-      >
+      <div className={classNames('w-full flex items-center justify-between text-gray-500 h-10 pl-4')}>
         <p
           className='m-0 font-medium font-Inconsolata'
           style={{ color: 'rgba(255, 112, 112, 1)' }}
         >
-          INCOMPATIBILITIES.EXE
         </p>
         <button
           onClick={() => setIncompatibleModal(false)}
@@ -39,8 +31,8 @@ const IncompatibilitesModal = ({
       </div>
 
       <div className="flex items-center justify-start flex-col h-auto">
-        <div className="flex items-center justify-start flex-col mt-9 mb-9 gap-3">
-          <WrongPasswordIcon width={45} height={45} />
+        <div className="flex items-center justify-start flex-col mt-0 mb-9 gap-3">
+          <HealthIcon width={45} height={45} />
           <p className='mb-0 font-Arimo font-bold text-base text-center transform-none'>Incompatible Components Selected</p>
         </div>
 

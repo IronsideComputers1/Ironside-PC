@@ -57,7 +57,8 @@
   text-align: center;
   width: 100%;
   @extend .flex;
-  @extend .justify-center;
+  // @extend .justify-center;
+  justify-content: center;
 
   @include mobile {
     margin-top: 20px;
