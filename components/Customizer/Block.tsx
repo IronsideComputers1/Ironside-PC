@@ -14,7 +14,7 @@ type Props = {
   children?: any
 }
 
-export const Block = ({ 
+export const Block = ({
   prod,
   subs,
   incompatibleCats,
@@ -25,9 +25,21 @@ export const Block = ({
 }: Props) => {
   const theme = useGetTheme();
   const blockRef = useRef<HTMLDivElement>(null);
-
   const handleClickOutside = (event: MouseEvent) => {
-    if (blockRef.current && !blockRef.current.contains(event.target as Node)) {
+    const target = event.target as HTMLElement;
+    console.log(target.nodeName);
+
+    if (['svg', 'path'].includes(target.nodeName)) return;
+    let currentElement: HTMLElement | null = target;
+    while (currentElement) {
+      if (getComputedStyle(currentElement).position === 'fixed') return;
+      currentElement = currentElement.parentElement;
+    }
+
+    if (
+      blockRef.current &&
+      !blockRef.current.contains(target)
+    ) {
       console.log('Clicked outside the component');
       setIsOpen(false);
     }
@@ -53,9 +65,9 @@ export const Block = ({
   );
 
   const hasImages = prod?.images?.edges.length > 0;
-  
+
   return (
-    <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none pr-7'>
+    <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none'>
       <div
         className={classNames('flex items-center justify-between w-full h-20', incompatibleItems && 'incompatible')}
         onClick={toggleAccordion}

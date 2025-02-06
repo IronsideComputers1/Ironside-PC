@@ -698,7 +698,8 @@ body {
   border-radius: 100%;
   @extend .d-flex;
   @extend .align-v-center;
-  @extend .justify-center;
+  justify-content: center;
+  // @extend .justify-center;
   position: relative;
   margin-right: 0;
 

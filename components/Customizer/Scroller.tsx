@@ -16,12 +16,12 @@ export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
     return activeTab === tab ? { color: 'rgba(255, 255, 255, 1)' } : { color: "rgba(255, 255, 255, 0.5)" }
   }
   return (
-    <div className="list-none fixed z-10"
+    <div className="list-none fixed"
       style={{
         bottom: '118px'
       }}
     >
-      <ul 
+      <ul
         className='flex items-center h-10 rounded-full w-96 m-0'
         style={{
           backdropFilter: "blur(30px)",
@@ -34,7 +34,7 @@ export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
             <a
               className='cursor-pointer font-Arimo'
               style={getTabColor(tab)}
-              onClick={() => { 
+              onClick={() => {
                 onScroll(tab);
                 document?.getElementById(tab)?.scrollIntoView({ behavior: "smooth"});
               }}

@@ -28,6 +28,7 @@ import { VideoBG } from './Video-BG'
 import CustomizerButton from './CustomizerButton'
 import { SaveBuildButton } from './SaveBuildButton'
 import { FixedBottomBar } from './FixedBottomBar'
+import { BottomSheet } from './BottomSheet'
 
 interface Props {
   className?: string
@@ -59,13 +60,12 @@ const Customizer: FC<Props> = (props) => {
     warranties,
     shippingDays,
   } = OptionSelectionController({ product, categoriesDataFiltered })
-  
+
   const [basePrice, setBasePrice] = useState<number>(0)
   const [modalData, setModalData] = useState<any>({})
   const [activeTab, setActiveTab] = useState<string>('Aesthetics')
   const [loading, setLoading] = useState(false)
   const [modal, setModal] = useState(false)
-  const [saveMyBuildModal, setSaveMyBuildModal] = useState(false)
   const [incompatibleModal, setIncompatibleModal] = useState(false)
   const [cartIndex, setCartIndex] = useState<any>('')
   const [buildUrl, setBuildUrl] = useState('')
@@ -74,7 +74,7 @@ const Customizer: FC<Props> = (props) => {
   const [incompatibleCats, setIncompatibleCats] = useState([])
   const [incompatibleProdIds, setIncompatibleProdIds] = useState([])
   const [defaultColors, setDefaultColors] = useState([])
-  
+
   const theme = useGetTheme();
 
   const addItem = useAddItem()
@@ -117,7 +117,7 @@ const Customizer: FC<Props> = (props) => {
   //         node: { urlOriginal: item.url_standard, altText: product?.name },
   //       }))
   //     : null
-  
+
   useEffect(() => {
     setBasePrice(product?.variants?.edges[0]?.node?.prices?.price?.value)
     let products: any = []
@@ -390,7 +390,7 @@ const Customizer: FC<Props> = (props) => {
   //     }
   //   }, 8000)
   // }, [])
-  
+
   useEffect(() => {
     {
       /* breadPay rendering on pdp page load */
@@ -471,10 +471,10 @@ const Customizer: FC<Props> = (props) => {
           ],
         }}
       />
-      {!!bgVideo && <VideoBG src={bgVideo.node.value} />}
-      <div className="customizer">
+      <div className="customizer relative p-0">
+        {!!bgVideo && <VideoBG src={bgVideo.node.value} />}
         <div
-          className="customizer-product grid grid-cols-2"
+          className="customizer-product h-screen md:h-auto grid grid-cols-1 md:grid-cols-2"
           data-lenis-prevent
         >
           <ProductLeft
@@ -483,105 +483,102 @@ const Customizer: FC<Props> = (props) => {
             currentProduct={productDescription[0]?.trim()}
           />
 
-          <div 
-            className="customizer-product-content mr-13 w-full relative overflow-y-scroll flex justify-end items-start"
-            style={{
-              maxHeight: "85vh",
-            }}
+          <div
+            className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 md:pt-0 md:pb-0 md:px-0 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
           >
-            <div className="components flex items-center justify-center w-4/5 xxl:w-5/6">
+            <div className="components flex items-center justify-center w-full md:w-4/5 xxl:w-5/6">
               <div
                 id='scroll-box'
-                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-10" 
+                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 md:pr-10"
               >
-                <div className="customizerProductGrid">
-                  <div className="flex justify-center items-center flex-col">
-                    <div className='flex justify-center items-center mb-5'>
-                      {hasLogoImage ? ( 
-                        <Image
-                          src={theme === 'dark' ? logoDarkImage.node.value : '/EdensVeilLogoWhite.png'}
-                          alt={productDescription[0]?.trim()}
-                          width={300}
-                          height={50}
-                        />) : (
-                        <h1 className="text-center">{productDescription[0]?.trim()}</h1>
-                      )}
-                      <p className="mb-0">{productDescription[1]?.trim()}</p>
-                    </div>
-                    <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
-                  </div>
-                  {!!selectedIds?.length &&
-                    categoriesDataFiltered?.map((categories: any) => (
-                      <>
-                        <h2
-                          id={categories?.categoryName}
-                          className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark mt-20"
-                        >
-                          {categories?.categoryName}
-                        </h2>
-                        <div
-                          className={classNames(
-                            "grid-view flex flex-wrap border-[1px] rounded-lg pl-7 py-2.5 w-full last:mb-36",
-                            {
-                              "border-dark": theme === "dark",
-                              "border-light": theme === "light",
-                            }
-                          )}
-                          >
-                          {categories?.subCategory?.map(
-                            (subs: any, index: number) => (
-                              <>
-                                {selectedIds?.map((ele: any) =>
-                                  subs?.products?.map((prod: any) => {
-                                    if (
-                                      ele.product === prod.entityId &&
-                                      subs.categoryName === ele.cat
-                                    ) {
-                                      return (
-                                        <div 
-                                          key={index}
-                                          className='w-full'
-                                        >
-                                          <Block 
-                                            prod={prod}
-                                            subs={subs}
-                                            incompatibleCats={incompatibleCats}
-                                            onModalSelection={onModalSelection}
-                                            loadImage={loadImage}
-                                            renderColorName={renderColorName}
-                                          >
-                                            <ProductSelectionModal
-                                              optionSelections={optionSelections}
-                                              setIncompatibleProducts={setIncompatibleProducts}
-                                              incompatibleProdIds={incompatibleProdIds}
-                                              setModal={setModal}
-                                              onOptionSelections={onOptionSelections}
-                                              modalData={modalData}
-                                              selectedIds={selectedIds}
-                                              selectedColor={selectedColor}
-                                              colorOpts={colorOpts}
-                                              defaultColors={defaultColors}
-                                              convertCurrency={convertCurrency}
-                                              setIncompatibleProdIds={setIncompatibleProdIds}
-                                              setIncompatibleCats={setIncompatibleCats}
-                                              setDefaultColors={setDefaultColors}
-                                            />
-                                          </Block>
-                                          {index !== categories?.subCategory?.length - 1 && (
-                                            <Separator className="w-[96.5%]" theme={theme} />
-                                          )}
-                                        </div>
-                                      )
-                                    }
-                                  })
-                                )}
-                              </>
-                            )
-                          )}
-                        </div>
-                      </>
-                    ))}
+          <div className="customizerProductGrid">
+            <div className="flex justify-center items-center flex-col">
+              <div className='flex justify-center items-center mb-5'>
+                {hasLogoImage ? (
+                  <Image
+                    src={theme === 'dark' ? logoDarkImage.node.value : '/EdensVeilLogoWhite.png'}
+                    alt={productDescription[0]?.trim()}
+                    width={300}
+                    height={50}
+                  />) : (
+                    <h1 className="text-center">{productDescription[0]?.trim()}</h1>
+                  )}
+                <p className="mb-0">{productDescription[1]?.trim()}</p>
+              </div>
+              <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
+            </div>
+            {!!selectedIds?.length &&
+              categoriesDataFiltered?.map((categories: any) => (
+                <>
+            <h2
+              id={categories?.categoryName}
+              className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark mt-20"
+            >
+              {categories?.categoryName}
+            </h2>
+            <div
+              className={classNames(
+                "grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 md:px-5 last:mb-36",
+                {
+                  "border-dark": theme === "dark",
+                  "border-light": theme === "light",
+                }
+              )}
+              >
+              {categories?.subCategory?.map(
+                (subs: any, index: number) => (
+                  <>
+              {selectedIds?.map((ele: any) =>
+                subs?.products?.map((prod: any) => {
+                  if (
+                    ele.product === prod.entityId &&
+                    subs.categoryName === ele.cat
+                  ) {
+                    return (
+                <div
+                  key={index}
+                  className='w-full'
+                >
+                  <Block
+                    prod={prod}
+                    subs={subs}
+                    incompatibleCats={incompatibleCats}
+                    onModalSelection={onModalSelection}
+                    loadImage={loadImage}
+                    renderColorName={renderColorName}
+                  >
+                    <ProductSelectionModal
+                      optionSelections={optionSelections}
+                      setIncompatibleProducts={setIncompatibleProducts}
+                      incompatibleProdIds={incompatibleProdIds}
+                      setModal={setModal}
+                      onOptionSelections={onOptionSelections}
+                      modalData={modalData}
+                      selectedIds={selectedIds}
+                      selectedColor={selectedColor}
+                      colorOpts={colorOpts}
+                      defaultColors={defaultColors}
+                      convertCurrency={convertCurrency}
+                      setIncompatibleProdIds={setIncompatibleProdIds}
+                      setIncompatibleCats={setIncompatibleCats}
+                      setDefaultColors={setDefaultColors}
+                    />
+                  </Block>
+                  {index !== categories?.subCategory?.length - 1 && (
+                    <Separator className="w-[96.5%]" theme={theme} />
+                  )}
                 </div>
+                    )
+                  }
+                })
+              )}
+                  </>
+                )
+              )}
+            </div>
+                </>
+              ))}
+          </div>
               </div>
               <Scroller onScroll={setActiveTab} activeTab={activeTab} />
               {incompatibleModal && (
@@ -594,47 +591,34 @@ const Customizer: FC<Props> = (props) => {
                 />
               )}
             </div>
-            
             <FixedBottomBar
               warranty={getWarranty()}
               shippingDate={getShippingDate()}
               totalPrice={convertCurrency(totalPrice)}
-            >
-              <div className='flex items-center justify-between gap-2'>
-                <CustomizerButton
-                  isIncompatible={Object.keys(incompatibleProducts).length > 0}
-                  onClick={addToCart}
-                  isLoading={loading}
-                  isDisabled={!variant}
-                >
-                  Add to Cart
-                </CustomizerButton>
-                <SaveBuildButton
-                  onClick={() => {
-                    SaveMyBuild(
-                      optionSelections,
-                      selectedColor,
-                      setBuildUrl
-                    )
-                    setSaveMyBuildModal(true)
-                  }}
-                />
-              </div>
-            </FixedBottomBar>
+              isIncompatible={Object.keys(incompatibleProducts).length > 0}
+              onAddToCart={addToCart}
+              isLoading={loading}
+              isDisabled={!variant}
+              saveMyBuildData={
+                {
+                  url: buildUrl,
+                  options: optionSelections,
+                  productDescription,
+                  totalPrice: convertCurrency(totalPrice),
+                  productImage: modalImage[0]?.node?.urlOriginal,
+                }
+              }
+              onSaveBuild={() => {
+                SaveMyBuild(
+                  optionSelections,
+                  selectedColor,
+                  setBuildUrl
+                )
+              }}
+              />
           </div>
         </div>
       </div>
-
-      {saveMyBuildModal && (
-        <SaveBuildModal
-          url={buildUrl}
-          options={optionSelections}
-          productDescription={productDescription}
-          totalPrice={convertCurrency(totalPrice)}
-          setSaveMyBuildModal={setSaveMyBuildModal}
-          productImage={modalImage[0]?.node?.urlOriginal}
-        />
-      )}
       <Portal>
         <ToastContainer
           transition={Flip}

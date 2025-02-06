@@ -13,9 +13,9 @@
 .align-self-start {
   @include align-self(flex-start);
 }
-.justify-center {
-  @include justify-content(center);
-}
+// .justify-center {
+//   @include justify-content(center);
+// }
 .justify-space-start {
   @include justify-content(flex-start);
 }

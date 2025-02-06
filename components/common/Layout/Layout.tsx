@@ -51,7 +51,8 @@ const Layout: FC<Props> = ({ children, pageProps }) => {
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <main className="fit">{children}</main>
+        {/* NOTE: w-[102%] md:w-full to make up for scroll width in responsive */}
+        <main className="fit overflow-y-auto w-[102%] md:w-full">{children}</main>
 
         <Modal open={displayModal} onClose={closeModal}>
           {modalView === 'LOGIN_VIEW' && <LoginView />}
