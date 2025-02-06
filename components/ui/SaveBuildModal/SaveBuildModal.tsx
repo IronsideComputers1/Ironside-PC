@@ -150,7 +150,6 @@ const SaveBuildModal = ({
   return (
     <Portal>
       <div className="modal saveMyBuild" style={{ maxWidth: '442px', position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-      <h2 className="align-center">Save My Build</h2>
       <button
         className="modal-close"
         onClick={() => {
