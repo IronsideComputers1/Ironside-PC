@@ -4,11 +4,11 @@ import classNames from 'classnames';
 
 export const VideoBG = (props: { src: string }) => {
   const classes = classNames(
-    "max-w-none object-cover w-screen h-[68vh]",
+    "max-w-none object-cover w-screen",
     "xs:object-[-99px_-30px]",
     "md:w-[102vw] md:h-[116vh] md:object-[-36px_-100px]",
     "xxl:object-[0px_-60px] xxl:object-contain",
-    "4-xl:object-[-154px_10px]",
+    "4-xl:object-[-54px_20px]",
   );
   return (
     <div className="absolute inset-0 top-[-112px] overflow-hidden">
