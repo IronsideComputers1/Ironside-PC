@@ -6,8 +6,8 @@ export const VideoBG = (props: { src: string }) => {
   const classes = classNames(
     "max-w-none object-cover w-screen h-[68vh]",
     "xs:object-[-99px_-30px]",
-    "md:w-[102vw] md:h-[116vh] md:object-cover md:object-[-36px_-100px]",
-    "xxl:object-[-154px_-1px]",
+    "md:w-[102vw] md:h-[116vh] md:object-[-36px_-100px]",
+    "xxl:object-[0px_-60px] xxl:object-contain",
     "4-xl:object-[-154px_10px]",
   );
   return (
