@@ -200,7 +200,7 @@
 }
 
 .border-top {
-  border-top: 1px solid #363636;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 [data-theme='light'] .border {
@@ -208,7 +208,7 @@
 }
 
 .border {
-  border: 1px solid #363636;
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .border-radius {
