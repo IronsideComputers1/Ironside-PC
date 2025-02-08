@@ -291,7 +291,7 @@ const ProductSelectionModal = ({
 
   return (
     <div className="category-popup mt-1">
-      <div className="flex flex-wrap pb-3 gap-3 justify-center md:justify-start">
+      <div className="flex flex-wrap pb-3 gap-2 justify-center max-w-3xl md:justify-start">
         {modalData?.products?.map((data: any, index: number) => {
           const customFields = data?.customFields?.edges;
           const dataName = data?.name.length > 23
@@ -309,7 +309,7 @@ const ProductSelectionModal = ({
             <div
               key={index}
               className={
-                classNames('min-w-[48%] max-w-[148px] md:max-w-[217px] md:min-w-[unset] md:w-56', {
+                classNames('min-w-[48%] max-w-[148px] md:max-w-[200px] md:min-w-[unset] md:w-56', {
                   "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
                 })
               }

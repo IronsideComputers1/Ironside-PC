@@ -69,15 +69,15 @@ export const Block = ({
   return (
     <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none'>
       <div
-        className={classNames('flex items-center justify-between w-full h-20', incompatibleItems && 'incompatible')}
+        className={classNames('flex items-center justify-between w-full h-16', incompatibleItems && 'incompatible')}
         onClick={toggleAccordion}
       >
         <div className='flex items-center justify-start w-full'>
           <div className="p-3 mr-12">
             {hasImages ? (
               <img
-                width={50}
-                height={50}
+                width={44}
+                height={44}
                 src={loadImage(prod)}
               />
             ) : (

@@ -165,7 +165,7 @@ const Item = ({
   return (
     <div className={className}>
       <label className={classNames('text-[13px] text-primary-2 font-Arimo', labelClassName)}>{label}</label>
-      <span className={classNames("text-2xl text-secondary leading-6 font-bold font-heading block my-1.5", valueClassName)}>{value}</span>
+      <span className={classNames("text-2xl text-secondary leading-6 font-bold font-Arimo block my-1.5", valueClassName)}>{value}</span>
       {children}
     </div>
   )
@@ -236,7 +236,13 @@ export const FixedBottomBar = (props: FixedBottomBarProps) => {
   } = props
   return (
     <div
-      className="flex right-0 left-0 items-start justify-between fixed md:right-0.5 md:left-[55%] bottom-0 py-6 pl-5 pr-8 border-top text-center gap-10 xxl:justify-end lg:justify-center xxl:left-[55%]"
+      className={classNames(
+        "fixed bottom-0 flex items-start justify-between py-6 pl-5 pr-2 text-center gap-10 border-top",
+        "xs:pr-2",
+        "md:pr-2 md:right-0.5 md:left-[52%]",
+        "lg:pr-20 lg:justify-center",
+        "xxl:justify-end xxl:left-[55%]"
+      )}
       style={{
         backdropFilter: "blur(10px)",
       }}

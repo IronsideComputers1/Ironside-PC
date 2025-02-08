@@ -1,11 +1,19 @@
 import { Video } from '@components/ui/Video/Video'
 import { ShadowFocus } from './ShadowFocus'
+import classNames from 'classnames';
 
 export const VideoBG = (props: { src: string }) => {
+  const classes = classNames(
+    "max-w-none object-cover w-[240vw] object-[-70px_30px]",
+    "xs:object-[-99px_-30px] xs:w-[260vw]",
+    "md:w-[102vw] md:h-[116vh] md:object-[-36px_-100px] md:w-screen",
+    "xxl:object-[0px_-60px] xxl:object-contain",
+    "4-xl:object-[-54px_20px]",
+  );
   return (
     <div className="absolute inset-0 top-[-112px] overflow-hidden">
       <Video
-        className="max-w-none object-cover object-[-65px_-28px] w-screen h-[60vh] md:w-[102vw] md:h-[116vh] md:object-cover md:object-[-36px_-100px]"
+        className={classes}
         src={props.src}
         controls={false}
         loop

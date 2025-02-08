@@ -471,7 +471,7 @@ const Customizer: FC<Props> = (props) => {
           ],
         }}
       />
-      <div className="customizer relative p-0">
+      <div className="customizer relative p-0 h-screen">
         {!!bgVideo && <VideoBG src={bgVideo.node.value} />}
         <div
           className="customizer-product h-screen md:h-auto grid grid-cols-1 md:grid-cols-2"
@@ -484,12 +484,12 @@ const Customizer: FC<Props> = (props) => {
           />
 
           <div
-            className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 md:pt-0 md:pb-0 md:px-0 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
+            className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 md:pt-8 md:pb-0 md:px-0 md:pr-12 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
           >
-            <div className="components flex items-center justify-center w-full md:w-4/5 xxl:w-5/6">
+            <div className="components flex items-center justify-center w-full md:w-4/5 xxl:w-[76%]">
               <div
                 id='scroll-box'
-                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 md:pr-10"
+                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 md:pr-1"
               >
           <div className="customizerProductGrid">
             <div className="flex justify-center items-center flex-col">
@@ -518,7 +518,7 @@ const Customizer: FC<Props> = (props) => {
             </h2>
             <div
               className={classNames(
-                "grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 md:px-5 last:mb-36",
+                "grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 md:px-9 last:mb-36",
                 {
                   "border-dark": theme === "dark",
                   "border-light": theme === "light",
