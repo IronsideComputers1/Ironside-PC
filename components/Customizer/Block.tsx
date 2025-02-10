@@ -72,8 +72,8 @@ export const Block = ({
         className={classNames('flex items-center justify-between w-full h-16', incompatibleItems && 'incompatible')}
         onClick={toggleAccordion}
       >
-        <div className='flex items-center justify-start w-full'>
-          <div className="p-3 mr-12">
+        <div className='flex items-center justify-start w-full gap-10'>
+          <div className="p-2">
             {hasImages ? (
               <img
                 width={44}
@@ -85,7 +85,7 @@ export const Block = ({
             )}
           </div>
 
-          <div className="options-name">
+          <div className="w-2/3">
             <h3 className='font-Arimo text-base leading-4 text-left capitalize mb-1.5'>
               {subs?.categoryName}
             </h3>
