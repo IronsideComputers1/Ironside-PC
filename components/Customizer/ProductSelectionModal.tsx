@@ -316,7 +316,7 @@ const ProductSelectionModal = ({
             >
               <div
                 className={classNames(
-                  "border-[1px] rounded-2xl w-auto h-[234px] md:h-auto flex items-start justify-between p-2 md:p-3 flex-col relative overflow-hidden md:w-auto",
+                  "border-[1px] rounded-2xl w-auto h-[234px] min-h-full md:h-auto flex items-start justify-between p-2 md:p-3 flex-col relative overflow-hidden md:w-auto",
                   "hover:outline hover:outline-2",
                   {
                     "border-dark hover:outline-dark": theme === "dark",

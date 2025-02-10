@@ -471,7 +471,7 @@ const Customizer: FC<Props> = (props) => {
           ],
         }}
       />
-      <div className="customizer relative p-0 h-screen">
+      <div className="customizer relative p-0 h-[88vh]">
         {!!bgVideo && <VideoBG src={bgVideo.node.value} />}
         <div
           className="customizer-product h-screen md:h-auto grid grid-cols-1 md:grid-cols-2"
