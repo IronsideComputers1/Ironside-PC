@@ -63,7 +63,6 @@ export async function getStaticProps({
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
   }
-  // console.log({pages, product, optionsCategories});
 
   return {
     props: { pages, product, optionsCategories, header },
@@ -117,7 +116,6 @@ export default function Slug({
     const products = useSearch({
       categoryId: commaSeparatedString,
     })
-    // console.log({products});
 
     if (products?.data?.found) {
       productsFetched++
@@ -159,11 +157,11 @@ export default function Slug({
           (subCategory: any) => subCategory.categoryName === categoryName
         )
         if (hasCaseCategory) {
-          // Sort products by price (highest to lowest)
+          // Sort products by price (lowest to highest)
           const sortedProducts = [...products].sort((a, b) => {
             const priceA = a.prices?.price?.value || 0
             const priceB = b.prices?.price?.value || 0
-            return priceB - priceA
+            return priceA - priceB
           })
 
           const subCategoryObject: any = {
@@ -179,30 +177,16 @@ export default function Slug({
       const options: any = colorOptions?.products?.map((prods: any) => {
         return prods?.node
       })
-      // Sort color options by price (highest to lowest)
+      // Sort color options by price (lowest to highest)
       options.sort((a: any, b: any) => {
         const priceA = a.prices?.price?.value || 0
         const priceB = b.prices?.price?.value || 0
-        return priceB - priceA
+        return priceA - priceB
       })
       setColorOpts(options)
     }
     setGroupedProducts(groupedData)
   }
-
-  // const checkThemeColor = (dark: boolean) => {
-  //   if (dark == true) {
-
-  //     setThemeColor(true)
-  //   } else {
-  //     setThemeColor(false)
-
-  //   }
-  // }
-
-  // if (typeof window !== 'undefined') {
-
-  // }
 
   useEffect(() => {
     let filteredProductData: any = []
