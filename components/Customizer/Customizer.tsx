@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useRef } from 'react'
+import { FC, useEffect, useState, useRef, useMemo } from 'react'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -70,6 +70,7 @@ const Customizer: FC<Props> = (props) => {
   const [incompatibleProdIds, setIncompatibleProdIds] = useState([])
   const [defaultColors, setDefaultColors] = useState([])
 
+  const installmentsPrice = useMemo(() => Math.ceil(totalPrice / 23 * 100) / 100, [totalPrice])
   const theme = useGetTheme();
 
   const addItem = useAddItem()
@@ -606,6 +607,7 @@ const Customizer: FC<Props> = (props) => {
               onAddToCart={addToCart}
               isLoading={loading}
               isDisabled={!variant}
+              installmentsPrice={installmentsPrice}
               saveMyBuildData={
                 {
                   url: buildUrl,
