@@ -124,6 +124,7 @@ const DesktopBottomBar = ({
   isLoading,
   isDisabled,
   saveMyBuildData,
+  installmentsPrice,
 }: FixedBottomBarProps) => {
   return (
     <div className='hidden md:flex md:gap-10'>
@@ -131,8 +132,10 @@ const DesktopBottomBar = ({
         <div className='flex items-start justify-center gap-9 text-center flex-row-reverse md:flex-row w-full md:justify-between'>
           <Item label='Warranty' value={warranty} />
           <Item label='Ships' value={shippingDate} />
-          <Item label='Total' value={totalPrice}>
+          {/* TODO: Do we have installments on desktop? */}
+          <Item label='Total' value={totalPrice} valueClassName='mb-0'>
             <div id="bread-checkout-btn" />
+            <InstallmentsItem installmentsPrice={installmentsPrice} />
           </Item>
         </div>
         <ActionButtons
@@ -150,7 +153,7 @@ const DesktopBottomBar = ({
 
 const InstallmentsItem = ({installmentsPrice}: {installmentsPrice: number}) => (
   <span className='font-Inconsolata text-[13px] text-basicDark -mt-0.5 pl-0.5'>
-    or <span className='text-basicDark pb-[0.5px] border-b-[1px] border-current'>${installmentsPrice}/month</span>
+    or <span className='text-basicDark pb-[0.5px] border-b-[1px] border-current md:border-none'>${installmentsPrice}/month</span>
   </span>
 )
 
