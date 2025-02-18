@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useRef } from 'react'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -25,10 +25,7 @@ import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import classNames from 'classnames'
 import { Separator } from './Separator'
 import { VideoBG } from './Video-BG'
-import CustomizerButton from './CustomizerButton'
-import { SaveBuildButton } from './SaveBuildButton'
 import { FixedBottomBar } from './FixedBottomBar'
-import { BottomSheet } from './BottomSheet'
 
 interface Props {
   className?: string
@@ -39,8 +36,6 @@ interface Props {
   currency?: any
   productsFetched?: boolean
 }
-
-declare let window: any
 
 const Customizer: FC<Props> = (props) => {
   const {
@@ -356,88 +351,100 @@ const Customizer: FC<Props> = (props) => {
     return formattedDate
   }
 
-  // TODO: Check what this does
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (typeof window !== 'undefined') {
-  //       const element: any = document.querySelector('#scroll-box')
-  //       if (element) {
-  //         element.onscroll = function (e: any) {
-  //           const contentBlocks: any =
-  //             document.querySelectorAll('.content-item')
-  //           for (let i = 0; i < contentBlocks?.length; i++) {
-  //             const block = contentBlocks[i] as HTMLElement
-  //             const blockTop = block?.offsetTop
-  //             const blockBottom = blockTop + block?.offsetHeight
-  //             const currentScrollPosition =
-  //               element?.scrollTop + contentBlocks[0]?.offsetTop
-  //             if (
-  //               currentScrollPosition >= blockTop &&
-  //               currentScrollPosition < blockBottom
-  //             ) {
-  //               setActiveTab(block?.innerHTML)
-  //               break
-  //             }
-  //             if (
-  //               element.scrollTop + element.clientHeight >=
-  //               element.scrollHeight
-  //             ) {
-  //               setActiveTab(contentBlocks[contentBlocks?.length - 1].innerHTML)
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }, 8000)
-  // }, [])
+  console.log({totalPrice});
 
-  useEffect(() => {
-    {
-      /* breadPay rendering on pdp page load */
-    }
-    if (window.BreadPayments) {
-      const placement = [
-        {
-          financingType: 'installment',
-          locationType: 'product',
-          domID: 'bread-checkout-btn',
-          allowCheckout: false,
-          order: {
-            items: [],
-            subTotal: {
-              value: totalPrice,
-              currency: 'USD',
-            },
-            totalTax: {
-              value: 0,
-              currency: 'USD',
-            },
-            totalShipping: {
-              value: 0,
-              currency: 'USD',
-            },
-            totalDiscounts: {
-              value: 0,
-              currency: 'USD',
-            },
-            totalPrice: {
-              value: totalPrice,
-              currency: 'USD',
-            },
-          },
-        },
-      ]
-      window.BreadPayments.setup({
-        integrationKey: 'a7496808-6bf0-4504-9ab9-42821c807572',
-      })
-      // console.log('BreadPayments Registered: ', placement)
-      window.BreadPayments.registerPlacements(placement)
-      window.BreadPayments.on('INSTALLMENT:APPLICATION_CHECKOUT', () => {})
-      window.BreadPayments.on('INSTALLMENT:APPLICATION_DECISIONED', () => {})
-    } else {
-      console.error('BreadPayments is not available on window object')
-    }
-  }, [])
+  // TODO: Check if we actually need BreadPayments
+  // const breadPaymentsRef = useRef<BreadPayments | null>(null);
+
+  // useEffect(() => {
+  //   if (!window.BreadPayments) {
+  //     console.error('BreadPayments is not available on window object')
+  //     return;
+  //   }
+  //   const breadButton = document.getElementById('bread-checkout-btn');
+
+  //   if(!breadButton) return;
+
+  //   breadPaymentsRef.current = window.BreadPayments
+
+  //   if(!breadPaymentsRef.current) return;
+  //   const BreadPayments = breadPaymentsRef.current;
+
+  //   console.log(window.BreadPayments);
+  //   console.log(breadButton);
+  //   console.log(BreadPayments);
+
+  //   // Then setup
+  //   BreadPayments.setup({
+  //     integrationKey: 'a7496808-6bf0-4504-9ab9-42821c807572',
+  //   })
+  //   const placement = [{
+  //     financingType: "installment",
+  //     locationType: "product",
+  //     domID: "bread-checkout-btn",
+  //     allowCheckout: false,
+  //     order: {
+  //       items: [],
+  //       subTotal: {
+  //         value: 11000,
+  //         currency: "USD",
+  //       },
+  //       totalTax: {
+  //         value: 0,
+  //         currency: "USD",
+  //       },
+  //       totalShipping: {
+  //         value: 0,
+  //         currency: "USD",
+  //       },
+  //       totalDiscounts: {
+  //         value: 0,
+  //         currency: "USD",
+  //       },
+  //       totalPrice: {
+  //         value: 11000,
+  //         currency: "USD",
+  //       },
+  //     }
+  // }];
+  //   // const placement = [{
+  //   //   financingType: 'installment',
+  //   //   locationType: 'product',
+  //   //   domID: 'bread-checkout-btn',
+  //   //   allowCheckout: false,
+  //   //   order: {
+  //   //     items: [],
+  //   //     subTotal: {
+  //   //       value: totalPrice,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //     totalTax: {
+  //   //       value: 0,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //     totalShipping: {
+  //   //       value: 0,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //     totalDiscounts: {
+  //   //       value: 0,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //     totalPrice: {
+  //   //       value: totalPrice,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //   },
+  //   // }]
+
+  //   BreadPayments.registerPlacements(placement)
+  //   BreadPayments.on("INSTALLMENT:APPLICATION_DECISIONED", (installmentResult: any) => {
+  //     console.log(installmentResult);
+  //   });
+  //   BreadPayments.on("INSTALLMENT:APPLICATION_CHECKOUT", (installmentResult: any) => {
+  //     console.log(installmentResult);
+  //   });
+  // }, [totalPrice])
 
 
   if(!productsFetched) {
