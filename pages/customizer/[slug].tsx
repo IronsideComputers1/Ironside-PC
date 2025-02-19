@@ -31,7 +31,7 @@ export async function getStaticProps({
   })
   const { categories } = await getSiteInfo({ config, preview })
   const header = await builder.get('header').toPromise()
-  
+
   const optionsCategories = categories?.reduce((acc: any, ele) => {
     if (ele.entityId === 70) {
       return [...acc, {
@@ -63,8 +63,7 @@ export async function getStaticProps({
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
   }
-  // console.log({pages, product, optionsCategories});
-  
+
   return {
     props: { pages, product, optionsCategories, header },
     revalidate: 200,
@@ -95,7 +94,6 @@ export default function Slug({
   header,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [productDetail, setProductDetail] = useState(product)
-  const [themeColor, setThemeColor] = useState(false)
   const [groupedProducts, setGroupedProducts] = useState<any[]>([])
   const [colorOpts, setColorOpts] = useState<any[]>([])
   const [currency, setCurrency] = useState<any>({})
@@ -118,8 +116,7 @@ export default function Slug({
     const products = useSearch({
       categoryId: commaSeparatedString,
     })
-    // console.log({products});
-    
+
     if (products?.data?.found) {
       productsFetched++
       category?.productCategories?.forEach((subs: any) => {
@@ -136,7 +133,7 @@ export default function Slug({
       })
     }
   })
-  
+
   const groupProductsByCategory = (originalData: any) => {
     const groupedData: any[] = []
     const categoryMap: any = {}
@@ -160,9 +157,16 @@ export default function Slug({
           (subCategory: any) => subCategory.categoryName === categoryName
         )
         if (hasCaseCategory) {
+          // Sort products by price (lowest to highest)
+          const sortedProducts = [...products].sort((a, b) => {
+            const priceA = a.prices?.price?.value || 0
+            const priceB = b.prices?.price?.value || 0
+            return priceA - priceB
+          })
+
           const subCategoryObject: any = {
             categoryName: categoryName,
-            products: products,
+            products: sortedProducts,
           }
           groupedCategoryItem?.subCategory?.push(subCategoryObject)
         }
@@ -173,30 +177,22 @@ export default function Slug({
       const options: any = colorOptions?.products?.map((prods: any) => {
         return prods?.node
       })
+      // Sort color options by price (lowest to highest)
+      options.sort((a: any, b: any) => {
+        const priceA = a.prices?.price?.value || 0
+        const priceB = b.prices?.price?.value || 0
+        return priceA - priceB
+      })
       setColorOpts(options)
     }
     setGroupedProducts(groupedData)
   }
 
-  // const checkThemeColor = (dark: boolean) => {
-  //   if (dark == true) {
-      
-  //     setThemeColor(true)
-  //   } else {
-  //     setThemeColor(false)
-      
-  //   }
-  // }
-
-  // if (typeof window !== 'undefined') {
-    
-  // }
-
   useEffect(() => {
     let filteredProductData: any = []
     const optionsProduct =
       productData.data?.products[0]?.node?.productOptions?.edges
-      
+
     if (optionsProduct) {
       setTimeout(() => {
         optionsCategories?.forEach((data: any) => {
@@ -226,7 +222,7 @@ export default function Slug({
             }
           })
         })
-        
+
         const categoriesDataFiltered = (filteredProductData || []).reduce(
           (
             accumulator: { categoryName: any; subCategories: any[] }[],
@@ -275,7 +271,7 @@ export default function Slug({
               categoryName: cat?.categoryName,
               subCategories: sortedSubCats,
             })
-            filteredSubCategories?.forEach((cat: any) => { 
+            filteredSubCategories?.forEach((cat: any) => {
               // remove duplicate products assigned to different cats
               const uniqueArray = cat?.subCategories?.reduce(
                 (acc: any[], current: any) => {

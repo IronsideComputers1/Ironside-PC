@@ -14,7 +14,7 @@ export const ProductLeft = ({ products, modalImage, currentProduct }: Props) => 
   const classes = classNames(
     "w-[65vw] h-[52vh]",
     "sm:w-[29vw]",
-    "md:ml-20",
+    "md:ml-20 md:w-p]",
     "xxl:w-[28vw] xxl:mt-4 xxl:ml-32",
     "4-xl:w-[30vw] 4-xl:mt-[240px] 4-xl:ml-[300px]",
   );

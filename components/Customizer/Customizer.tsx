@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useRef, useMemo } from 'react'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -25,10 +25,7 @@ import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import classNames from 'classnames'
 import { Separator } from './Separator'
 import { VideoBG } from './Video-BG'
-import CustomizerButton from './CustomizerButton'
-import { SaveBuildButton } from './SaveBuildButton'
 import { FixedBottomBar } from './FixedBottomBar'
-import { BottomSheet } from './BottomSheet'
 
 interface Props {
   className?: string
@@ -39,8 +36,6 @@ interface Props {
   currency?: any
   productsFetched?: boolean
 }
-
-declare let window: any
 
 const Customizer: FC<Props> = (props) => {
   const {
@@ -75,6 +70,7 @@ const Customizer: FC<Props> = (props) => {
   const [incompatibleProdIds, setIncompatibleProdIds] = useState([])
   const [defaultColors, setDefaultColors] = useState([])
 
+  const installmentsPrice = useMemo(() => Math.ceil(totalPrice / 23 * 100) / 100, [totalPrice])
   const theme = useGetTheme();
 
   const addItem = useAddItem()
@@ -356,88 +352,100 @@ const Customizer: FC<Props> = (props) => {
     return formattedDate
   }
 
-  // TODO: Check what this does
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (typeof window !== 'undefined') {
-  //       const element: any = document.querySelector('#scroll-box')
-  //       if (element) {
-  //         element.onscroll = function (e: any) {
-  //           const contentBlocks: any =
-  //             document.querySelectorAll('.content-item')
-  //           for (let i = 0; i < contentBlocks?.length; i++) {
-  //             const block = contentBlocks[i] as HTMLElement
-  //             const blockTop = block?.offsetTop
-  //             const blockBottom = blockTop + block?.offsetHeight
-  //             const currentScrollPosition =
-  //               element?.scrollTop + contentBlocks[0]?.offsetTop
-  //             if (
-  //               currentScrollPosition >= blockTop &&
-  //               currentScrollPosition < blockBottom
-  //             ) {
-  //               setActiveTab(block?.innerHTML)
-  //               break
-  //             }
-  //             if (
-  //               element.scrollTop + element.clientHeight >=
-  //               element.scrollHeight
-  //             ) {
-  //               setActiveTab(contentBlocks[contentBlocks?.length - 1].innerHTML)
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }, 8000)
-  // }, [])
+  console.log({totalPrice});
 
-  useEffect(() => {
-    {
-      /* breadPay rendering on pdp page load */
-    }
-    if (window.BreadPayments) {
-      const placement = [
-        {
-          financingType: 'installment',
-          locationType: 'product',
-          domID: 'bread-checkout-btn',
-          allowCheckout: false,
-          order: {
-            items: [],
-            subTotal: {
-              value: totalPrice,
-              currency: 'USD',
-            },
-            totalTax: {
-              value: 0,
-              currency: 'USD',
-            },
-            totalShipping: {
-              value: 0,
-              currency: 'USD',
-            },
-            totalDiscounts: {
-              value: 0,
-              currency: 'USD',
-            },
-            totalPrice: {
-              value: totalPrice,
-              currency: 'USD',
-            },
-          },
-        },
-      ]
-      window.BreadPayments.setup({
-        integrationKey: 'a7496808-6bf0-4504-9ab9-42821c807572',
-      })
-      // console.log('BreadPayments Registered: ', placement)
-      window.BreadPayments.registerPlacements(placement)
-      window.BreadPayments.on('INSTALLMENT:APPLICATION_CHECKOUT', () => {})
-      window.BreadPayments.on('INSTALLMENT:APPLICATION_DECISIONED', () => {})
-    } else {
-      console.error('BreadPayments is not available on window object')
-    }
-  }, [])
+  // TODO: Check if we actually need BreadPayments
+  // const breadPaymentsRef = useRef<BreadPayments | null>(null);
+
+  // useEffect(() => {
+  //   if (!window.BreadPayments) {
+  //     console.error('BreadPayments is not available on window object')
+  //     return;
+  //   }
+  //   const breadButton = document.getElementById('bread-checkout-btn');
+
+  //   if(!breadButton) return;
+
+  //   breadPaymentsRef.current = window.BreadPayments
+
+  //   if(!breadPaymentsRef.current) return;
+  //   const BreadPayments = breadPaymentsRef.current;
+
+  //   console.log(window.BreadPayments);
+  //   console.log(breadButton);
+  //   console.log(BreadPayments);
+
+  //   // Then setup
+  //   BreadPayments.setup({
+  //     integrationKey: 'a7496808-6bf0-4504-9ab9-42821c807572',
+  //   })
+  //   const placement = [{
+  //     financingType: "installment",
+  //     locationType: "product",
+  //     domID: "bread-checkout-btn",
+  //     allowCheckout: false,
+  //     order: {
+  //       items: [],
+  //       subTotal: {
+  //         value: 11000,
+  //         currency: "USD",
+  //       },
+  //       totalTax: {
+  //         value: 0,
+  //         currency: "USD",
+  //       },
+  //       totalShipping: {
+  //         value: 0,
+  //         currency: "USD",
+  //       },
+  //       totalDiscounts: {
+  //         value: 0,
+  //         currency: "USD",
+  //       },
+  //       totalPrice: {
+  //         value: 11000,
+  //         currency: "USD",
+  //       },
+  //     }
+  // }];
+  //   // const placement = [{
+  //   //   financingType: 'installment',
+  //   //   locationType: 'product',
+  //   //   domID: 'bread-checkout-btn',
+  //   //   allowCheckout: false,
+  //   //   order: {
+  //   //     items: [],
+  //   //     subTotal: {
+  //   //       value: totalPrice,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //     totalTax: {
+  //   //       value: 0,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //     totalShipping: {
+  //   //       value: 0,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //     totalDiscounts: {
+  //   //       value: 0,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //     totalPrice: {
+  //   //       value: totalPrice,
+  //   //       currency: 'USD',
+  //   //     },
+  //   //   },
+  //   // }]
+
+  //   BreadPayments.registerPlacements(placement)
+  //   BreadPayments.on("INSTALLMENT:APPLICATION_DECISIONED", (installmentResult: any) => {
+  //     console.log(installmentResult);
+  //   });
+  //   BreadPayments.on("INSTALLMENT:APPLICATION_CHECKOUT", (installmentResult: any) => {
+  //     console.log(installmentResult);
+  //   });
+  // }, [totalPrice])
 
 
   if(!productsFetched) {
@@ -471,7 +479,7 @@ const Customizer: FC<Props> = (props) => {
           ],
         }}
       />
-      <div className="customizer relative p-0 h-screen">
+      <div className="customizer relative p-0 h-[88vh]">
         {!!bgVideo && <VideoBG src={bgVideo.node.value} />}
         <div
           className="customizer-product h-screen md:h-auto grid grid-cols-1 md:grid-cols-2"
@@ -486,7 +494,7 @@ const Customizer: FC<Props> = (props) => {
           <div
             className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 md:pt-8 md:pb-0 md:px-0 md:pr-12 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
           >
-            <div className="components flex items-center justify-center w-full md:w-4/5 xxl:w-[76%]">
+            <div className="components flex items-center justify-center w-full md:w-[95%] xxl:w-[76%]">
               <div
                 id='scroll-box'
                 className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 md:pr-1"
@@ -599,6 +607,7 @@ const Customizer: FC<Props> = (props) => {
               onAddToCart={addToCart}
               isLoading={loading}
               isDisabled={!variant}
+              installmentsPrice={installmentsPrice}
               saveMyBuildData={
                 {
                   url: buildUrl,

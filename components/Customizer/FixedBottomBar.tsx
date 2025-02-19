@@ -28,6 +28,7 @@ type FixedBottomBarProps = {
     productDescription: any;
     productImage: any;
   };
+  installmentsPrice: number;
 }
 
 type ActionButtonsProps = {
@@ -123,6 +124,7 @@ const DesktopBottomBar = ({
   isLoading,
   isDisabled,
   saveMyBuildData,
+  installmentsPrice,
 }: FixedBottomBarProps) => {
   return (
     <div className='hidden md:flex md:gap-10'>
@@ -130,8 +132,10 @@ const DesktopBottomBar = ({
         <div className='flex items-start justify-center gap-9 text-center flex-row-reverse md:flex-row w-full md:justify-between'>
           <Item label='Warranty' value={warranty} />
           <Item label='Ships' value={shippingDate} />
-          <Item label='Total' value={totalPrice}>
+          {/* TODO: Do we have installments on desktop? */}
+          <Item label='Total' value={totalPrice} valueClassName='mb-0'>
             <div id="bread-checkout-btn" />
+            <InstallmentsItem installmentsPrice={installmentsPrice} />
           </Item>
         </div>
         <ActionButtons
@@ -146,6 +150,12 @@ const DesktopBottomBar = ({
     </div>
   )
 }
+
+const InstallmentsItem = ({installmentsPrice}: {installmentsPrice: number}) => (
+  <span className='font-Inconsolata text-[13px] text-basicDark -mt-0.5 pl-0.5'>
+    or <span className='text-basicDark pb-[0.5px] border-b-[1px] border-current md:border-none'>${installmentsPrice}/month</span>
+  </span>
+)
 
 const Item = ({
     label = "",
@@ -181,16 +191,18 @@ const MobileBottomBar = ({
   isLoading,
   isDisabled,
   saveMyBuildData,
+  installmentsPrice,
 }: FixedBottomBarProps) => {
   const theme = useGetTheme();
   return (
     <div className='px-4'>
       <div className='flex items-start justify-between w-full flex-col mb-7'>
-        <div className='flex items-start justify-center gap-9 text-center flex-row-reverse w-full mb-5'>
+        <div className='flex items-start justify-center gap-9 text-center flex-row-reverse w-full mb-5 -ml-0.5'>
           <Item label='Warranty' value={warranty} />
           <Item label='Ships by' value={shippingDate} />
-          <Item label='Total' value={totalPrice}>
+          <Item label='Total' value={totalPrice} valueClassName='mb-0'>
             <div id="bread-checkout-btn" />
+            <InstallmentsItem installmentsPrice={installmentsPrice} />
           </Item>
         </div>
         <div className='flex items-center flex-col px-2 py-4 bg-accents-12 rounded-lg'>
@@ -233,14 +245,16 @@ export const FixedBottomBar = (props: FixedBottomBarProps) => {
     onAddToCart,
     onSaveBuild,
     saveMyBuildData,
+    installmentsPrice,
   } = props
   return (
     <div
       className={classNames(
-        "fixed bottom-0 flex items-start justify-between py-6 pl-5 pr-2 text-center gap-10 border-top",
-        "xs:pr-2",
-        "md:pr-2 md:right-0.5 md:left-[52%]",
-        "lg:pr-20 lg:justify-center",
+        "fixed bottom-0 flex items-start justify-between py-6 pl-5 pr-2 text-center gap-10 border-top left-[unset]",
+        "xs:pr-2 xs:left-0 xs:right-0",
+        "sm:pr-2 sm:left-0 sm:right-0",
+        "md:pr-2 md:right-0.5 md:left-[46%] md:justify-end",
+        "lg:pr-20",
         "xxl:justify-end xxl:left-[55%]"
       )}
       style={{
@@ -262,15 +276,18 @@ export const FixedBottomBar = (props: FixedBottomBarProps) => {
               onSaveBuild={onSaveBuild}
               isLoading={isLoading}
               isDisabled={isDisabled}
+              installmentsPrice={installmentsPrice}
             />
           }
         >
-          <div className='flex items-center justify-between gap-3'>
-            <Item value={totalPrice} valueClassName="text-[16px]" className='flex' />
-            <span className='transform rotate-180'>
-              <DropdownArrow width={14} height={16} />
-            </span>
-            <div id="bread-checkout-btn" />
+          <div className='flex items-start flex-col'>
+            <div className='flex items-center justify-between gap-2.5'>
+              <Item value={totalPrice} valueClassName="text-[16px] mb-0" className='flex' />
+              <span className='transform rotate-180 pb-1'>
+                <DropdownArrow width={14} height={16} />
+              </span>
+            </div>
+            <InstallmentsItem installmentsPrice={installmentsPrice} />
           </div>
         </BottomSheet>
         <ActionButtons
