@@ -1,27 +1,10 @@
 const Hamburgers = ({ ...props }) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="15"
-      height="11"
-      viewBox="0 0 15 11"
-    >
-      <path
-        d="M4.5625 10.125H13.9583"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M1.125 0.5H13.9583"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M1.125 5.3125H13.9583"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path d="M5 7H20" stroke="inherit" stroke-linecap="round"/>
+      <path d="M5 12H20" stroke="inherit" stroke-linecap="round"/>
+      <path d="M5 17H20" stroke="inherit" stroke-linecap="round"/>
     </svg>
   )
 }
-export default Hamburgers;  
+export default Hamburgers;
