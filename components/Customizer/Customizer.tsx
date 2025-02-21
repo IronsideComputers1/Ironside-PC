@@ -504,7 +504,7 @@ const Customizer: FC<Props> = (props) => {
               <div className='flex justify-center items-center mb-5'>
                 {hasLogoImage ? (
                   <Image
-                    src={theme === 'dark' ? logoDarkImage.node.value : '/EdensVeilLogoWhite.png'}
+                    src={theme === 'dark' ? logoDarkImage.node.value : logoLightImage.node.value}
                     alt={productDescription[0]?.trim()}
                     width={300}
                     height={50}

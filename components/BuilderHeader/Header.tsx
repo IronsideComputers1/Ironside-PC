@@ -8,6 +8,13 @@ import MobileMenu from './MobileMenu'
 import { Portal } from '@reach/portal'
 import { Cross } from '@components/icons'
 import { IronSideLogo } from '@components/ui/IronSideLogo/IronSideLogo'
+import dynamic from 'next/dynamic'
+
+const DarkMode = dynamic(() => import("@components/ui/DarkMode/DarkMode"), {
+  ssr: false,
+  // Make sure to code a placeholder so the UI doesn't jump when the component loads
+  loading: () => <div className="w-9 h-9" />,
+});
 
 
 const Header = (props: any) => {
@@ -44,8 +51,13 @@ const Header = (props: any) => {
                 />
               </a>
             </Link>
-            <div className="mobile-menu-btn" onClick={() => mobileMenu()}>
-              <Hamburgers />
+            <div className='flex items-center gap-4'>
+              <span className='block sm:hidden'>
+                <DarkMode />
+              </span>
+              <div className="mobile-menu-btn" onClick={() => mobileMenu()}>
+                <Hamburgers />
+              </div>
             </div>
 
             <nav className="hidden ml-6 space-x-4 md:block">
