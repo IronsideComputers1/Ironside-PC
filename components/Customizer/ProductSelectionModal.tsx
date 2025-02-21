@@ -311,7 +311,7 @@ const ProductSelectionModal = ({
             <div
               key={index}
               className={
-                classNames('min-w-[48%] max-w-[148px] md:max-w-[190px] md:min-w-[unset] md:w-56', {
+                classNames('min-w-[48%] max-w-[148px] md:max-w-[198px] md:min-w-[unset] md:w-56', {
                   "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
                 })
               }
