@@ -63,9 +63,7 @@ export const Block = ({
       cat ===
       subs.categoryName
   );
-
   const hasImages = prod?.images?.edges.length > 0;
-
   return (
     <div ref={blockRef} id={subs.categoryName.toLowerCase()} className='flex flex-col w-full select-none'>
       <div
@@ -89,15 +87,8 @@ export const Block = ({
             <h3 className='font-Arimo text-base leading-4 text-left capitalize mb-1.5'>
               {subs?.categoryName}
             </h3>
-            <h4 className="mb-0 font-Inconsolata text-base leading-4 text-basicDark font-normal tracking-normal capitalize">
-              {prod?.name.length > 35
-                ? `${renderColorName(
-                    prod
-                  )?.substring(
-                    0,
-                    35
-                  )}...`
-                : renderColorName(prod)}
+            <h4 className="mb-0 font-Inconsolata text-base leading-4 text-basicDark font-normal tracking-normal capitalize overflow-hidden line-clamp-2">
+              {renderColorName(prod)}
             </h4>
           </div>
         </div>

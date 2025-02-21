@@ -293,10 +293,12 @@ const ProductSelectionModal = ({
     <div className="category-popup mt-1">
       <div className="flex flex-wrap pb-3 gap-2 justify-center max-w-3xl xs:justify-start">
         {modalData?.products?.map((data: any, index: number) => {
+          // const maxLength = 48;
+          // const dataName = data?.name.split(" ").join("").length > maxLength
+          //   ? `${data?.name?.substring(0, maxLength)}...`
+          //   : data?.name
+          const dataName = data?.name;
           const customFields = data?.customFields?.edges;
-          const dataName = data?.name.length > 23
-            ? `${data?.name?.substring(0, 23)}...`
-            : data?.name
           const hasImage = data?.images?.edges.length > 0;
           const hasProduct = data?.customFields?.edges.length === 0 || isMerch;
           const imageUrl = hasProduct ? data?.images?.edges[0]?.node?.urlOriginal : loadImage(data);
@@ -374,15 +376,14 @@ const ProductSelectionModal = ({
                 </div>
                 <div className="flex flex-direction justify-space w-full">
                   {/* TITLE */}
-                  <span className='md:mt-3 py-2 px-1.5 font-Arimo text-[13px]'>
-                    <div
-                      onClick={() => {
-                        if(customFields.length > 0 && !isMerch) return null;
-                        onSetProduct(data);
-                      }}
-                    >
-                      {dataName}
-                    </div>
+                  <span
+                    className='md:mt-3 pt-2 pb-0 px-1.5 font-Arimo text-[13px] overflow-hidden line-clamp-2 min-h-9'
+                    onClick={() => {
+                      if(customFields.length > 0 && !isMerch) return null;
+                      onSetProduct(data);
+                    }}
+                  >
+                    {dataName}
                   </span>
                   <div className='h-8 flex item s-center justify-between md:mt-4'>
                     <ProductBody
