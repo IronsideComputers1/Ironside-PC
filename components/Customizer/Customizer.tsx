@@ -526,7 +526,7 @@ const Customizer: FC<Props> = (props) => {
             </h2>
             <div
               className={classNames(
-                "grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 md:px-9 last:mb-36 max-w-[684px]",
+                "grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 last:mb-36 max-w-[684px]",
                 {
                   "border-dark": theme === "dark",
                   "border-light": theme === "light",
