@@ -307,6 +307,8 @@ const ProductSelectionModal = ({
               product?.product === data?.entityId &&
               product?.cat === modalData?.categoryName
           )
+          console.log({data});
+
           return (
             <div
               key={index}
@@ -338,7 +340,7 @@ const ProductSelectionModal = ({
                     onClose={closeModal}
                     heading={data?.name}
                     text={data?.description}
-                    button={<Info height={18} width={18} className="fill-current text-icon-gray" />}
+                    button={<Info height={18} width={18} className={`fill-current ${theme === "dark" ? "text-icon-gray" : "text-icon-gray-light"}`} />}
                     dataImages={data?.images?.edges}
                     stock={data?.variants?.edges[0]?.node?.inventory?.isInStock}
                   />

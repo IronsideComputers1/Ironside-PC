@@ -61,6 +61,7 @@ module.exports = {
         "secondary-text": 'var(--text-secondary)',
         basicDark: '#757575',
         "icon-gray": "rgba(255, 255, 255, 0.22)",
+        "icon-gray-light": "rgba(0, 0, 0, 0.22)",
       },
       boxShadow: {
         'outline-2': '0 0 0 2px var(--accents-2)',

@@ -12,7 +12,6 @@ const IncompatibilitesModal = ({
   setIncompatibleModal,
   scrollToElement
 }: any) => {
-  const theme = useGetTheme();
   return (
     <div className="modal incompatibilites-modal">
       <div className={classNames('w-full flex items-center justify-between text-gray-500 h-10 pl-4')}>

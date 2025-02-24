@@ -2,6 +2,8 @@ import { FC, useRef, useEffect, useState } from 'react'
 import { Portal } from '@reach/portal'
 import { Cross } from '@components/icons'
 import Slider from 'react-slick'
+import classNames from 'classnames'
+import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 interface Props {
   text?: any
   button?: any
@@ -23,6 +25,7 @@ export const ProductInfoContent: FC<{
   dataImages,
 }) => {
 
+  const theme = useGetTheme();
   const productInfoImages = () => {
     const images = dataImages.map((image: any) => {
       return image?.node?.urlOriginal
@@ -60,9 +63,8 @@ export const ProductInfoContent: FC<{
   }
   return (
     <div className="modal-content w-full grid grid-cols-1 md:grid-cols-2 pb-10 pl-4 md:pl-13 pt-2">
-      <div className="product-thumbnail flex flex-direction justify-center items-center">
+      <div className="product-thumbnail flex flex-direction justify-center items-center md:ml-10">
         <Slider
-          className="product-thumbnail-main"
           {...settingsMain}
           asNavFor={nav2}
           ref={(slider: any) => setSlider1(slider)}
@@ -98,14 +100,14 @@ export const ProductInfoContent: FC<{
           </Slider>
         )}
       </div>
-      <div className="overflow-auto h-auto pt-4 md:pt-12 pr-4 md:pr-20">
+      <div className="overflow-auto h-auto pt-4 md:pt-6 pr-4 md:pr-20">
         <div>
           <h2>{heading}</h2>
         </div>
         {text && (
           <div data-lenis-prevent>
-            <p className='font-mono capitalize mt-8 mb-6 text-xl text-gray-300'>Description</p>
-            <div className='font-mono text-gray-300 leading-5' dangerouslySetInnerHTML={{ __html: text }} />
+            <p className={` font-Inconsolata capitalize mt-8 mb-5 text-xl ${theme === "dark" ? "text-gray-300" : "text-black"}`}>Description</p>
+            <div className={`${theme === "dark" ? "text-gray-300" : "text-black"} leading-4 font-Inconsolata text-base font-medium`} dangerouslySetInnerHTML={{ __html: text }} />
           </div>
         )}
       </div>
@@ -163,8 +165,12 @@ const ProductInfoModal: FC<Props> = ({
           <div role="dialog">
             {showModal && (
               <div className="modal customizer-prod-modal" data-lenis-prevent>
-                <div className='w-full flex items-center justify-between text-gray-500 border-b border-primary h-12 pl-8'>
-                  <p className='m-0 text-basicDark font-medium font-Inconsolata'>PRODUCT_OVERVIEW.EXE</p>
+                <div className={classNames('w-full flex items-center justify-between text-gray-500 h-10 pl-4 pt-4')}>
+                  <p
+                    className='m-0 font-medium font-Inconsolata'
+                    style={{ color: 'rgba(255, 112, 112, 1)' }}
+                  >
+                  </p>
                   <button
                     onClick={() => setShowModal(false)}
                     aria-label="Close panel"
