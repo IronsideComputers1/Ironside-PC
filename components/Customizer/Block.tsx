@@ -83,10 +83,20 @@ export const Block = ({
         setIsOpen(true);
         onModalSelection(subs);
 
-        // Scroll into view
-        if (blockRef.current) {
-          blockRef.current.scrollIntoView({ behavior: 'instant', block: 'nearest' });
-        }
+        // Wait for content to be rendered and measured
+        setTimeout(() => {
+          if (blockRef.current) {
+            const blockPosition = blockRef.current.getBoundingClientRect().top;
+
+            if (blockPosition < 0) {
+              // Block is above viewport, align to bottom
+              blockRef.current.scrollIntoView({
+                behavior: 'instant',
+                block: 'start'
+              });
+            }
+          }
+        }, 60); // Add small delay to ensure DOM has updated
       }, 50);
     } else {
       setIsOpen(false);
@@ -147,8 +157,11 @@ export const Block = ({
       </div>
       <div
         className={classNames(
-          "transition-[max-height] duration-300 ease-in-out overflow-hidden",
-          isOpen ? "max-h-[1000px]" : "max-h-0"
+          "overflow-hidden transition-[max-height] ease-in-out",
+          isOpen
+            ? "duration-300" // slower opening
+            : "duration-100", // even faster closing
+          isOpen ? "max-h-[5000px]" : "max-h-0"
         )}
       >
         <div ref={contentRef} className="h-auto">
