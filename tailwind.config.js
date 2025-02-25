@@ -86,6 +86,9 @@ module.exports = {
       letterSpacing: {
         'custom-tight': '-1.625px',
       },
+      transitionDuration: {
+        '50': '50ms',
+      },
     },
   },
   plugins: [],

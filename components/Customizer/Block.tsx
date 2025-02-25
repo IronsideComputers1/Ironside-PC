@@ -159,8 +159,8 @@ export const Block = ({
         className={classNames(
           "overflow-hidden transition-[max-height] ease-in-out",
           isOpen
-            ? "duration-300" // slower opening
-            : "duration-100", // even faster closing
+            ? "duration-200" // slower opening
+            : "duration-150", // faster closing
           isOpen ? "max-h-[5000px]" : "max-h-0"
         )}
       >
