@@ -70,8 +70,11 @@ const Customizer: FC<Props> = (props) => {
   const [incompatibleProdIds, setIncompatibleProdIds] = useState([])
   const [defaultColors, setDefaultColors] = useState([])
 
-  const installmentsPrice = useMemo(() => Math.ceil(totalPrice / 23 * 100) / 100, [totalPrice])
-  const theme = useGetTheme();
+  const installmentsPrice = useMemo(
+    () => Math.ceil((totalPrice / 23) * 100) / 100,
+    [totalPrice]
+  )
+  const theme = useGetTheme()
 
   const addItem = useAddItem()
   const { data: cartData }: any = useCart()
@@ -79,15 +82,21 @@ const Customizer: FC<Props> = (props) => {
   const router = useRouter()
 
   const scrollToElement = (heading: string) => {
-    const element = document?.getElementById(heading);
-    if (!element) return;
-    element.scrollIntoView({ behavior: "smooth" });
+    const element = document?.getElementById(heading)
+    if (!element) return
+    element.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const logoDarkImage = product?.customFields?.edges?.find(({ node }: { node: any }) => node.name.includes("dark logo"));
-  const logoLightImage = product?.customFields?.edges?.find(({ node }: { node: any }) => node.name.includes("light logo"));
-  const bgVideo = product?.customFields?.edges?.find(({ node }: { node: any }) => node.name.includes("bg video"));
-  const hasLogoImage = !!(logoDarkImage || logoLightImage);
+  const logoDarkImage = product?.customFields?.edges?.find(
+    ({ node }: { node: any }) => node.name.includes('dark logo')
+  )
+  const logoLightImage = product?.customFields?.edges?.find(
+    ({ node }: { node: any }) => node.name.includes('light logo')
+  )
+  const bgVideo = product?.customFields?.edges?.find(
+    ({ node }: { node: any }) => node.name.includes('bg video')
+  )
+  const hasLogoImage = !!(logoDarkImage || logoLightImage)
 
   // @ts-ignore next-line
   const variant =
@@ -105,14 +114,6 @@ const Customizer: FC<Props> = (props) => {
       )
     )
   }, [selectedIds, select])
-
-  // @ts-ignore next-line
-  // const legacyImages =
-  //   product && product.images?.length
-  //     ? product.images?.map((item: any) => ({
-  //         node: { urlOriginal: item.url_standard, altText: product?.name },
-  //       }))
-  //     : null
 
   useEffect(() => {
     setBasePrice(product?.variants?.edges[0]?.node?.prices?.price?.value)
@@ -352,103 +353,7 @@ const Customizer: FC<Props> = (props) => {
     return formattedDate
   }
 
-  console.log({totalPrice});
-
-  // TODO: Check if we actually need BreadPayments
-  // const breadPaymentsRef = useRef<BreadPayments | null>(null);
-
-  // useEffect(() => {
-  //   if (!window.BreadPayments) {
-  //     console.error('BreadPayments is not available on window object')
-  //     return;
-  //   }
-  //   const breadButton = document.getElementById('bread-checkout-btn');
-
-  //   if(!breadButton) return;
-
-  //   breadPaymentsRef.current = window.BreadPayments
-
-  //   if(!breadPaymentsRef.current) return;
-  //   const BreadPayments = breadPaymentsRef.current;
-
-  //   console.log(window.BreadPayments);
-  //   console.log(breadButton);
-  //   console.log(BreadPayments);
-
-  //   // Then setup
-  //   BreadPayments.setup({
-  //     integrationKey: 'a7496808-6bf0-4504-9ab9-42821c807572',
-  //   })
-  //   const placement = [{
-  //     financingType: "installment",
-  //     locationType: "product",
-  //     domID: "bread-checkout-btn",
-  //     allowCheckout: false,
-  //     order: {
-  //       items: [],
-  //       subTotal: {
-  //         value: 11000,
-  //         currency: "USD",
-  //       },
-  //       totalTax: {
-  //         value: 0,
-  //         currency: "USD",
-  //       },
-  //       totalShipping: {
-  //         value: 0,
-  //         currency: "USD",
-  //       },
-  //       totalDiscounts: {
-  //         value: 0,
-  //         currency: "USD",
-  //       },
-  //       totalPrice: {
-  //         value: 11000,
-  //         currency: "USD",
-  //       },
-  //     }
-  // }];
-  //   // const placement = [{
-  //   //   financingType: 'installment',
-  //   //   locationType: 'product',
-  //   //   domID: 'bread-checkout-btn',
-  //   //   allowCheckout: false,
-  //   //   order: {
-  //   //     items: [],
-  //   //     subTotal: {
-  //   //       value: totalPrice,
-  //   //       currency: 'USD',
-  //   //     },
-  //   //     totalTax: {
-  //   //       value: 0,
-  //   //       currency: 'USD',
-  //   //     },
-  //   //     totalShipping: {
-  //   //       value: 0,
-  //   //       currency: 'USD',
-  //   //     },
-  //   //     totalDiscounts: {
-  //   //       value: 0,
-  //   //       currency: 'USD',
-  //   //     },
-  //   //     totalPrice: {
-  //   //       value: totalPrice,
-  //   //       currency: 'USD',
-  //   //     },
-  //   //   },
-  //   // }]
-
-  //   BreadPayments.registerPlacements(placement)
-  //   BreadPayments.on("INSTALLMENT:APPLICATION_DECISIONED", (installmentResult: any) => {
-  //     console.log(installmentResult);
-  //   });
-  //   BreadPayments.on("INSTALLMENT:APPLICATION_CHECKOUT", (installmentResult: any) => {
-  //     console.log(installmentResult);
-  //   });
-  // }, [totalPrice])
-
-
-  if(!productsFetched) {
+  if (!productsFetched) {
     return (
       <div className="fallback-loader">
         <span className="loader"></span>
@@ -456,7 +361,7 @@ const Customizer: FC<Props> = (props) => {
     )
   }
 
-  if(categoriesDataFiltered?.length <= 0) {
+  if (categoriesDataFiltered?.length <= 0) {
     return <Error404 />
   }
 
@@ -491,102 +396,123 @@ const Customizer: FC<Props> = (props) => {
             currentProduct={productDescription[0]?.trim()}
           />
 
-          <div
-            className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 md:pt-8 md:pb-0 md:px-0 md:pr-12 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start"
-          >
+          <div className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 md:pt-8 md:pb-0 md:px-0 md:pr-12 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start">
             <div className="components flex items-center justify-center w-full md:w-full xxl:w-[76%]">
               <div
-                id='scroll-box'
+                id="scroll-box"
                 className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 md:pr-1"
               >
-          <div className="customizerProductGrid">
-            <div className="flex justify-center items-center flex-col">
-              <div className='flex justify-center items-center mb-5'>
-                {hasLogoImage ? (
-                  <Image
-                    src={theme === 'dark' ? logoDarkImage.node.value : logoLightImage.node.value}
-                    alt={productDescription[0]?.trim()}
-                    width={300}
-                    height={50}
-                  />) : (
-                    <h1 className="text-center">{productDescription[0]?.trim()}</h1>
-                  )}
-                <p className="mb-0">{productDescription[1]?.trim()}</p>
-              </div>
-              <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
-            </div>
-            {!!selectedIds?.length &&
-              categoriesDataFiltered?.map((categories: any) => (
-                <>
-            <h2
-              id={categories?.categoryName}
-              className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark mt-20"
-            >
-              {categories?.categoryName}
-            </h2>
-            <div
-              className={classNames(
-                "grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 last:mb-36 max-w-[684px]",
-                {
-                  "border-dark": theme === "dark",
-                  "border-light": theme === "light",
-                }
-              )}
-              >
-              {categories?.subCategory?.map(
-                (subs: any, index: number) => (
-                  <>
-              {selectedIds?.map((ele: any) =>
-                subs?.products?.map((prod: any) => {
-                  if (
-                    ele.product === prod.entityId &&
-                    subs.categoryName === ele.cat
-                  ) {
-                    return (
-                <div
-                  key={index}
-                  className='w-full'
-                >
-                  <Block
-                    prod={prod}
-                    subs={subs}
-                    incompatibleCats={incompatibleCats}
-                    onModalSelection={onModalSelection}
-                    loadImage={loadImage}
-                    renderColorName={renderColorName}
-                  >
-                    <ProductSelectionModal
-                      optionSelections={optionSelections}
-                      setIncompatibleProducts={setIncompatibleProducts}
-                      incompatibleProdIds={incompatibleProdIds}
-                      setModal={setModal}
-                      onOptionSelections={onOptionSelections}
-                      modalData={modalData}
-                      selectedIds={selectedIds}
-                      selectedColor={selectedColor}
-                      colorOpts={colorOpts}
-                      defaultColors={defaultColors}
-                      convertCurrency={convertCurrency}
-                      setIncompatibleProdIds={setIncompatibleProdIds}
-                      setIncompatibleCats={setIncompatibleCats}
-                      setDefaultColors={setDefaultColors}
-                    />
-                  </Block>
-                  {index !== categories?.subCategory?.length - 1 && (
-                    <Separator className="w-[96.5%]" theme={theme} />
-                  )}
+                <div className="customizerProductGrid">
+                  <div className="flex justify-center items-center flex-col">
+                    <div className="flex justify-center items-center mb-5">
+                      {hasLogoImage ? (
+                        <Image
+                          src={
+                            theme === 'dark'
+                              ? logoDarkImage.node.value
+                              : logoLightImage.node.value
+                          }
+                          alt={productDescription[0]?.trim()}
+                          width={300}
+                          height={50}
+                        />
+                      ) : (
+                        <h1 className="text-center">
+                          {productDescription[0]?.trim()}
+                        </h1>
+                      )}
+                      <p className="mb-0">{productDescription[1]?.trim()}</p>
+                    </div>
+                    <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
+                  </div>
+                  {!!selectedIds?.length &&
+                    categoriesDataFiltered?.map((categories: any) => (
+                      <>
+                        <h2
+                          id={categories?.categoryName}
+                          className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark mt-20"
+                        >
+                          {categories?.categoryName}
+                        </h2>
+                        <div
+                          className={classNames(
+                            'grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 last:mb-36 max-w-[684px]',
+                            {
+                              'border-dark': theme === 'dark',
+                              'border-light': theme === 'light',
+                            }
+                          )}
+                        >
+                          {categories?.subCategory?.map(
+                            (subs: any, index: number) => (
+                              <>
+                                {selectedIds?.map((ele: any) =>
+                                  subs?.products?.map((prod: any) => {
+                                    if (
+                                      ele.product === prod.entityId &&
+                                      subs.categoryName === ele.cat
+                                    ) {
+                                      return (
+                                        <div key={index} className="w-full">
+                                          <Block
+                                            prod={prod}
+                                            subs={subs}
+                                            incompatibleCats={incompatibleCats}
+                                            onModalSelection={onModalSelection}
+                                            loadImage={loadImage}
+                                            renderColorName={renderColorName}
+                                          >
+                                            <ProductSelectionModal
+                                              optionSelections={
+                                                optionSelections
+                                              }
+                                              setIncompatibleProducts={
+                                                setIncompatibleProducts
+                                              }
+                                              incompatibleProdIds={
+                                                incompatibleProdIds
+                                              }
+                                              setModal={setModal}
+                                              onOptionSelections={
+                                                onOptionSelections
+                                              }
+                                              modalData={modalData}
+                                              selectedIds={selectedIds}
+                                              selectedColor={selectedColor}
+                                              colorOpts={colorOpts}
+                                              defaultColors={defaultColors}
+                                              convertCurrency={convertCurrency}
+                                              setIncompatibleProdIds={
+                                                setIncompatibleProdIds
+                                              }
+                                              setIncompatibleCats={
+                                                setIncompatibleCats
+                                              }
+                                              setDefaultColors={
+                                                setDefaultColors
+                                              }
+                                            />
+                                          </Block>
+                                          {index !==
+                                            categories?.subCategory?.length -
+                                              1 && (
+                                            <Separator
+                                              className="w-[96.5%]"
+                                              theme={theme}
+                                            />
+                                          )}
+                                        </div>
+                                      )
+                                    }
+                                  })
+                                )}
+                              </>
+                            )
+                          )}
+                        </div>
+                      </>
+                    ))}
                 </div>
-                    )
-                  }
-                })
-              )}
-                  </>
-                )
-              )}
-            </div>
-                </>
-              ))}
-          </div>
               </div>
               <Scroller onScroll={setActiveTab} activeTab={activeTab} />
               {incompatibleModal && (
@@ -608,23 +534,17 @@ const Customizer: FC<Props> = (props) => {
               isLoading={loading}
               isDisabled={!variant}
               installmentsPrice={installmentsPrice}
-              saveMyBuildData={
-                {
-                  url: buildUrl,
-                  options: optionSelections,
-                  productDescription,
-                  totalPrice: convertCurrency(totalPrice),
-                  productImage: modalImage[0]?.node?.urlOriginal,
-                }
-              }
-              onSaveBuild={() => {
-                SaveMyBuild(
-                  optionSelections,
-                  selectedColor,
-                  setBuildUrl
-                )
+              saveMyBuildData={{
+                url: buildUrl,
+                options: optionSelections,
+                productDescription,
+                totalPrice: convertCurrency(totalPrice),
+                productImage: modalImage[0]?.node?.urlOriginal,
               }}
-              />
+              onSaveBuild={() => {
+                SaveMyBuild(optionSelections, selectedColor, setBuildUrl)
+              }}
+            />
           </div>
         </div>
       </div>
