@@ -25,19 +25,38 @@ export const Block = ({
 }: Props) => {
   const theme = useGetTheme()
   const blockRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [isOpen, setIsOpen] = useState(false)
+
+  // Handle other blocks opening
+  useEffect(() => {
+    const handleOtherBlockOpen = (e: CustomEvent) => {
+      if (e.detail.id !== subs.categoryName.toLowerCase()) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('block-opened' as any, handleOtherBlockOpen as any)
+    return () => {
+      document.removeEventListener('block-opened' as any, handleOtherBlockOpen as any)
+    }
+  }, [subs.categoryName])
+
   const handleClickOutside = (event: MouseEvent) => {
     const target = event.target as HTMLElement
-    console.log(target.nodeName)
 
     if (['svg', 'path'].includes(target.nodeName)) return
+
+    // Check if the click is on another Block component
     let currentElement: HTMLElement | null = target
     while (currentElement) {
+      // If we find another Block component, don't handle the click
+      if (currentElement.classList.contains('customizer-block')) return
       if (getComputedStyle(currentElement).position === 'fixed') return
       currentElement = currentElement.parentElement
     }
 
     if (blockRef.current && !blockRef.current.contains(target)) {
-      console.log('Clicked outside the component')
       setIsOpen(false)
     }
   }
@@ -49,10 +68,29 @@ export const Block = ({
     }
   }, [])
 
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen)
-    onModalSelection(subs)
+  const toggleAccordion = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    const newIsOpen = !isOpen;
+
+    if (newIsOpen) {
+      // Notify other blocks to close first
+      const openEvent = new CustomEvent('block-opened', {
+        detail: { id: subs.categoryName.toLowerCase() }
+      });
+      document.dispatchEvent(openEvent);
+
+      setTimeout(() => {
+        setIsOpen(true);
+        onModalSelection(subs);
+
+        // Scroll into view
+        if (blockRef.current) {
+          blockRef.current.scrollIntoView({ behavior: 'instant', block: 'nearest' });
+        }
+      }, 50);
+    } else {
+      setIsOpen(false);
+    }
   }
 
   const incompatibleItems = incompatibleCats?.some(
@@ -63,7 +101,7 @@ export const Block = ({
     <div
       ref={blockRef}
       id={subs.categoryName.toLowerCase()}
-      className="flex flex-col w-full select-none"
+      className="flex flex-col w-full select-none customizer-block"
     >
       <div
         className={classNames(
@@ -92,7 +130,7 @@ export const Block = ({
         </div>
         <div
           className={classNames(
-            'border w-auto h-9 px-3 rounded-full flex items-center justify-center',
+            'border w-auto h-9 px-3 rounded-full flex items-center justify-center transition-transform duration-300',
             {
               'transform rotate-180': isOpen,
             }
@@ -107,17 +145,24 @@ export const Block = ({
           </div>
         </div>
       </div>
-      {isOpen && (
-        <div className="flex gap-3 flex-wrap">
-          {React.Children.map(children, (child) =>
-            React.cloneElement(child, {
-              onClose: () => {
-                setIsOpen(false)
-              },
-            })
-          )}
+      <div
+        className={classNames(
+          "transition-[max-height] duration-300 ease-in-out overflow-hidden",
+          isOpen ? "max-h-[1000px]" : "max-h-0"
+        )}
+      >
+        <div ref={contentRef} className="h-auto">
+          <div className="flex gap-3 flex-wrap">
+            {React.Children.map(children, (child) =>
+              React.cloneElement(child, {
+                onClose: () => {
+                  setIsOpen(false);
+                },
+              })
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }

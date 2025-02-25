@@ -82,7 +82,7 @@ const ProductSelectionModal = ({
   const theme = useGetTheme()
   let isMerch = false
 
-  modalData?.products[1]?.categories?.edges?.forEach((ele: any) => {
+  modalData?.products?.[1]?.categories?.edges?.forEach((ele: any) => {
     if (ele.node.name === 'Merch') isMerch = true
   })
   const notify = () => {
