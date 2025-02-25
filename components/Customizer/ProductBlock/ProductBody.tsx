@@ -32,7 +32,7 @@ export const ProductBody = ({
   convertCurrency,
   customFields,
 }: ProductBodyProps) => {
-  if(customFields && customFields.length < 2 && !isMerch) {
+  if (customFields && customFields.length < 2 && !isMerch) {
     return (
       <div className="flex w-full justify-end">
         {!selectedIds?.some(
@@ -47,42 +47,35 @@ export const ProductBody = ({
     <>
       {toggle && isCurrentIndex && (
         <div className="colorPattelListSelect">
-          <span
-            className="flex justify-end"
-            onClick={() => setToggle(false)}
-          >
+          <span className="flex justify-end" onClick={() => setToggle(false)}>
             <Cross />
           </span>
           <ul className="list-none">
-            {customFields?.map(
-              (color: any, index: number) => (
-                <li key={index}>
-                  <p
-                    className="mb-0"
-                    onClick={() => {
-                      handleColorSelection(data, color)
+            {customFields?.map((color: any, index: number) => (
+              <li key={index}>
+                <p
+                  className="mb-0"
+                  onClick={() => {
+                    handleColorSelection(data, color)
+                  }}
+                >
+                  <span
+                    className="colorPattelListBg"
+                    style={{
+                      backgroundColor: color?.node?.value?.split(',')[1],
                     }}
-                  >
-                    <span
-                      className="colorPattelListBg"
-                      style={{
-                        backgroundColor:
-                          color?.node?.value?.split(',')[1],
-                      }}
-                    />
-                    {color?.node?.value?.split(',')[0]}
-                    {colorOpts?.map((options: any) => {
-                      if (
-                        color?.node?.value?.split(',')[2] ==
-                        options?.entityId
-                      ) {
-                        return renderColorPrice(options, data)
-                      }
-                    })}
-                  </p>
-                </li>
-              )
-            )}
+                  />
+                  {color?.node?.value?.split(',')[0]}
+                  {colorOpts?.map((options: any) => {
+                    if (
+                      color?.node?.value?.split(',')[2] == options?.entityId
+                    ) {
+                      return renderColorPrice(options, data)
+                    }
+                  })}
+                </p>
+              </li>
+            ))}
           </ul>
         </div>
       )}

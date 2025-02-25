@@ -23,8 +23,8 @@ export const ProductAmountSelect = ({
   renderColorName,
   renderPrice,
 }: ProductAmountSelectProps) => {
-  const { theme } = useGetTheme();
-  if (data?.customFields?.edges?.length < 2) return null;
+  const { theme } = useGetTheme()
+  if (data?.customFields?.edges?.length < 2) return null
   return (
     <>
       <button
@@ -41,14 +41,12 @@ export const ProductAmountSelect = ({
           setToggleIndex(index.toString())
         }}
       >
-        <span className='flex-grow'>
-          {renderColorName(data).split(',')[0]}
-        </span>
+        <span className="flex-grow">{renderColorName(data).split(',')[0]}</span>
         <span className="arrow ml-auto">
           <DropdownArrow />
         </span>
       </button>
-      <span className='font-Arimo font-bold'>
+      <span className="font-Arimo font-bold">
         {!selectedIds?.some(
           (product: any) =>
             product?.product === data?.entityId &&
