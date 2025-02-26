@@ -17,42 +17,46 @@ import { BottomSheet } from './BottomSheet'
 import { ProductInfoContent } from '@components/product/ProductInfoModal/ProductInfoModal'
 
 interface ColorSelectionData {
-  entityId: string;
-  categories: { edges: { node: { name: string } }[] };
-  prices: { price: { value: number } };
+  entityId: string
+  categories: { edges: { node: { name: string } }[] }
+  prices: { price: { value: number } }
 }
 
 interface ColorOption {
-  entityId: string;
-  variants: { edges: { node: { inventory: { isInStock: boolean } } }[] };
-  prices: { price: { value: number } };
-  name: string;
+  entityId: string
+  variants: { edges: { node: { inventory: { isInStock: boolean } } }[] }
+  prices: { price: { value: number } }
+  name: string
 }
 
 interface ColorSelection {
-  entityId: string;
-  categoryName: string;
-  price: number;
-  color: ColorOption;
+  entityId: string
+  categoryName: string
+  price: number
+  color: ColorOption
 }
 
-
 interface ProductSelectionModalProps {
-  setModal: (arg: boolean) => void;
-  modalData: ModalData;
-  selectedIds: { product: string; cat: string }[];
-  onOptionSelections: any;
-  selectedColor: { parent_id: string; productPrice: number; product_name: string; product_id: string }[];
-  colorOpts: ColorOption[];
-  convertCurrency: (value: number) => string;
-  setIncompatibleProducts: (products: Record<string, unknown>) => void;
-  incompatibleProdIds: string[];
-  setIncompatibleProdIds: any;
-  setIncompatibleCats: any;
-  optionSelections: { category_name: string; productPrice: number }[];
-  defaultColors: ColorSelection[];
-  setDefaultColors: any;
-  onClose?: () => void;
+  setModal: (arg: boolean) => void
+  modalData: ModalData
+  selectedIds: { product: string; cat: string }[]
+  onOptionSelections: any
+  selectedColor: {
+    parent_id: string
+    productPrice: number
+    product_name: string
+    product_id: string
+  }[]
+  colorOpts: ColorOption[]
+  convertCurrency: (value: number) => string
+  setIncompatibleProducts: (products: Record<string, unknown>) => void
+  incompatibleProdIds: string[]
+  setIncompatibleProdIds: any
+  setIncompatibleCats: any
+  optionSelections: { category_name: string; productPrice: number }[]
+  defaultColors: ColorSelection[]
+  setDefaultColors: any
+  onClose?: () => void
 }
 
 const ProductSelectionModal = ({
@@ -75,10 +79,10 @@ const ProductSelectionModal = ({
   const { displayModal, closeModal } = useUI()
   const [toggle, setToggle] = useState(false)
   const [toggleIndex, setToggleIndex] = useState('')
-  const theme = useGetTheme();
+  const theme = useGetTheme()
   let isMerch = false
 
-  modalData?.products[1]?.categories?.edges?.forEach((ele: any) => {
+  modalData?.products?.[1]?.categories?.edges?.forEach((ele: any) => {
     if (ele.node.name === 'Merch') isMerch = true
   })
   const notify = () => {
@@ -87,23 +91,26 @@ const ProductSelectionModal = ({
 
   const handleColorSelection = (
     data: ColorSelectionData,
-    color: { node: { value: string } },
+    color: { node: { value: string } }
   ) => {
-    const selectedValue = color?.node?.value.split(',')[2];
-    const selectedOption = colorOpts?.find((option: ColorOption) => option.entityId.toString() === selectedValue);
+    const selectedValue = color?.node?.value.split(',')[2]
+    const selectedOption = colorOpts?.find(
+      (option: ColorOption) => option.entityId.toString() === selectedValue
+    )
 
     // Handle out of stock
-    if(!selectedOption?.variants.edges[0].node.inventory.isInStock) return notify();
+    if (!selectedOption?.variants.edges[0].node.inventory.isInStock)
+      return notify()
 
     // Get category by name
     const category = defaultColors?.find(
       (color: ColorSelection) =>
         color.categoryName === data?.categories?.edges[0]?.node?.name
-    );
+    )
 
-    const finalColors = [];
+    const finalColors = []
     // Handle is new category
-    if (typeof category === "undefined" || !category) {
+    if (typeof category === 'undefined' || !category) {
       const newCategoryWithValue = {
         entityId: data?.entityId,
         categoryName: data?.categories?.edges[0]?.node?.name,
@@ -113,15 +120,15 @@ const ProductSelectionModal = ({
       finalColors.push([...defaultColors, newCategoryWithValue])
     }
     // Handle already has category
-    if(category && !!category.categoryName) {
+    if (category && !!category.categoryName) {
       // Replace old value by new selected value
       const colorSelection = defaultColors.map((color: ColorSelection) => {
-        if(color?.categoryName !== category?.categoryName) return color;
+        if (color?.categoryName !== category?.categoryName) return color
         return {
           ...color,
           color: selectedOption,
-        };
-      });
+        }
+      })
       finalColors.push([...colorSelection])
     }
 
@@ -137,7 +144,7 @@ const ProductSelectionModal = ({
     setToggle(false)
     setModal(false)
     if (onClose) onClose()
-  };
+  }
 
   const renderPrice = (data: any) => {
     let price = 0
@@ -177,13 +184,14 @@ const ProductSelectionModal = ({
         }
       })
     }
-    const finalPrice = price + variantPrice;
+    const finalPrice = price + variantPrice
     return (
       <p
         className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2"
         style={{
-          backgroundColor: theme === "dark" ? '#1c1c1c' : "rgba(0, 0, 0, 0.05)",
-        }}>
+          backgroundColor: theme === 'dark' ? '#1c1c1c' : 'rgba(0, 0, 0, 0.05)',
+        }}
+      >
         {finalPrice?.toString().includes('-')
           ? convertCurrency(finalPrice)
           : `+${convertCurrency(finalPrice)}`}
@@ -279,70 +287,88 @@ const ProductSelectionModal = ({
       data?.prices?.price?.value
     )
     setModal(false)
-    if (onClose) onClose();
+    if (onClose) onClose()
   }
 
   const onSetProduct = (data: any) => {
-    if(data?.variants.edges[0]?.node?.inventory?.isInStock){
-      return setProduct(data);
+    if (data?.variants.edges[0]?.node?.inventory?.isInStock) {
+      return setProduct(data)
     }
-    return notify();
+    return notify()
   }
 
   return (
     <div className="category-popup mt-1">
       <div className="flex flex-wrap pb-3 gap-2 justify-center max-w-3xl xs:justify-start">
         {modalData?.products?.map((data: any, index: number) => {
-          const customFields = data?.customFields?.edges;
-          const dataName = data?.name.length > 23
-            ? `${data?.name?.substring(0, 23)}...`
-            : data?.name
-          const hasImage = data?.images?.edges.length > 0;
-          const hasProduct = data?.customFields?.edges.length === 0 || isMerch;
-          const imageUrl = hasProduct ? data?.images?.edges[0]?.node?.urlOriginal : loadImage(data);
+          // const maxLength = 48;
+          // const dataName = data?.name.split(" ").join("").length > maxLength
+          //   ? `${data?.name?.substring(0, maxLength)}...`
+          //   : data?.name
+          const dataName = data?.name
+          const customFields = data?.customFields?.edges
+          const hasImage = data?.images?.edges.length > 0
+          const hasProduct = data?.customFields?.edges.length === 0 || isMerch
+          const imageUrl = hasProduct
+            ? data?.images?.edges[0]?.node?.urlOriginal
+            : loadImage(data)
           const isSelected = selectedIds?.some(
             (product: any) =>
               product?.product === data?.entityId &&
               product?.cat === modalData?.categoryName
           )
+          console.log({ data })
+
           return (
             <div
               key={index}
-              className={
-                classNames('min-w-[48%] max-w-[148px] md:max-w-[190px] md:min-w-[unset] md:w-56', {
-                  "stock-out cursor-not-allowed pointer-events-none opacity-25": !data?.variants?.edges[0]?.node?.inventory?.isInStock
-                })
-              }
+              className={classNames(
+                'min-w-[48%] max-w-[148px] md:max-w-[198px] md:min-w-[unset] md:w-56',
+                {
+                  'stock-out cursor-not-allowed pointer-events-none opacity-25':
+                    !data?.variants?.edges[0]?.node?.inventory?.isInStock,
+                }
+              )}
             >
               <div
                 className={classNames(
-                  "border-[1px] rounded-2xl w-auto h-[234px] min-h-full md:h-auto flex items-start justify-between p-2 md:p-3 flex-col relative overflow-hidden md:w-auto",
-                  "hover:outline hover:outline-2",
+                  'border-[1px] rounded-2xl w-auto h-[234px] min-h-full md:h-auto flex items-start justify-between p-2 md:p-3 flex-col relative overflow-hidden md:w-auto',
+                  'hover:outline hover:outline-2',
                   {
-                    "border-dark hover:outline-dark": theme === "dark",
-                    "border-light hover:outline-light": theme === "light",
+                    'border-dark hover:outline-dark': theme === 'dark',
+                    'border-light hover:outline-light': theme === 'light',
                   },
                   {
-                    "outline outline-2": isSelected,
-                    "outline-dark": isSelected && theme === "dark",
-                    "outline-light": isSelected && theme === "light",
-                  },
+                    'outline outline-2': isSelected,
+                    'outline-dark': isSelected && theme === 'dark',
+                    'outline-light': isSelected && theme === 'light',
+                  }
                 )}
               >
                 {/* Desktop */}
-                <div className='hidden self-end md:block'>
+                <div className="hidden self-end md:block">
                   <ProductInfoModal
                     open={displayModal}
                     onClose={closeModal}
                     heading={data?.name}
                     text={data?.description}
-                    button={<Info height={18} width={18} className="fill-current text-icon-gray" />}
+                    button={
+                      <Info
+                        height={18}
+                        width={18}
+                        className={`fill-current ${
+                          theme === 'dark'
+                            ? 'text-icon-gray'
+                            : 'text-icon-gray-light'
+                        }`}
+                      />
+                    }
                     dataImages={data?.images?.edges}
                     stock={data?.variants?.edges[0]?.node?.inventory?.isInStock}
                   />
                 </div>
                 {/* Responsive */}
-                <div className='flex justify-end w-full self-end md:hidden'>
+                <div className="flex justify-end w-full self-end md:hidden">
                   <BottomSheet
                     content={
                       <ProductInfoContent
@@ -352,7 +378,11 @@ const ProductSelectionModal = ({
                       />
                     }
                   >
-                    <Info height={18} width={18} className="fill-current text-icon-gray" />
+                    <Info
+                      height={18}
+                      width={18}
+                      className="fill-current text-icon-gray"
+                    />
                   </BottomSheet>
                 </div>
 
@@ -360,31 +390,34 @@ const ProductSelectionModal = ({
                 <div
                   className="flex items-center justify-center w-full"
                   onClick={() => {
-                    if (hasProduct || !hasImage) return onSetProduct(data);
+                    if (hasProduct || !hasImage) return onSetProduct(data)
                     setToggleIndex(index.toString())
                     setToggle(true)
                   }}
                 >
-                  {hasImage ?
-                    (
-                      <Image width="130px" height="130px" src={imageUrl} objectFit="contain" />
-                    ) : (
-                      <EmptyProduct />
-                    )}
+                  {hasImage ? (
+                    <Image
+                      width="130px"
+                      height="130px"
+                      src={imageUrl}
+                      objectFit="contain"
+                    />
+                  ) : (
+                    <EmptyProduct />
+                  )}
                 </div>
                 <div className="flex flex-direction justify-space w-full">
                   {/* TITLE */}
-                  <span className='md:mt-3 py-2 px-1.5 font-Arimo text-[13px]'>
-                    <div
-                      onClick={() => {
-                        if(customFields.length > 0 && !isMerch) return null;
-                        onSetProduct(data);
-                      }}
-                    >
-                      {dataName}
-                    </div>
+                  <span
+                    className="md:mt-3 pt-2 pb-0 px-1.5 font-Arimo text-[13px] overflow-hidden line-clamp-2 min-h-9"
+                    onClick={() => {
+                      if (customFields.length > 0 && !isMerch) return null
+                      onSetProduct(data)
+                    }}
+                  >
+                    {dataName}
                   </span>
-                  <div className='h-8 flex item s-center justify-between md:mt-4'>
+                  <div className="h-8 flex item s-center justify-between md:mt-4">
                     <ProductBody
                       data={data}
                       renderColorPrice={renderColorPrice}

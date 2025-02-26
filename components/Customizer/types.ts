@@ -1,69 +1,68 @@
 interface Price {
-  value: number;
-  currencyCode?: string;
+  value: number
+  currencyCode?: string
 }
 
 interface Image {
   node: {
-    urlOriginal: string;
-    altText: string;
-    isDefault: boolean;
-  };
+    urlOriginal: string
+    altText: string
+    isDefault: boolean
+  }
 }
 
 interface Variant {
   node: {
     prices: {
-      price: Price;
-    };
-    sku: string;
+      price: Price
+    }
+    sku: string
     inventory: {
-      isInStock: boolean;
-    };
+      isInStock: boolean
+    }
     options: {
-      edges: any[];
-    };
-    entityId: number;
-    defaultImage: any;
-  };
+      edges: any[]
+    }
+    entityId: number
+    defaultImage: any
+  }
 }
-
 
 interface Category {
   node: {
-    id: string;
-    name: string;
-  };
+    id: string
+    name: string
+  }
 }
 
 interface CustomField {
   node: {
-    value: string;
-  };
+    value: string
+  }
 }
 
 export interface Product {
-  entityId: string;
-  name: string;
-  description: string;
+  entityId: string
+  name: string
+  description: string
   images: {
     edges: Image[]
-  };
-  categories: { 
-    edges: Category[] 
-  };
-  prices: { 
-    price: Price 
-  };
+  }
+  categories: {
+    edges: Category[]
+  }
+  prices: {
+    price: Price
+  }
   customFields: {
     edges: CustomField[]
-  };
+  }
   variants: {
-    edges: Variant[] 
-  };
+    edges: Variant[]
+  }
 }
 
 export interface ModalData {
-  categoryName: string;
-  products: Product[];
+  categoryName: string
+  products: Product[]
 }

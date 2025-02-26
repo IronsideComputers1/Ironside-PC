@@ -422,14 +422,14 @@ body[data-theme='light'] {
   .btn-small {
     background-color: white;
     color: var(--primary);
-  } 
+  }
 }
 
 [data-theme='dark'] {
   .btn-small {
     background-color: transparent;
     color: var(--secondary);
-  } 
+  }
 }
 
 .btn-small {
@@ -491,7 +491,7 @@ body[data-theme='light'] {
     color: black;
     background-color: var(--white);
     border: 1px solid #d2d6dc;
-  } 
+  }
 }
 
 [data-theme='dark'] {
@@ -500,7 +500,7 @@ body[data-theme='light'] {
     color: $color-white;
     background-color: var(--button-color);
     border: 1px solid #363636;
-  } 
+  }
 }
 
 button.btn,
@@ -991,9 +991,6 @@ body .Layout_root___g0be {
 }
 
 [data-theme='light'] {
-  .modal {
-    box-shadow: unset;
-  }
   .product-modal {
     background-color: rgba(255, 255, 255, 1);
     border-color: rgba(0, 0, 0, 0.5);

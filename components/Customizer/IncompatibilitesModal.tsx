@@ -10,17 +10,19 @@ const IncompatibilitesModal = ({
   incompatibleProducts,
   selectedIds,
   setIncompatibleModal,
-  scrollToElement
+  scrollToElement,
 }: any) => {
-  const theme = useGetTheme();
   return (
     <div className="modal incompatibilites-modal">
-      <div className={classNames('w-full flex items-center justify-between text-gray-500 h-10 pl-4')}>
+      <div
+        className={classNames(
+          'w-full flex items-center justify-between text-gray-500 h-10 pl-4'
+        )}
+      >
         <p
-          className='m-0 font-medium font-Inconsolata'
+          className="m-0 font-medium font-Inconsolata"
           style={{ color: 'rgba(255, 112, 112, 1)' }}
-        >
-        </p>
+        ></p>
         <button
           onClick={() => setIncompatibleModal(false)}
           aria-label="Close panel"
@@ -33,7 +35,9 @@ const IncompatibilitesModal = ({
       <div className="flex items-center justify-start flex-col h-auto">
         <div className="flex items-center justify-start flex-col mt-0 mb-9 gap-3">
           <HealthIcon width={45} height={45} />
-          <p className='mb-0 font-Arimo font-bold text-base text-center transform-none'>Incompatible Components Selected</p>
+          <p className="mb-0 font-Arimo font-bold text-base text-center transform-none">
+            Incompatible Components Selected
+          </p>
         </div>
 
         {Object.keys(incompatibleProducts)?.map((ele) =>
@@ -43,14 +47,16 @@ const IncompatibilitesModal = ({
                 selectedIds?.map((data: any) => {
                   if (data?.product_id === incompat?.product_id) {
                     return (
-                      <div className='incompatibilites-list'>
+                      <div className="incompatibilites-list">
                         <div className="buttons">
                           <Button
                             type="button"
                             className="btn add-to-cart"
                             onClick={() => {
-                              scrollToElement(prods?.category_name.toLowerCase());
-                              setIncompatibleModal(false);
+                              scrollToElement(
+                                prods?.category_name.toLowerCase()
+                              )
+                              setIncompatibleModal(false)
                             }}
                           >
                             Change {prods?.category_name}
@@ -59,8 +65,8 @@ const IncompatibilitesModal = ({
                             type="button"
                             className="btn add-to-cart"
                             onClick={() => {
-                              scrollToElement(data?.category_name.toLowerCase());
-                              setIncompatibleModal(false);
+                              scrollToElement(data?.category_name.toLowerCase())
+                              setIncompatibleModal(false)
                             }}
                           >
                             Change {data?.category_name}

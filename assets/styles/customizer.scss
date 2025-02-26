@@ -357,26 +357,6 @@ button.add-to-cart {
   margin-right: 6px;
 }
 
-.multiColorOption {
-  width: 106px;
-  height: 28px;
-  padding: 8px;
-  border-radius: 42px;
-  padding-left: 18px;
-  cursor: pointer;
-  border: 1px solid var(--accents-0);
-  color: var(--secondary);
-  box-shadow: 0 8px 7px 0 hsl(0deg 0% 0% / 5%) !important;
-
-  &:hover {
-    border-color: var(--secondary);
-  }
-
-  .arrow svg {
-    fill: var(--secondary);
-  }
-}
-
 body[data-theme='light'] {
   .multiColorOption {
     background: linear-gradient(#f0f0f0, #e0e0e0) padding-box,
