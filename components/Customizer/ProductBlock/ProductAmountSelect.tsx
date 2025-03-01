@@ -29,7 +29,7 @@ export const ProductAmountSelect = ({
     <>
       <button
         className={classNames(
-          'flex items-center justify-between pl-4 font-Arimo text-xs w-[106px] h-7 px-2 rounded-[42px] cursor-pointer border text-secondary shadow-[0_8px_7px_0_hsla(0,0%,0%,0.05)]!',
+          'flex items-center justify-start gap-2 pl-4 font-Arimo text-xs w-[106px] h-7 px-2 rounded-[42px] cursor-pointer border text-secondary shadow-[0_8px_7px_0_hsla(0,0%,0%,0.05)]!',
           'hover:border-secondary hover:text-secondary',
           {
             'border-dark': theme === 'dark',
