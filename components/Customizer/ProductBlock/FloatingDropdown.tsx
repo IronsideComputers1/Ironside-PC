@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import Portal from '@reach/portal'
 import Cross from '@components/icons/Cross'
 
@@ -23,22 +23,51 @@ export const FloatingDropdown = ({
 }: Props) => {
   const [position, setPosition] = useState({ top: 0, left: 0 })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!anchor) return
-
     const updatePosition = () => {
       const rect = anchor.getBoundingClientRect()
       setPosition({
         top: rect.bottom + window.scrollY,
-        left: rect.left
+        left: rect.left + window.scrollX
       })
     }
 
+    // Get all scrollable parents
+    const getScrollParents = (node: HTMLElement | null): HTMLElement[] => {
+      const scrollParents: HTMLElement[] = []
+
+      while (node) {
+        const style = window.getComputedStyle(node)
+        const { overflow, overflowY, overflowX } = style
+
+        if (/(auto|scroll)/.test(overflow + overflowY + overflowX)) {
+          scrollParents.push(node)
+        }
+        node = node.parentElement
+      }
+
+      return scrollParents
+    }
+
+    // Initial position
     updatePosition()
-    window.addEventListener('scroll', updatePosition)
+
+    // Add event listeners to all scroll parents
+    const scrollParents = getScrollParents(anchor)
+    scrollParents.forEach(parent => {
+      parent.addEventListener('scroll', updatePosition, { passive: true })
+    })
+
+    // Add window event listeners
+    window.addEventListener('scroll', updatePosition, { passive: true })
     window.addEventListener('resize', updatePosition)
 
+    // Cleanup
     return () => {
+      scrollParents.forEach(parent => {
+        parent.removeEventListener('scroll', updatePosition)
+      })
       window.removeEventListener('scroll', updatePosition)
       window.removeEventListener('resize', updatePosition)
     }
