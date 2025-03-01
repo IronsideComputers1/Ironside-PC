@@ -10,7 +10,6 @@ const BuilderGallery = (props: any) => {
     infinite: true,
     slidesToShow: 6,
     slidesToScroll: 1,
-    variableWidth: true,
     swipeToSlide: true,
     centerMode: true,
     centerPadding: "90px",
@@ -22,7 +21,6 @@ const BuilderGallery = (props: any) => {
         settings: {
           slidesToShow: 6,
           slidesToScroll: 3,
-          variableWidth: true,
         },
       },
       {
@@ -31,7 +29,6 @@ const BuilderGallery = (props: any) => {
           centerMode: false,
           slidesToShow: 5,
           slidesToScroll: 1,
-          variableWidth: true,
         },
       },
       {
@@ -49,7 +46,6 @@ const BuilderGallery = (props: any) => {
           centerMode: false,
           slidesToShow: 4,
           slidesToScroll: 1,
-          variableWidth: true,
         },
       },
       {
@@ -59,7 +55,6 @@ const BuilderGallery = (props: any) => {
           centerMode: false,
           slidesToShow: 3,
           slidesToScroll: 1,
-          variableWidth: true,
         },
       },
     ],

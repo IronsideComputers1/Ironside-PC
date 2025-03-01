@@ -12,49 +12,76 @@ builder.init('f6d91abf288f4e5fb3b6f1e8b846274b')
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ page: string[] }>) {
-  const header = await builder.get('header').toPromise()
-  const page =
-    (await builder
+  try {
+    const header = await builder.get('header').toPromise()
+    const urlPath = '/' + (params?.page?.join('/') || '')
+
+    console.log(`Attempting to fetch Builder.io page for path: ${urlPath}`)
+
+    const page = await builder
       .get('page', {
         userAttributes: {
-          urlPath: '/' + (params?.page?.join('/') || ''),
+          urlPath: urlPath,
         },
+        options: {
+          noTargeting: true
+        }
       })
-      .toPromise()) || null
+      .toPromise()
 
-  if (!page) {
+    if (!page) {
+      console.log(`No page found for path: ${urlPath}`)
+      return {
+        notFound: true,
+      }
+    }
+
+    return {
+      props: {
+        page,
+        header,
+      },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 5 seconds
+      revalidate: 15,
+    }
+  } catch (error) {
+    console.error('Error fetching Builder.io page:', error)
     return {
       notFound: true,
     }
   }
-
-  return {
-    props: {
-      page,
-      header,
-    },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 5 seconds
-    revalidate: 15,
-  }
 }
 
 export async function getStaticPaths() {
-  const pages = await builder.getAll('page', {
-    options: { noTargeting: true },
-    omit: 'data.blocks',
-  })
+  try {
+    const pages = await builder.getAll('page', {
+      options: { noTargeting: true },
+      omit: 'data.blocks',
+    })
 
-  // FIXME: Investigate why /abd-test-2 is failling
-  const paths = pages.map((page) => {
-    if(page.data?.url === "/abd-test-2") return null;
-    return page.data?.url;
-  }).filter(Boolean);
+    const paths = pages
+      .map((page) => {
+        if (!page.data?.url) return null
+        // Skip problematic pages
+        if (page.data.url === "/abd-test-2" || page.data.url === "/en-US/new-tokyodream-7") return null
+        return page.data.url
+      })
+      .filter(Boolean)
 
-  return {
-    paths,
-    fallback: true,
+    console.log(`Generated ${paths.length} static paths`)
+
+    return {
+      paths,
+      fallback: true,
+    }
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error)
+    return {
+      paths: [],
+      fallback: true,
+    }
   }
 }
 
