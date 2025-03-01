@@ -157,7 +157,7 @@ export const Block = ({
       </div>
       <div
         className={classNames(
-          "overflow-hidden transition-[max-height] ease-in-out",
+          "overflow-hidden transition-[max-height] ease-in-out pl-0.5",
           isOpen
             ? "duration-200" // slower opening
             : "duration-150", // faster closing
