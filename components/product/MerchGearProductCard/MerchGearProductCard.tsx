@@ -167,7 +167,7 @@ const MerchGearProductCard: FC<Props> = ({
               <div // show sizes modal
                 className={`sizes ${
                   productsData?.sizes && !isOutOfStock
-                    ? 'border border-radius'
+                    ? 'border-common border-radius'
                     : 'p-0'
                 }`}
               >

@@ -53,10 +53,10 @@ export const ProductBody = ({
           anchor={triggerRef.current}
           onClose={() => setToggle(false)}
           customFields={customFields}
-          handleColorSelection={handleColorSelection}
+          handleProductSelection={handleColorSelection}
           data={data}
           colorOpts={colorOpts}
-          renderColorPrice={renderColorPrice}
+          renderProductPrice={renderColorPrice}
         />
       )}
       {isMerch && (

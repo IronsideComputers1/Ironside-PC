@@ -1,28 +1,44 @@
 import React, { useLayoutEffect, useState, useRef, useEffect } from 'react'
 import Portal from '@reach/portal'
 import Cross from '@components/icons/Cross'
+import { PriceBubble } from '../PriceBubble'
 
 type Props = {
   anchor: HTMLElement | null
   onClose: () => void
   customFields: any[]
-  handleColorSelection: (data: any, color: any) => void
+  handleProductSelection: (data: any, color: any) => void
   data: any
   colorOpts: any[]
-  renderColorPrice: (options: any, data: any) => React.ReactNode
+  renderProductPrice: (options: any, data: any) => React.ReactNode
 }
 
 export const FloatingDropdown = ({
   anchor,
   onClose,
   customFields,
-  handleColorSelection,
+  handleProductSelection,
   data,
   colorOpts,
-  renderColorPrice
+  renderProductPrice
 }: Props) => {
-  const [position, setPosition] = useState({ top: 0, left: 0 })
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const selectedProduct = useRef<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const getProductPrice = (colorOpts: any[], color: any, data: any, index: number) => {
+    const result = colorOpts?.map((options: any) => {
+      if (color?.node?.value?.split(',')[2] == options?.entityId) {
+        const value = renderProductPrice(options, data)
+        return value
+      }
+      return null;
+    }).filter(Boolean);
+    if (!result?.length) {
+      selectedProduct.current = index;
+    }
+    return result;
+  }
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -96,38 +112,33 @@ export const FloatingDropdown = ({
     <Portal>
       <div
         ref={dropdownRef}
-        className="fixed z-50 bg-[#F8F8F8] dark:bg-[#101010] shadow-lg rounded-lg p-4 border border-[#363636]"
+        className="fixed z-50 w-[300px] bg-[#101010] rounded-lg p-4 border border-white/20 modal-shadow"
         style={{
           top: position.top + 'px',
           left: position.left + 'px',
-          maxWidth: '300px'
         }}
       >
-        <span className="flex justify-end cursor-pointer text-[#363636] dark:text-white" onClick={onClose}>
-          <Cross />
-        </span>
         <ul className="list-none">
-          {customFields?.map((color: any, index: number) => (
-            <li key={index}>
-              <p
-                className="mb-0 cursor-pointer hover:bg-[#EFEFEF] dark:hover:bg-[#1A1A1A] p-2 rounded flex items-center gap-2 text-[#363636] dark:text-white"
-                onClick={() => {
-                  handleColorSelection(data, color)
-                }}
-              >
-                <span className="flex-1">
-                  {color?.node?.value?.split(',')[0]}
-                </span>
-                <span className="text-[#363636] dark:text-white">
-                  {colorOpts?.map((options: any) => {
-                    if (color?.node?.value?.split(',')[2] == options?.entityId) {
-                      return renderColorPrice(options, data)
-                    }
-                  })}
-                </span>
-              </p>
-            </li>
-          ))}
+          {customFields?.map((color: any, index: number) => {
+            const isSelected = selectedProduct.current === index;
+            return (
+              <li key={index}>
+                <p
+                  className={`mb-0.5 pl-5 cursor-pointer hover:bg-white/[0.22] p-2 rounded-[20px] flex items-center gap-2 text-[#363636] dark:text-white h-10 transition-colors duration-200 ${isSelected ? 'bg-white/[0.22]' : 'bg-white/5'}`}
+                  onClick={() => {
+                    handleProductSelection(data, color)
+                  } }
+                >
+                  <span className="flex-1 text-xs font-Arimo">
+                    {color?.node?.value?.split(',')[0]}
+                  </span>
+                  <PriceBubble>
+                    {getProductPrice(colorOpts, color, data, index)}
+                  </PriceBubble>
+                </p>
+              </li>
+            )
+          })}
         </ul>
       </div>
     </Portal>

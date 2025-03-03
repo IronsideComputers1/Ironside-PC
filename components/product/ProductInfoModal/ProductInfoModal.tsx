@@ -174,7 +174,7 @@ const ProductInfoModal: FC<Props> = ({
                   <button
                     onClick={() => setShowModal(false)}
                     aria-label="Close panel"
-                    className="m-6 border w-7 h-7 px-2 rounded-full flex items-center justify-center mr-3 hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none right-0 top-0"
+                    className="m-6 border-common w-7 h-7 px-2 rounded-full flex items-center justify-center mr-3 hover:text-gray-500 transition ease-in-out duration-150 focus:outline-none right-0 top-0"
                   >
                     <Cross className="h-3 w-3 fill-current" />
                   </button>
