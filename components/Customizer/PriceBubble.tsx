@@ -15,8 +15,9 @@ export const PriceBubble = ({ children }: PriceBubbleProps) => {
   return (
       <p
         className="font-[700] w-auto m-0 h-7 py-2 px-2.5 rounded-full bg-opacity-5
-        flex items-center justify-center text-[11px] leading-none text-white/50 font-Arimo"
+        flex items-center justify-center text-[11px] leading-none  font-Arimo"
         style={{
+          color: theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)',
           backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
         }}
       >

@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useState, useRef, useEffect } from 'react'
 import Portal from '@reach/portal'
 import Cross from '@components/icons/Cross'
 import { PriceBubble } from '../PriceBubble'
+import classNames from 'classnames'
 
 type Props = {
   anchor: HTMLElement | null
@@ -24,13 +25,12 @@ export const FloatingDropdown = ({
 }: Props) => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const selectedProduct = useRef<number | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const getProductPrice = (colorOpts: any[], color: any, data: any, index: number) => {
     const result = colorOpts?.map((options: any) => {
       if (color?.node?.value?.split(',')[2] == options?.entityId) {
-        const value = renderProductPrice(options, data)
-        return value
+        return renderProductPrice(options, data)
       }
       return null;
     }).filter(Boolean);
@@ -112,7 +112,7 @@ export const FloatingDropdown = ({
     <Portal>
       <div
         ref={dropdownRef}
-        className="fixed z-50 w-[300px] bg-[#101010] rounded-lg p-4 border border-white/20 modal-shadow"
+        className="fixed z-50 w-[300px] bg-white dark:bg-[#101010] rounded-lg p-4 border dark:border-white/20 selector-shadow"
         style={{
           top: position.top + 'px',
           left: position.left + 'px',
@@ -124,7 +124,15 @@ export const FloatingDropdown = ({
             return (
               <li key={index}>
                 <p
-                  className={`mb-0.5 pl-5 cursor-pointer hover:bg-white/[0.22] p-2 rounded-[20px] flex items-center gap-2 text-[#363636] dark:text-white h-10 transition-colors duration-200 ${isSelected ? 'bg-white/[0.22]' : 'bg-white/5'}`}
+                  className={classNames(
+                    'mb-0.5 pl-5 cursor-pointer p-2 rounded-[20px] flex items-center gap-2 text-[#363636] h-10 transition-colors duration-200',
+                    'hover:bg-[rgba(0,0,0,0.22)] hover:dark:bg-white/[0.22]',
+                    'dark:text-white',
+                    {
+                      'bg-[rgba(0,0,0,0.22)] dark:bg-white/[0.22]': isSelected,
+                      'bg-[rgba(0,0,0,0.05)] dark:bg-white/5': !isSelected
+                    }
+                  )}
                   onClick={() => {
                     handleProductSelection(data, color)
                   } }

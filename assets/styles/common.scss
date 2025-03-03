@@ -937,6 +937,11 @@ body .Layout_root___g0be {
   }
 }
 
+.selector-shadow {
+  box-shadow: 4px 6px 0px 0px rgba(0, 0, 0, 0.50);
+  backdrop-filter: blur(13.5px);
+}
+
 .modal-shadow {
   box-shadow: 8px 12px 0px 0px rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(13.5px);
