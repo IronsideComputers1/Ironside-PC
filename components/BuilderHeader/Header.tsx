@@ -21,6 +21,7 @@ const Header = (props: any) => {
   const data = props?.headerData
     ? props?.headerData
     : props?.header?.value?.data
+  console.log(props);
   const [menuOpen, setMenuOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const mobileMenu = useCallback(() => {
@@ -41,7 +42,7 @@ const Header = (props: any) => {
         </div>
       )}
       <div className="relative flex">
-        <div className="w-full flex flex-row justify-space pt-40 px-11 items-center">
+        <div className="w-full flex flex-row justify-space pt-5 px-11 items-center">
           <div className="header-left d-flex items-center">
             <Link href="/">
               <a className="logo" aria-label="Logo">
@@ -89,12 +90,13 @@ const Header = (props: any) => {
             </nav>
           </div>
 
+          {!!props?.sale_banner_text && (
+            <div className="sale-banner" onClick={() => setShowModal(true)}>
+              <p>{props?.sale_banner_text}</p>
+            </div>
+          )}
+
           <div className="header-right d-flex justify-end">
-            {!!props?.sale_banner_text && (
-              <div className="sale-banner" onClick={() => setShowModal(true)}>
-                <p>{props?.sale_banner_text}</p>
-              </div>
-            )}
             <UserNav mobileMenu={mobileMenu} />
           </div>
         </div>
