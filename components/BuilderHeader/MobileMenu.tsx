@@ -24,6 +24,9 @@ const MobileMenu = ({ data, mobileMenu }: any) => {
   return (
     <>
       <div className="mobile-menu z-20">
+        <div className="close" onClick={() => mobileMenu()}>
+          <Cross />
+        </div>
         <UserNav mobileMenu={mobileMenu} device={'mobile'} />
         <div>
           <ul
@@ -152,7 +155,7 @@ const MobileMenu = ({ data, mobileMenu }: any) => {
                 )
             )}
           </ul>
-          <SupportMenu data={data?.support} />
+          {/* <SupportMenu data={data?.support} /> */}
         </div>
       </div>
     </>
