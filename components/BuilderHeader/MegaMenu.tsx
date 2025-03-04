@@ -12,7 +12,7 @@ const MegaMenu = ({ data }: MegaMenuProps) => {
 
 
   useEffect(() => {
-    
+
   }, [themeAttr])
 
   const imageChange = (index: number) => {
@@ -44,6 +44,11 @@ const MegaMenu = ({ data }: MegaMenuProps) => {
                   </Link>
                 </h2>
                 <p className="mega-menu-description">{items.description}</p>
+                {items?.sublinks?.length >= 1 && <ul className="mega-menu-sublinks">
+                  {items?.sublinks?.map((sublink: any, index: number) => (
+                    <li key={index}><a href={sublink.link}>{sublink.title}</a></li>
+                  ))}
+                </ul>}
               </div>
             ))}
           </div>
