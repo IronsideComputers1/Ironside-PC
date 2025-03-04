@@ -18,7 +18,7 @@
 body {
   .homepage {
     .header {
-      position: relative;
+      @apply d-flex flex-col relative;
 
       // .header-inner {
       //   @include tablet {
@@ -52,6 +52,8 @@ body {
     z-index: 3;
 
     .header-left {
+      position: relative;
+
       @include tablet-small {
         width: 100%;
         justify-content: space-between;
@@ -71,12 +73,11 @@ body {
             }
 
             .mega-menu {
-              -webkit-transition: 1s;
-              /* For Safari 3.1 to 6.0 */
-              transition: 1s;
               visibility: visible;
-              -webkit-animation-name: fadeIn;
-              animation-name: fadeIn;
+              opacity: 1;
+              -webkit-transition: opacity 0.3s;
+              /* For Safari 3.1 to 6.0 */
+              transition: opacity 0.3s;
             }
           }
         }
@@ -149,10 +150,13 @@ body {
 
 // Sale Banner
 .sale-banner {
-  border-radius: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   border: 1px solid rgba(255, 255, 255, 0.05);
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
+  border-radius: 50px;
   padding: 7.5px 107.2px;
   line-height: normal;
 
@@ -163,10 +167,6 @@ body {
 
   @include tablet-small {
     display: none;
-    position: absolute;
-    top: 52px;
-    left: 0;
-    right: 0;
     margin: auto;
     text-align: center;
   }
@@ -191,14 +191,14 @@ body {
 
   &.mobile {
     display: none;
-    left: 30px;
-    right: 30px;
-    z-index: 1;
 
     @include tablet-small {
       display: block;
-      top: 16px;
-      margin: 0;
+      position: relative;
+      transform: none;
+      left: 0;
+      margin: 1.25rem 2.75rem 0;
+      z-index: 1;
     }
   }
 }
@@ -235,18 +235,35 @@ body {
   }
 }
 
-//Mega Menu
+// Mega Menu
 .mega-menu {
   visibility: hidden;
+  opacity: 0;
   position: absolute;
-  top: 130%;
-  left: 40px;
+  top: 100%;
+  left: 0;
+  margin-top: 24px;
   width: 1110px;
-  -webkit-transition: 0.5s;
-  /* For Safari 3.1 to 6.0 */
-  transition: 0.5s;
-  border-radius: 4px;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-radius: 9px;
+  box-shadow: 8px 12px 0px 0px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
   z-index: 5;
+
+  // hover bridge - prevents hover from breaking when moving cursor to mega menu
+  &:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: -24px;
+    width: 100%;
+    height: 24px;
+  }
+
+  [data-theme="dark"] & {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
 
   @include desktop-small {
     width: 900px;
@@ -258,7 +275,7 @@ body {
   }
 
   &-content-box {
-    margin-bottom: 38px;
+    margin-bottom: 35px;
 
     img {
       display: none;
@@ -267,7 +284,7 @@ body {
         display: block;
         width: 100%;
         min-height: 160px;
-        border-radius: 4px;
+        // border-radius: 4px;
       }
     }
 
@@ -312,7 +329,7 @@ body {
   }
 
   &-description {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.78px;
     color: var(--accents-5);
@@ -327,16 +344,40 @@ body {
       margin-left: 15px;
     }
   }
+
+  &-sublinks {
+    @apply list-none pl-2 font-Arimo;
+    margin-top: 0.75rem;
+    border-left-width: 1px;
+    border-color: rgba(#FFFFFF, 0.2);
+
+    [data-theme="dark"] & {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    li {
+      padding-top: 2px;
+      padding-bottom: 2px;
+
+      a {
+        color: var(--accents-5);
+
+        &:hover {
+          color: var(--secondary);
+        }
+      }
+    }
+  }
 }
 
 .menu-bg-img {
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 489px;
-  box-shadow: 8px 12px 0px 0px rgba(0, 0, 0, 0.5);
   background-color: var(--primary);
-  border-radius: 4px;
+  min-height: 489px;
+  // box-shadow: 8px 12px 0px 0px rgba(0, 0, 0, 0.5);
+  // border-radius: 9px;
 
   @include desktop-small {
     min-height: 400px;
@@ -351,7 +392,7 @@ body {
 .menu-description {
   @include display-flex(flex);
   @include flex-direction(column);
-  padding: 70px 52px 70px 70px;
+  padding: 55px 52px 55px 70px;
   width: 376px;
   background: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(20px);
@@ -362,10 +403,15 @@ body {
   &::after {
     content: '';
     position: absolute;
-    top: 42px;
-    bottom: 42px;
+    top: 55px;
+    bottom: 55px;
     right: 0;
-    border-right: 1px solid #363636;
+    border-right-width: 1px;
+    border-color: rgba(0, 0, 0, 0.2);
+
+    [data-theme="dark"] & {
+        border-color: rgba(255, 255, 255, 0.2);
+      }
   }
 
   @include desktop-small {
@@ -394,11 +440,10 @@ body {
   }
 }
 
+// Mega Menu - About
 .mega-menu.about-menu {
   background-color: var(--primary);
-  width: 725px;
-  transition: 0.5s;
-  box-shadow: 8px 12px 0px 0px rgba(0, 0, 0, 0.5);
+  width: 550px;
   z-index: 4;
 
   @include tablet {
@@ -420,7 +465,7 @@ body {
   .menu-description {
     backdrop-filter: none;
     width: 100%;
-    padding: 54px 35px 54px;
+    padding: 54px 70px 40px;
     min-height: auto;
 
     &:after {
@@ -430,9 +475,16 @@ body {
 
   .about-col {
     @extend .d-flex;
+    justify-content: space-between;
+    padding-right: 60px;
+    margin-bottom: 42px;
+    @apply font-Arimo;
 
     @include tablet-small {
       flex-direction: column;
+      justify-content: flex-start;
+      margin-bottom: 0;
+      padding-right: 0;
     }
   }
 
@@ -449,8 +501,9 @@ body {
   }
 
   .about-list {
-    padding: 0 50px;
-    min-width: 215px;
+    // padding: 0 50px;
+    // margin-right: 100px;
+    // min-width: 215px;
 
     @include tablet-small {
       padding: 0 0;
@@ -463,14 +516,12 @@ body {
 
   ul li {
     a {
-      font-size: 16px;
+      font-size: 14px;
       line-height: 22px;
       text-decoration: none;
-      font-family: var(--body-fonts);
-      color: var(--accents-3);
 
       &:hover {
-        color: var(--secondary);
+        // color: var(--secondary);
       }
     }
   }
@@ -495,105 +546,33 @@ body {
     color: var(--secondary);
   }
 }
-[data-theme='light'] {
-  .about-support {
-    &:hover {
-      svg {
-        fill: #4ddc41;
-      }
-    }
-  }
-}
 .about-support {
-  position: relative;
-  @extend .d-flex;
-  @extend .align-v-center;
-  background-color: var(--hover-1);
-  border-radius: 182px;
-  padding: 22px 65px;
-  margin-top: 55px;
-  position: relative;
+  .contact-info {
+    display: flex;
+    justify-content: space-around;
+    padding: 33px 0px;
 
-  @include tablet-small {
-    border-top: 1px solid #3a3a3a;
-    border-radius: 0;
-    margin-top: 46px;
-    background-color: transparent;
-    padding: 25px 0 0;
-    @include justify-content(center);
-  }
+    .call {
+      @apply text-lg mb-0 font-Ramabhadra;
+    }
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    &::before {
-      display: block;
-    }
-    > svg,
-    .support-content {
-      z-index: 1;
-    }
-    svg {
-      fill: #b5e2b1;
-      filter: drop-shadow(5px 1px 54px #52ff00);
-    }
-  }
-  &::before {
-    content: '';
-    display: none;
-    position: absolute;
-    top: 12px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 182px;
-    background-color: rgba(88, 255, 73, 0.2);
-    filter: blur(38px);
-  }
-  .support-content {
-    margin-left: 22px;
-
-    @include tablet-small {
-      margin-left: 0;
-      padding-left: 15px;
-      width: calc(100% - 70px);
-      max-width: 217px;
+    .subtext {
+      @apply opacity-50 font-Arimo;
     }
   }
 
-  a {
-    font-size: 16px;
-    color: var(--accents-0);
-    text-decoration: none;
-    margin-bottom: 8px;
-    display: block;
-    font-family: var(--body-fonts);
 
-    @include mobile {
-      font-size: 13px;
-      line-height: 13px;
-      margin-bottom: 1px;
-      word-break: break-all;
+  .social-icons {
+    display: flex;
+    @apply gap-6;
+    padding: 26px 20px;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
+
+    [data-theme="dark"] & {
+      background-color: rgba(255, 255, 255, 0.1);
     }
-  }
-
-  p {
-    font-size: 16px;
-    @extend .m-0;
-    color: var(--accents-0);
-
-    @include mobile {
-      font-size: 13px;
-      line-height: 13px;
-    }
-  }
-
-  .call {
-    font-size: 18px;
-    line-height: 18px;
-    font-weight: 700;
-    font-family: var(--heading-fonts);
-    color: var(--secondary);
-    margin-bottom: 10px;
   }
 
   svg {
@@ -601,7 +580,7 @@ body {
     height: 140px;
     fill: var(--accents-1);
 
-    @include mobile {
+  @include mobile {
       width: 70px;
       height: 70px;
     }
@@ -614,15 +593,32 @@ body {
   }
 
   li {
-    margin-right: 15px;
+    // margin-right: 15px;
     cursor: pointer;
 
     &:last-child {
-      margin-right: 0;
+      // margin-right: 0;
     }
   }
 }
 
+.UserNav_root__7GZb3 {
+  & > div > ul {
+    @apply d-flex gap-3 px-5 py-1 backdrop-blur-lg;
+    background-color: rgba(#FFFFFF, 0.05);
+    border-width: 1px;
+    border-color: rgba(#FFFFFF, 0.2);
+    border-radius: 33px;
+  }
+
+  .divider {
+    width: 1px;
+    height: 20px;
+    background-color: rgba(#FFFFFF, 0.2);
+  }
+}
+
+// Cart Modal
 .cart {
   width: 19px;
   height: 18px;
@@ -694,7 +690,7 @@ body {
 .volume {
   width: 33px;
   height: 33px;
-  background-color: var(--hover);
+  // background-color: var(--hover);
   border-radius: 100%;
   @extend .d-flex;
   @extend .align-v-center;
@@ -711,7 +707,7 @@ body {
     content: '';
     width: 33px;
     height: 33px;
-    background-color: var(--hover);
+    // background-color: var(--hover);
     border-radius: 100%;
     position: absolute;
   }
@@ -831,17 +827,24 @@ body .UserNav_item__Tv14Y button {
   @include mobile {
     padding: 40px;
   }
+
+  & > .close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
   .UserNav_root__7GZb3 + div {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    // justify-content: flex-end;
   }
   .mobile-navigation {
     @extend .flex-direction;
     @extend .align-start;
     @include align-item(flex-end);
-    margin-top: auto;
+    // margin-top: auto;
     margin-bottom: 0;
     // height: inherit;
     li {
