@@ -67,7 +67,6 @@ export const FloatingDropdown = ({
         left: rect.left + window.scrollX
       })
     }
-
     // Get all scrollable parents
     const getScrollParents = (node: HTMLElement | null): HTMLElement[] => {
       const scrollParents: HTMLElement[] = []
