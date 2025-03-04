@@ -144,8 +144,19 @@ const UserNav: FC<Props> = ({ className, mobileMenu, device }) => {
     <nav className={cn(s.root, className)}>
       <div className={s.mainContainer}>
         <ul className={'list-none d-flex head-top ' + s.list}>
-          <li>
+          <li className="theme">
             <DarkMode />
+          </li>
+          {videoButtonShow && (
+            <li
+              className={`volume ${isMute ? 'is-muted' : ''}`}
+              onClick={() => muteVideos()}
+            >
+              <Volume />
+            </li>
+          )}
+          <li>
+            <div className="divider"></div>
           </li>
           <li className="currency">
             <a
@@ -223,17 +234,9 @@ const UserNav: FC<Props> = ({ className, mobileMenu, device }) => {
               </a>
             </Link>
           </li>
-          {videoButtonShow && (
-            <li
-              className={`volume ${isMute ? 'is-muted' : ''}`}
-              onClick={() => muteVideos()}
-            >
-              <Volume />
-            </li>
-          )}
-          <li className="close" onClick={() => mobileMenu()}>
+          {/* <li className="close" onClick={() => mobileMenu()}>
             <Cross />
-          </li>
+          </li> */}
         </ul>
       </div>
     </nav>
