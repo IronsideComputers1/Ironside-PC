@@ -24,7 +24,7 @@ export const CustomFieldSelect: React.FC<SelectProps> = ({
   return (
     <div className="w-full">
       <select
-        className="w-full p-2 border rounded-full cursor-pointer text-center text-xs"
+        className="w-full p-2 border-common rounded-full cursor-pointer text-center text-xs"
         onChange={(e) => onChange(e.target.value)}
       >
         {options.map((option, idx) => (

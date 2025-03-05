@@ -64,7 +64,7 @@ export const BottomSheet = ({ children, content }: BottomSheetProps) => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
-                  className="absolute top-2 right-2 border w-auto h-6 px-1.5 rounded-full flex items-center justify-center"
+                  className="absolute top-2 right-2 border-common w-auto h-6 px-1.5 rounded-full flex items-center justify-center"
                   onClick={toggleBottomSheet}
                 >
                   <div

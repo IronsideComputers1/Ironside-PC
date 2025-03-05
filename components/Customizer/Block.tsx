@@ -140,7 +140,7 @@ export const Block = ({
         </div>
         <div
           className={classNames(
-            'border w-auto h-9 px-3 rounded-full flex items-center justify-center transition-transform duration-300',
+            'border-common w-auto h-9 px-3 rounded-full flex items-center justify-center transition-transform duration-300',
             {
               'transform rotate-180': isOpen,
             }
@@ -157,7 +157,7 @@ export const Block = ({
       </div>
       <div
         className={classNames(
-          "overflow-hidden transition-[max-height] ease-in-out",
+          "overflow-hidden transition-[max-height] ease-in-out pl-0.5",
           isOpen
             ? "duration-200" // slower opening
             : "duration-150", // faster closing

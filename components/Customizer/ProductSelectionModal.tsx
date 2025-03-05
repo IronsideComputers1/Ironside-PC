@@ -15,6 +15,7 @@ import EmptyProduct from '@components/icons/EmptyProduct'
 import { ModalData } from './types'
 import { BottomSheet } from './BottomSheet'
 import { ProductInfoContent } from '@components/product/ProductInfoModal/ProductInfoModal'
+import { PriceBubble } from './PriceBubble'
 
 interface ColorSelectionData {
   entityId: string
@@ -184,18 +185,14 @@ const ProductSelectionModal = ({
         }
       })
     }
-    const finalPrice = price + variantPrice
+    const finalPrice = price + variantPrice;
+    const priceContent = finalPrice?.toString().includes('-')
+      ? convertCurrency(finalPrice)
+      : `+${convertCurrency(finalPrice)}`
     return (
-      <p
-        className="font-bold w-auto h-7 py-2 px-2.5 rounded-full bg-opacity-5 flex items-center justify-center text-2xs text-primary-2"
-        style={{
-          backgroundColor: theme === 'dark' ? '#1c1c1c' : 'rgba(0, 0, 0, 0.05)',
-        }}
-      >
-        {finalPrice?.toString().includes('-')
-          ? convertCurrency(finalPrice)
-          : `+${convertCurrency(finalPrice)}`}
-      </p>
+      <PriceBubble>
+        {priceContent}
+      </PriceBubble>
     )
   }
 
@@ -417,7 +414,7 @@ const ProductSelectionModal = ({
                   >
                     {dataName}
                   </span>
-                  <div className="h-8 flex item s-center justify-between md:mt-4">
+                  <div className="h-8 flex item s-center justify-start md:mt-4">
                     <ProductBody
                       data={data}
                       renderColorPrice={renderColorPrice}

@@ -1,5 +1,6 @@
 import { Cross } from '@components/icons'
-import React from 'react'
+import React, { useRef } from 'react'
+import { FloatingDropdown } from './FloatingDropdown'
 
 type ProductBodyProps = {
   data: any
@@ -32,6 +33,8 @@ export const ProductBody = ({
   convertCurrency,
   customFields,
 }: ProductBodyProps) => {
+  const triggerRef = useRef<HTMLDivElement>(null)
+
   if (customFields && customFields.length < 2 && !isMerch) {
     return (
       <div className="flex w-full justify-end">
@@ -44,40 +47,17 @@ export const ProductBody = ({
     )
   }
   return (
-    <>
+    <div ref={triggerRef}>
       {toggle && isCurrentIndex && (
-        <div className="colorPattelListSelect">
-          <span className="flex justify-end" onClick={() => setToggle(false)}>
-            <Cross />
-          </span>
-          <ul className="list-none">
-            {customFields?.map((color: any, index: number) => (
-              <li key={index}>
-                <p
-                  className="mb-0"
-                  onClick={() => {
-                    handleColorSelection(data, color)
-                  }}
-                >
-                  <span
-                    className="colorPattelListBg"
-                    style={{
-                      backgroundColor: color?.node?.value?.split(',')[1],
-                    }}
-                  />
-                  {color?.node?.value?.split(',')[0]}
-                  {colorOpts?.map((options: any) => {
-                    if (
-                      color?.node?.value?.split(',')[2] == options?.entityId
-                    ) {
-                      return renderColorPrice(options, data)
-                    }
-                  })}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <FloatingDropdown
+          anchor={triggerRef.current}
+          onClose={() => setToggle(false)}
+          customFields={customFields}
+          handleProductSelection={handleColorSelection}
+          data={data}
+          colorOpts={colorOpts}
+          renderProductPrice={renderColorPrice}
+        />
       )}
       {isMerch && (
         <p
@@ -87,6 +67,6 @@ export const ProductBody = ({
           {convertCurrency(data?.prices?.price?.value)}
         </p>
       )}
-    </>
+    </div>
   )
 }
