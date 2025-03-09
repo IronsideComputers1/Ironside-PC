@@ -21,7 +21,6 @@ const Header = (props: any) => {
   const data = props?.headerData
     ? props?.headerData
     : props?.header?.value?.data
-  console.log(props);
   const [menuOpen, setMenuOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const mobileMenu = useCallback(() => {
@@ -61,8 +60,8 @@ const Header = (props: any) => {
               </div>
             </div>
 
-            <nav className="hidden ml-6 space-x-4 md:block">
-              <ul className="list-none flex align-v-center">
+            <nav className="hidden ml-6 space-x-4 md:block self-stretch">
+              <ul className="h-full list-none d-flex items-stretch gap-12">
                 {Object.keys(data?.categories || {}).map(
                   (key: any, index: any) => {
                     return (

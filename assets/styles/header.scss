@@ -63,6 +63,8 @@ body {
         margin-left: 0;
 
         li {
+          @apply d-flex flex-col justify-center;
+
           &:hover {
             .category-heading {
               color: var(--secondary);
@@ -106,8 +108,6 @@ body {
           color: var(--navigations);
           font-weight: 700;
           text-transform: capitalize;
-          margin-left: 0;
-          margin-right: 45px;
           position: relative;
           font-family: var(--heading-fonts);
           letter-spacing: -0.56px;
@@ -153,12 +153,18 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(255, 255, 255, 0.05);
+  border-width: 1px;
+  border-color: rgba(#000000, 0.05);
+  background: rgba(#000000, 0.05);
   backdrop-filter: blur(20px);
   border-radius: 50px;
   padding: 7.5px 107.2px;
   line-height: normal;
+
+  [data-theme="dark"] & {
+    border-color: rgba(#FFFFFF, 0.05);
+    background: rgba(#FFFFFF, 0.05);
+  }
 
   @include desktop-small {
     display: none;
@@ -245,11 +251,11 @@ body {
   margin-top: 24px;
   width: 1110px;
   border-width: 1px;
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: rgba(#000000, 0.2);
   border-radius: 9px;
-  box-shadow: 8px 12px 0px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 8px 12px 0px 0px rgba(#000000, 0.5);
   overflow: hidden;
-  z-index: 5;
+  z-index: 1000;
 
   // hover bridge - prevents hover from breaking when moving cursor to mega menu
   &:before {
@@ -262,7 +268,7 @@ body {
   }
 
   [data-theme="dark"] & {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(#FFFFFF, 0.2);
   }
 
   @include desktop-small {
@@ -546,6 +552,13 @@ body {
     color: var(--secondary);
   }
 }
+.about-divider {
+  border-color: rgba(#000000, 0.2);
+
+  [data-theme="dark"] & {
+    border-color: rgba(#FFFFFF, 0.2);
+  }
+}
 .about-support {
   .contact-info {
     display: flex;
@@ -605,16 +618,25 @@ body {
 .UserNav_root__7GZb3 {
   & > div > ul {
     @apply d-flex gap-3 px-5 py-1 backdrop-blur-lg;
-    background-color: rgba(#FFFFFF, 0.05);
+    background-color: rgba(#000000, 0.05);
     border-width: 1px;
-    border-color: rgba(#FFFFFF, 0.2);
+    border-color: rgba(#000000, 0.2);
     border-radius: 33px;
+
+    [data-theme="dark"] & {
+      background-color: rgba(#FFFFFF, 0.05);
+      border-color: rgba(#FFFFFF, 0.2);
+    }
   }
 
   .divider {
     width: 1px;
     height: 20px;
-    background-color: rgba(#FFFFFF, 0.2);
+    background-color: rgba(#000000, 0.2);
+
+    [data-theme="dark"] & {
+      background-color: rgba(#FFFFFF, 0.2);
+    }
   }
 }
 
