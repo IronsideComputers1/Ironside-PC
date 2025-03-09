@@ -11,7 +11,7 @@ const AboutMenu = ({ data }: AboutMenuProps) => {
       <div className="menu-description">
         <div className="mega-menu-content-box">
           <div dangerouslySetInnerHTML={{ __html: data?.about }} />
-          <hr className="opacity-20" />
+          <hr className="about-divider" />
           <SupportMenu data={data?.support} />
         </div>
       </div>
