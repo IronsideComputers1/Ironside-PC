@@ -7,7 +7,13 @@ module.exports = {
     extend: {
       screens: {
         'xs': '390px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        'xmd': '1400px',
         'xxl': '1920px',
+        '2xl': '1536px',
         '4-xl': '4096px',
       },
       maxWidth: {

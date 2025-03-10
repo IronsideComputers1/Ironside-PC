@@ -386,7 +386,7 @@ const Customizer: FC<Props> = (props) => {
       <div className="customizer relative p-0 h-[88vh]">
         {!!bgVideo && <VideoBG src={bgVideo.node.value} />}
         <div
-          className="customizer-product h-screen md:h-auto grid grid-cols-1 md:grid-cols-2"
+          className="customizer-product h-screen xmd:h-auto grid grid-cols-1 xmd:grid-cols-2"
           data-lenis-prevent
         >
           <ProductLeft
@@ -395,11 +395,11 @@ const Customizer: FC<Props> = (props) => {
             currentProduct={productDescription[0]?.trim()}
           />
 
-          <div className="customizer-product-content bg-theme md:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 md:pt-8 md:pb-0 md:px-0 md:pr-12 md:max-h-[88vh] md:mr-13 md:overflow-y-scroll flex justify-end items-start">
-            <div className="components flex items-center justify-center w-full md:w-full xxl:w-[76%]">
+          <div className="customizer-product-content bg-theme xmd:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:pr-12 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll flex justify-end items-start">
+            <div className="components flex items-center justify-center w-full xmd:w-full xxl:w-[76%]">
               <div
                 id="scroll-box"
-                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 md:pr-1"
+                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 xmd:pr-1"
               >
                 <div className="customizerProductGrid">
                   <div className="flex justify-center items-center flex-col">
