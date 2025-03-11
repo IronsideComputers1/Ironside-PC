@@ -29,6 +29,11 @@ export async function getStaticProps({
       })
       .toPromise()
 
+      console.log({page});
+      console.log(page.query);
+      console.log(page.data.blocks);
+      console.log(page.data.state);
+
     if (!page) {
       console.log(`No page found for path: ${urlPath}`)
       return {
@@ -58,17 +63,17 @@ export async function getStaticPaths() {
   try {
     const pages = await builder.getAll('page', {
       options: { noTargeting: true },
-      omit: 'data.blocks',
     })
 
     const paths = pages
       .map((page) => {
-        if (!page.data?.url) return null
+        if (!page.data?.url || page.published !== "published") return null
         // Skip problematic pages
         if (page.data.url === "/abd-test-2" || page.data.url === "/en-US/new-tokyodream-7") return null
-        return page.data.url
+        return `${page.data?.url}`
       })
       .filter(Boolean)
+      console.log({paths});
 
     console.log(`Generated ${paths.length} static paths`)
 
