@@ -23,9 +23,9 @@ export async function getStaticProps({
         userAttributes: {
           urlPath: urlPath,
         },
-        options: {
-          noTargeting: true
-        }
+        // options: {
+        //   noTargeting: true
+        // }
       })
       .toPromise()
 
@@ -61,15 +61,16 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
   try {
-    const pages = await builder.getAll('page', {
-      options: { noTargeting: true },
-    })
+    const pages = await builder.getAll('page')
+    // const pages = await builder.getAll('page', {
+    //   options: { noTargeting: true },
+    // })
 
     const paths = pages
       .map((page) => {
         if (!page.data?.url || page.published !== "published") return null
         // Skip problematic pages
-        if (page.data.url === "/abd-test-2" || page.data.url === "/en-US/new-tokyodream-7") return null
+        // if (page.data.url === "/abd-test-2" || page.data.url === "/en-US/new-tokyodream-7") return null
         return `${page.data?.url}`
       })
       .filter(Boolean)
@@ -79,13 +80,13 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: true,
+      fallback: 'blocking',
     }
   } catch (error) {
     console.error('Error in getStaticPaths:', error)
     return {
       paths: [],
-      fallback: true,
+      fallback: 'blocking',
     }
   }
 }
