@@ -20,7 +20,10 @@ export const CustomizerButton: React.FC<CustomizerButtonProps> = ({
   className,
 }) => {
   const classes = classNames(
-    'text-base leading-4 font-secondary font-normal text-center rounded-full min-w-[178px] py-5 px-2.5 tracking-tight cursor-pointer transition-all duration-1000 relative uppercase xxl:w-[226px]',
+    'text-base leading-4 font-secondary font-normal text-center rounded-full min-w-[178px] py-5 px-2.5 tracking-tight cursor-pointer transition-all duration-1000 relative uppercase',
+    "xxs:text-sm xxs:min-w-[140px]",
+    "xxs:text-sm xs:min-w-[178px]",
+    "xxl:w-[226px]",
     'disabled:cursor-not-allowed disabled:bg-transparent disabled:text-secondary-text disabled:opacity-80',
     'dark:bg-button-color dark:text-white font-Secondary tracking-custom-tight',
     {

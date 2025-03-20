@@ -4,14 +4,14 @@ import classNames from 'classnames'
 
 export const VideoBG = (props: { src: string }) => {
   const classes = classNames(
-    'max-w-none object-cover w-[240vw] object-[-70px_30px]',
+    'max-w-none object-cover w-[240vw] object-[-70px_0]',
     'xs:object-[-99px_-30px] xs:w-[260vw]',
-    'md:w-[102vw] md:h-[116vh] md:object-[-36px_-100px] md:w-screen',
-    'xxl:object-[0px_-60px] xxl:object-contain',
+    'xmd:w-[102vw] xmd:h-[116vh] xmd:object-[-36px_-100px] xmd:w-screen',
+    'xxl:object-[0px_-60px] xxl:object-cover',
     '4-xl:object-[-54px_20px]'
   )
   return (
-    <div className="absolute inset-0 top-[-112px] overflow-hidden">
+    <div className="absolute top-[-112px] sm:fixed sm:inset-y-0 xs:overflow-x-hidden xs:w-screen">
       <Video
         className={classes}
         src={props.src}
@@ -20,7 +20,7 @@ export const VideoBG = (props: { src: string }) => {
         muted
         preload="auto"
       />
-      <div className="hidden md:block">
+      <div className="hidden xmd:block">
         {/* Shadow BG on ProductLeft */}
         <div
           className="absolute inset-y-0 bg-theme right-0"

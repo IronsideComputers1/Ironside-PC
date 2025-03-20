@@ -5,6 +5,7 @@ type ShadowFocusProps = {
   width?: string
   rotate?: string
   left?: string
+  right?: string
   top?: string
   bottom?: string
   height?: string

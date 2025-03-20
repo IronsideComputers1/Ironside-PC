@@ -20,14 +20,9 @@ export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
       : { color: 'rgba(255, 255, 255, 0.5)' }
   }
   return (
-    <div
-      className="list-none fixed"
-      style={{
-        bottom: '118px',
-      }}
-    >
+    <div className="list-none fixed flex justify-center bottom-[118px]">
       <ul
-        className="flex items-center h-10 rounded-full w-96 m-0"
+        className="flex items-center h-10 rounded-full w-96 m-0 max-w-[90%]"
         style={{
           backdropFilter: 'blur(30px)',
           backgroundColor:

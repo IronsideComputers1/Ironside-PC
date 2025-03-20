@@ -6,8 +6,19 @@ module.exports = {
   theme: {
     extend: {
       screens: {
+        // Mobiles
+        'xxs': '320px',
         'xs': '390px',
+        'sm': '640px',
+        'md': '768px',
+        // Tablets
+        'lg': '1024px',
+        'xl': '1280px',
+        // Macbook 14"
+        'xmd': '1400px',
+        // Monitors
         'xxl': '1920px',
+        '2xl': '1536px',
         '4-xl': '4096px',
       },
       maxWidth: {
