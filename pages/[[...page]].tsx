@@ -23,11 +23,16 @@ export async function getStaticProps({
         userAttributes: {
           urlPath: urlPath,
         },
-        options: {
-          noTargeting: true
-        }
+        // options: {
+        //   noTargeting: true
+        // }
       })
       .toPromise()
+
+      console.log({page});
+      console.log(page.query);
+      console.log(page.data.blocks);
+      console.log(page.data.state);
 
     if (!page) {
       console.log(`No page found for path: ${urlPath}`)
@@ -56,31 +61,32 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
   try {
-    const pages = await builder.getAll('page', {
-      options: { noTargeting: true },
-      omit: 'data.blocks',
-    })
+    const pages = await builder.getAll('page')
+    // const pages = await builder.getAll('page', {
+    //   options: { noTargeting: true },
+    // })
 
     const paths = pages
       .map((page) => {
-        if (!page.data?.url) return null
+        if (!page.data?.url || page.published !== "published") return null
         // Skip problematic pages
-        if (page.data.url === "/abd-test-2" || page.data.url === "/en-US/new-tokyodream-7") return null
-        return page.data.url
+        // if (page.data.url === "/abd-test-2" || page.data.url === "/en-US/new-tokyodream-7") return null
+        return `${page.data?.url}`
       })
       .filter(Boolean)
+      console.log({paths});
 
     console.log(`Generated ${paths.length} static paths`)
 
     return {
       paths,
-      fallback: true,
+      fallback: 'blocking',
     }
   } catch (error) {
     console.error('Error in getStaticPaths:', error)
     return {
       paths: [],
-      fallback: true,
+      fallback: 'blocking',
     }
   }
 }
