@@ -61,12 +61,18 @@ export async function getStaticPaths() {
       options: { noTargeting: true },
     })
 
+
     const paths = pages
       .map((page) => {
-        if (!page.data?.url || page.published !== "published") return null
-        // Skip problematic pages
-        // if (page.data.url === "/abd-test-2" || page.data.url === "/en-US/new-tokyodream-7") return null
-        return `${page.data?.url}`
+        try {
+          if (!page.data?.url || page.published !== "published") return null
+          // Skip problematic pages
+          // if (page.data.url === "/abd-test-2" || page.data.url === "/en-US/new-tokyodream-7") return null
+          return `${page.data?.url}`
+        } catch (error) {
+          console.error(`Error processing page: ${JSON.stringify(page?.id || 'unknown')}`, error)
+          return null
+        }
       })
       .filter(Boolean)
 
