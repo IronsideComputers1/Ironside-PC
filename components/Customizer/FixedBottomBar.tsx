@@ -300,7 +300,7 @@ export const FixedBottomBar = (props: FixedBottomBarProps) => {
         'fixed bottom-0 flex items-start justify-between py-6 pl-5 pr-2 text-center gap-10 border-top left-[unset]',
         'xxs:pr-2 xxs:left-0 xxs:right-0',
         'sm:pr-2 sm:left-0 sm:right-0',
-        'md:pr-2 md:right-0.5 md:left-[46%] md:justify-end',
+        'md:right-[12%] md:left-[12%] md:justify-center',
         'lg:pr-20',
         'xxl:justify-end xxl:left-[55%]'
       )}

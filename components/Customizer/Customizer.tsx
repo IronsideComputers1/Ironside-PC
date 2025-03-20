@@ -393,7 +393,7 @@ const Customizer: FC<Props> = (props) => {
             currentProduct={productDescription[0]?.trim()}
           />
           <div className="customizer-product-content bg-theme xmd:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 sm:pt-8 xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:pr-12 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll flex justify-end items-start">
-            <div  className="absolute left-0 right-0 -top-[45px] h-20 overflow-x-clip w-screen" >
+            <div  className="absolute left-0 right-0 -top-[45px] h-20 overflow-x-clip w-screen block xmd:hidden" >
               <ShadowFocus
                 rotate="-11deg"
                 top="50px"
