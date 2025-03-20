@@ -26,6 +26,7 @@ import { Separator } from './Separator'
 import { VideoBG } from './Video-BG'
 import { FixedBottomBar } from './FixedBottomBar'
 import { ShadowFocus } from './ShadowFocus'
+import { Loader } from '@components/ui/Loader'
 
 interface Props {
   className?: string
@@ -354,11 +355,7 @@ const Customizer: FC<Props> = (props) => {
   }
 
   if (!productsFetched) {
-    return (
-      <div className="fallback-loader">
-        <span className="loader"></span>
-      </div>
-    )
+    return <Loader />
   }
 
   if (categoriesDataFiltered?.length <= 0) {

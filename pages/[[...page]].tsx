@@ -6,6 +6,7 @@ import { BuilderComponent, builder, useIsPreviewing } from '@builder.io/react'
 import '@builder.io/widgets/dist/lib/builder-widgets-async'
 import { Layout } from '@components/common'
 import ErrorPage from './404'
+import { Loader } from '@components/ui/Loader'
 
 builder.init('f6d91abf288f4e5fb3b6f1e8b846274b')
 
@@ -23,16 +24,11 @@ export async function getStaticProps({
         userAttributes: {
           urlPath: urlPath,
         },
-        // options: {
-        //   noTargeting: true
-        // }
+        options: {
+          noTargeting: true
+        }
       })
       .toPromise()
-
-      console.log({page});
-      console.log(page.query);
-      console.log(page.data.blocks);
-      console.log(page.data.state);
 
     if (!page) {
       console.log(`No page found for path: ${urlPath}`)
@@ -61,10 +57,9 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
   try {
-    const pages = await builder.getAll('page')
-    // const pages = await builder.getAll('page', {
-    //   options: { noTargeting: true },
-    // })
+    const pages = await builder.getAll('page', {
+      options: { noTargeting: true },
+    })
 
     const paths = pages
       .map((page) => {
@@ -74,7 +69,6 @@ export async function getStaticPaths() {
         return `${page.data?.url}`
       })
       .filter(Boolean)
-      console.log({paths});
 
     console.log(`Generated ${paths.length} static paths`)
 
@@ -100,12 +94,9 @@ export default function Page({
   const show404 = !page && !isPreviewingInBuilder
 
   if (router.isFallback) {
-    return (
-      <div className="fallback-loader">
-        <span className="loader"></span>
-      </div>
-    )
+    return <Loader />
   }
+
   return (
     <>
       <Head>
