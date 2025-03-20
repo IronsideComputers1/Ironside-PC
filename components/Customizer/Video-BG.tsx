@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 export const VideoBG = (props: { src: string }) => {
   const classes = classNames(
-    'max-w-none object-cover w-[240vw] object-[-70px_30px]',
+    'max-w-none object-cover w-[240vw] object-[-70px_0]',
     'xs:object-[-99px_-30px] xs:w-[260vw]',
     'xmd:w-[102vw] xmd:h-[116vh] xmd:object-[-36px_-100px] xmd:w-screen',
     'xxl:object-[0px_-60px] xxl:object-cover',

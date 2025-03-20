@@ -395,8 +395,17 @@ const Customizer: FC<Props> = (props) => {
             modalImage={modalImage}
             currentProduct={productDescription[0]?.trim()}
           />
-          <div className="customizer-product-content bg-theme xmd:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:pr-12 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll flex justify-end items-start">
+          <div className="customizer-product-content bg-theme xmd:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 sm:pt-8 xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:pr-12 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll flex justify-end items-start">
             <div  className="absolute left-0 right-0 -top-[45px] h-20 overflow-x-clip w-screen" >
+              <ShadowFocus
+                rotate="-11deg"
+                top="50px"
+                bottom="unset"
+                left="0"
+                right="0"
+                width="100%"
+                height="0"
+              />
               <div className="absolute inset-y-0 bg-theme blur-[10px] -left-[15px] -right-[15px]" />
             </div>
             <div className="components flex items-center justify-center w-full xmd:w-full xxl:w-[76%]">
@@ -425,14 +434,14 @@ const Customizer: FC<Props> = (props) => {
                       )}
                       <p className="mb-0">{productDescription[1]?.trim()}</p>
                     </div>
-                    <hr className="h-0 w-20 my-1 border-t-0 border-b border-primary" />
+                    <hr className="h-0 w-16 my-1 border-t-0 border-b border-primary" />
                   </div>
                   {!!selectedIds?.length &&
                     categoriesDataFiltered?.map((categories: any) => (
                       <>
                         <h2
                           id={categories?.categoryName}
-                          className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark mt-20"
+                          className="text-base leading-4 font-semibold mb-5 text-center font-Arimo weight-700 text-basicDark mt-10 sm:mt-20"
                         >
                           {categories?.categoryName}
                         </h2>

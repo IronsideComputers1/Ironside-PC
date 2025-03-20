@@ -18,7 +18,8 @@ export const ProductLeft = ({
   return (
     <div className="flex justify-center pb-0 md:pb-8 lg:items-start xxl:pb-0 4-xl:justify-center">
       <div className={classNames(
-        'w-[65vw] h-[52vh]',
+        'w-[65vw] h-[52vh] z-10',
+        'xs:h-[44vh]',
         'sm:w-[29vw]',
         'md:ml-20',
         'xmd:w-[29vw] xmd:mt-2 xmd:ml-24',
