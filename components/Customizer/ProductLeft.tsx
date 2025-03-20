@@ -20,7 +20,7 @@ export const ProductLeft = ({
       <div className={classNames(
         'w-[65vw] h-[52vh] z-10',
         'xs:h-[44vh]',
-        'sm:w-[29vw]',
+        'sm:w-[29vw] sm:h-[52vh]',
         'md:ml-20',
         'xmd:w-[29vw] xmd:mt-2 xmd:ml-24',
         'xxl:w-[28vw] xxl:mt-4 xxl:ml-32',
