@@ -25,6 +25,7 @@ import classNames from 'classnames'
 import { Separator } from './Separator'
 import { VideoBG } from './Video-BG'
 import { FixedBottomBar } from './FixedBottomBar'
+import { ShadowFocus } from './ShadowFocus'
 
 interface Props {
   className?: string
@@ -394,8 +395,10 @@ const Customizer: FC<Props> = (props) => {
             modalImage={modalImage}
             currentProduct={productDescription[0]?.trim()}
           />
-
           <div className="customizer-product-content bg-theme xmd:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 pt-8 xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:pr-12 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll flex justify-end items-start">
+            <div  className="absolute left-0 right-0 -top-[45px] h-20 overflow-x-clip w-screen" >
+              <div className="absolute inset-y-0 bg-theme blur-[10px] -left-[15px] -right-[15px]" />
+            </div>
             <div className="components flex items-center justify-center w-full xmd:w-full xxl:w-[76%]">
               <div
                 id="scroll-box"

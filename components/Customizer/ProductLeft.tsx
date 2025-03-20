@@ -16,7 +16,7 @@ export const ProductLeft = ({
 }: Props) => {
   const img = modalImage[0]
   return (
-    <div className="flex justify-center pb-8 lg:items-start xxl:pb-0 4-xl:justify-center">
+    <div className="flex justify-center pb-0 md:pb-8 lg:items-start xxl:pb-0 4-xl:justify-center">
       <div className={classNames(
         'w-[65vw] h-[52vh]',
         'sm:w-[29vw]',

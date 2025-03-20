@@ -11,7 +11,7 @@ export const VideoBG = (props: { src: string }) => {
     '4-xl:object-[-54px_20px]'
   )
   return (
-    <div className="absolute top-[-112px] sm:fixed sm:inset-y-0 sm:overflow-hidden">
+    <div className="absolute top-[-112px] sm:fixed sm:inset-y-0 xs:overflow-x-hidden xs:w-screen">
       <Video
         className={classes}
         src={props.src}
