@@ -392,23 +392,40 @@ const Customizer: FC<Props> = (props) => {
             modalImage={modalImage}
             currentProduct={productDescription[0]?.trim()}
           />
-          <div className="customizer-product-content bg-theme xmd:bg-transparent mr-0 w-full relative overflow-visible px-3 pb-36 sm:pt-8 xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:pr-12 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll flex justify-end items-start">
+          <div className={classNames("customizer-product-content bg-theme mr-0 w-full relative overflow-visible px-3 pb-36 flex justify-end items-start z-[1px]",
+            "sm:pt-8",
+            "md:-mt-10",
+            "xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:pr-12 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll xmd:bg-transparent",
+          )}>
             <div  className="absolute left-0 right-0 -top-[45px] h-20 overflow-x-clip w-screen block xmd:hidden" >
-              <ShadowFocus
-                rotate="-11deg"
-                top="50px"
-                bottom="unset"
-                left="0"
-                right="0"
-                width="100%"
-                height="0"
-              />
+              <div className='block md:hidden'>
+                <ShadowFocus
+                  rotate="-11deg"
+                  top="50px"
+                  bottom="unset"
+                  left="0"
+                  right="0"
+                  width="100%"
+                  height="0"
+                />
+              </div>
+              <div className='hidden md:block'>
+                <ShadowFocus
+                  rotate="0deg"
+                  top="-50px"
+                  bottom="unset"
+                  left="0"
+                  right="0"
+                  width="100%"
+                  height="0"
+                />
+              </div>
               <div className="absolute inset-y-0 bg-theme blur-[10px] -left-[15px] -right-[15px]" />
             </div>
-            <div className="components flex items-center justify-center w-full xmd:w-full xxl:w-[76%]">
+            <div className="components flex items-center justify-center w-full xmd:justify-end xl:justify-center xmd:w-full xxl:w-[76%]">
               <div
                 id="scroll-box"
-                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 xmd:pr-1"
+                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 xmd:pr-1 max-w-[724px]"
               >
                 <div className="customizerProductGrid">
                   <div className="flex justify-center items-center flex-col">

@@ -1,5 +1,6 @@
 import { useGetTheme } from '@components/ui/DarkMode/DarkMode'
 import React from 'react'
+import classNames from 'classnames'
 
 interface ScrollerProps {
   activeTab: string
@@ -20,7 +21,11 @@ export const Scroller: React.FC<ScrollerProps> = ({ activeTab, onScroll }) => {
       : { color: 'rgba(255, 255, 255, 0.5)' }
   }
   return (
-    <div className="list-none fixed flex justify-center bottom-[118px]">
+    <div className={classNames(
+      'list-none fixed flex justify-center bottom-[130px]',
+      'xl:right-[unset] xl:w-[unset]',
+      'xmd:w-[800px] xmd:right-0',
+    )}>
       <ul
         className="flex items-center h-10 rounded-full w-96 m-0 max-w-[90%]"
         style={{

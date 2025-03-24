@@ -297,12 +297,13 @@ export const FixedBottomBar = (props: FixedBottomBarProps) => {
   return (
     <div
       className={classNames(
-        'fixed bottom-0 flex items-start justify-between py-6 pl-5 pr-2 text-center gap-10 border-top left-[unset]',
+        'fixed bottom-0 flex items-start justify-between py-6 pl-5 pr-2 text-center gap-10 border-top left-[unset] h-[120px]',
         'xxs:pr-2 xxs:left-0 xxs:right-0',
         'sm:pr-2 sm:left-0 sm:right-0',
-        'md:right-[12%] md:left-[12%] md:justify-center',
-        'lg:pr-20',
-        'xxl:justify-end xxl:left-[55%]'
+        'md:justify-center',
+        'lg:pr-20 lg:right-[12%] lg:left-[12%]',
+        'xmd:right-0 xmd:justify-end xmd:left-[unset] xmd:w-[800px]',
+        'xxl:justify-end xxl:left-[unset] xxl:right-0'
       )}
       style={{
         backdropFilter: 'blur(10px)',
