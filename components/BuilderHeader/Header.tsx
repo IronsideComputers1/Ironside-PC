@@ -29,7 +29,7 @@ const Header = (props: any) => {
   }, [menuOpen])
 
   return (
-    <div className="header h-28 relative">
+    <div className="header h-28 relative z-20">
       {!!props?.sale_banner_text && (
         <div
           className="sale-banner mobile"
@@ -55,12 +55,12 @@ const Header = (props: any) => {
               <span className='block sm:hidden'>
                 <DarkMode />
               </span>
-              <div className="mobile-menu-btn" onClick={() => mobileMenu()}>
+              <div className="mobile-menu-btn block lg:hidden" onClick={() => mobileMenu()}>
                 <Hamburgers />
               </div>
             </div>
 
-            <nav className="hidden ml-6 space-x-4 md:block">
+            <nav className="hidden ml-6 space-x-4 lg:block">
               <ul className="list-none flex align-v-center">
                 {Object.keys(data?.categories || {}).map(
                   (key: any, index: any) => {

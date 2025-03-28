@@ -49,7 +49,7 @@ body {
     // position: absolute;
     // left: 0;
     // right: 0;
-    z-index: 3;
+    // z-index: 3;
 
     .header-left {
       @include tablet-small {
@@ -800,11 +800,11 @@ body .UserNav_item__Tv14Y button {
 
 // Mobile-Menu
 .mobile-menu-btn {
-  display: none;
+  // display: none;
 
-  @include tablet-small {
-    display: block;
-  }
+  // @include tablet-small {
+  //   display: block;
+  // }
 
   svg {
     stroke: var(--secondary);
@@ -815,7 +815,6 @@ body .UserNav_item__Tv14Y button {
   display: none;
   overflow: hidden;
   position: fixed;
-  z-index: 9;
   top: 0;
   right: 0;
   bottom: 0;
@@ -926,12 +925,7 @@ body .UserNav_item__Tv14Y button {
       position: fixed;
       height: 100vh;
       background-color: var(--primary);
-      z-index: 9;
       padding: 0;
-    }
-
-    .header {
-      z-index: 6;
     }
   }
 
