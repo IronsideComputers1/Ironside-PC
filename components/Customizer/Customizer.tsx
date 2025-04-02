@@ -392,10 +392,13 @@ const Customizer: FC<Props> = (props) => {
             modalImage={modalImage}
             currentProduct={productDescription[0]?.trim()}
           />
-          <div className={classNames("customizer-product-content bg-theme mr-0 w-full relative overflow-visible px-3 pb-36 flex justify-end items-start z-[1px]",
-            "sm:pt-8",
-            "md:-mt-10",
-            "xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:pr-12 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll xmd:bg-transparent",
+          <div className={classNames(
+            "customizer-product-content bg-theme mr-0 w-full relative overflow-visible pl-3 pr-0 pb-36 flex justify-end items-start z-[1px]",
+            // "customizer-product-content bg-theme mr-0 w-full relative overflow-visible px-3 pb-36 flex justify-end items-start z-[1px]",
+            "sm:pt-8 sm:pl-2.5 sm:pr-[18px]",
+            "md:-mt-10 md:pr-1.5",
+            "xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll xmd:bg-transparent",
+            // "xmd:pt-8 xmd:pb-0 xmd:px-0 xmd:pr-12 xmd:max-h-[88vh] xmd:mr-13 xmd:overflow-y-scroll xmd:bg-transparent",
           )}>
             <div  className="absolute left-0 right-0 -top-[45px] h-20 overflow-x-clip w-screen block xmd:hidden" >
               <div className='block md:hidden'>
@@ -422,12 +425,12 @@ const Customizer: FC<Props> = (props) => {
               </div>
               <div className="absolute inset-y-0 bg-theme blur-[10px] -left-[15px] -right-[15px]" />
             </div>
-            <div className="components flex items-center justify-center w-full xmd:justify-end xl:justify-center xmd:w-full xxl:w-[76%]">
+            <div className="components flex items-center justify-center w-full xl:justify-center xmd:w-full xxl:w-[76%]">
               <div
                 id="scroll-box"
-                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 xmd:pr-1 max-w-[724px]"
+                className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 xmd:pr-1 max-w-[734px]"
               >
-                <div className="customizerProductGrid">
+                <div className="customizerProductGrid xs:w-[97%]">
                   <div className="flex justify-center items-center flex-col">
                     <div className="flex justify-center items-center mb-5">
                       {hasLogoImage ? (
@@ -461,7 +464,8 @@ const Customizer: FC<Props> = (props) => {
                         </h2>
                         <div
                           className={classNames(
-                            'grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 last:mb-36 max-w-[684px]',
+                            'grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 md:w-[734px] sm:w-full px-4 last:mb-36',
+                            // 'grid-view flex flex-wrap border-[1px] rounded-lg py-2.5 w-full px-4 last:mb-36 max-w-[734px]',
                             {
                               'border-dark': theme === 'dark',
                               'border-light': theme === 'light',
