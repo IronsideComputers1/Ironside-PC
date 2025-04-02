@@ -16,23 +16,21 @@ export const ProductLeft = ({
 }: Props) => {
   const img = modalImage[0]
   return (
-    <div className="flex justify-center xmd:items-start pb-0 ">
+    <div className="flex justify-center xmd:items-end pb-0">
       <div className={classNames(
-        'w-[65vw] h-[52vh] z-10',
-        'xs:h-[44vh]',
-        'sm:w-[29vw] sm:h-[52vh]',
-        'md:ml-0 md:h-auto md:pb-14',
-        'xmd:w-[29vw] xmd:mt-2 xmd:ml-24 xmd:h-[70vh]',
+        'relative min-w-[400px] min-h-[545px] w-[65vw] max-w-[580px] aspect-[580/790] z-10',
+        'xs:aspect-[580/790]',
+        'sm:w-[29vw] sm:aspect-[580/790]',
+        'md:ml-0 md:aspect-[580/790] md:pb-14',
         'lg:items-start',
-        'xxl:w-[28vw] xxl:mt-4 xxl:ml-32 xxl:pb-0',
+        'xmd:w-[33vw] xmd:h-auto xmd:ml-24 xmd:mb-[8%]',
+        'xxl:w-[570px] xxl:h-[850px] xxl:ml-32 xxl:mb-[6%]',
         '4-xl:w-[30vw] 4-xl:mt-[240px] 4-xl:ml-[300px] 4-xl:justify-center'
       )}>
         <Image
-          objectFit="fill"
+          objectFit="contain"
           priority={true}
-          layout="responsive"
-          height={790}
-          width={580}
+          layout="fill"
           src={img?.node.urlOriginal!}
           alt={img?.node.altText || 'Product Image'}
         />
