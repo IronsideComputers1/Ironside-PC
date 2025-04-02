@@ -425,7 +425,7 @@ const Customizer: FC<Props> = (props) => {
               </div>
               <div className="absolute inset-y-0 bg-theme blur-[10px] -left-[15px] -right-[15px]" />
             </div>
-            <div className="components flex items-center justify-center w-full xl:justify-center xmd:w-full xxl:w-[76%]">
+            <div className="components flex items-center justify-center w-full xl:justify-center xmd:w-full xxl:w-[76%] xxl:mr-12">
               <div
                 id="scroll-box"
                 className="default-options overflow-y-auto overflow-x-hidden px-0 pr-0 xmd:pr-1 max-w-[734px]"
