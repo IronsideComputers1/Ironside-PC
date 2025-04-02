@@ -30,7 +30,7 @@ class MyDocument extends Document {
             crossOrigin="anonymous"
           ></link> */}
         </Head>
-        <body className="loading" id="body">
+        <body className="loading overflow-x-clip sm:-mr-[5px]" id="body">
           <Main />
           <NextScript />
         </body>

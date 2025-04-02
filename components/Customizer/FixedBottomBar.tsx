@@ -302,7 +302,7 @@ export const FixedBottomBar = (props: FixedBottomBarProps) => {
         'sm:pr-2 sm:left-0 sm:right-0',
         'md:justify-center',
         'lg:pt-6 lg:pl-8 lg:right-[12%] lg:left-[12%]',
-        'xmd:right-0 xmd:justify-end xmd:left-[unset] xmd:w-[800px]',
+        'xmd:right-0 xmd:justify-end xmd:left-[unset] xmd:w-[850px] xmd:pr-20',
         'xxl:justify-end xxl:left-[unset] xxl:right-0'
       )}
       style={{

@@ -111,11 +111,11 @@ export const Block = ({
     <div
       ref={blockRef}
       id={subs.categoryName.toLowerCase()}
-      className="flex flex-col w-full select-none customizer-block"
+      className="flex flex-col w-full select-none customizer-block items-center justify-center"
     >
       <div
         className={classNames(
-          'flex items-center justify-between w-full h-16',
+          'flex items-center justify-between h-16 mb-2 w-[95%]',
           incompatibleItems && 'incompatible'
         )}
         onClick={toggleAccordion}
@@ -157,7 +157,7 @@ export const Block = ({
       </div>
       <div
         className={classNames(
-          "overflow-hidden transition-[max-height] ease-in-out pl-0.5",
+          "overflow-hidden transition-[max-height] ease-in-out pl-0.5 w-full",
           isOpen
             ? "duration-200" // slower opening
             : "duration-150", // faster closing
