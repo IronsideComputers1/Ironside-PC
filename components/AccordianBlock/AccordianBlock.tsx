@@ -178,11 +178,41 @@ const AccordianBlock = ({
           onClick={toggleAccordion}
         >
           <div className="rule-title-wrap">
-            <h4 className="mb-0">{title}</h4>
-            <span className="rule-summary">
-              {selectedOptions[0]?.length || 0} ⇆{' '}
-              {selectedOptions[1]?.length || 0}
+            <span className="rule-index">
+              {String((accordianIndex ?? 0) + 1).padStart(2, '0')}
             </span>
+            <div className="rule-meta">
+              <h4 className="mb-0">{title}</h4>
+              <div className="rule-chips">
+                <span className="rule-chip rule-chip-a">
+                  {selectedOptions[0]?.length || 0}{' '}
+                  {(selectedOptions[0]?.length || 0) === 1
+                    ? 'product'
+                    : 'products'}
+                </span>
+                <span className="rule-chip-sep">⊘</span>
+                <span className="rule-chip rule-chip-b">
+                  {selectedOptions[1]?.length || 0}{' '}
+                  {(selectedOptions[1]?.length || 0) === 1
+                    ? 'incompat.'
+                    : 'incompat.'}
+                </span>
+                {(selectedOptions[0]?.length || 0) *
+                  (selectedOptions[1]?.length || 0) >
+                  0 && (
+                  <span className="rule-impact">
+                    blocks{' '}
+                    {(selectedOptions[0]?.length || 0) *
+                      (selectedOptions[1]?.length || 0)}{' '}
+                    combos
+                  </span>
+                )}
+                {(selectedOptions[0]?.length || 0) === 0 &&
+                  (selectedOptions[1]?.length || 0) === 0 && (
+                    <span className="rule-empty-badge">empty</span>
+                  )}
+              </div>
+            </div>
           </div>
           <div className="flex align-center justify-center">
             <button
