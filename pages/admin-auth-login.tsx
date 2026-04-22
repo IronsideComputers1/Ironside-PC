@@ -22,19 +22,36 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 export default function AdminAuth({
   header,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [isSignUp, setIsSignUp] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false)
+  const [passwordInvalidError, setPasswordInvalidError] = useState(false)
   const [dirty, setDirty] = useState(false)
   const [disabled, setDisabled] = useState(false)
   const router = useRouter()
 
+  const toggleMode = () => {
+    setIsSignUp((prev) => !prev)
+    setMessage('')
+    setEmailError(false)
+    setPasswordError(false)
+    setConfirmPasswordError(false)
+    setPasswordInvalidError(false)
+    setPassword('')
+    setConfirmPassword('')
+  }
+
   const handleAdminAuth = async (e: React.SyntheticEvent<EventTarget>) => {
     setEmailError(false)
     setPasswordError(false)
+    setConfirmPasswordError(false)
+    setPasswordInvalidError(false)
     e.preventDefault()
     if (!email.length && !password.length) {
       setEmailError(true)
@@ -50,9 +67,47 @@ export default function AdminAuth({
       return
     }
 
+    if (isSignUp) {
+      const validPassword =
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/.test(password)
+      if (!validPassword) {
+        setPasswordInvalidError(true)
+        return
+      }
+      if (password !== confirmPassword) {
+        setConfirmPasswordError(true)
+        return
+      }
+    }
+
     if (!dirty && !disabled) {
       setDirty(true)
       handleValidation()
+    }
+
+    if (isSignUp) {
+      try {
+        setLoading(true)
+        setMessage('')
+        await axios.post(
+          `https://fair-conduit-404516.uc.r.appspot.com/admin/user`,
+          { email, password, confirmPassword }
+        )
+        setMessage('Account created. You can now log in.')
+        setIsSignUp(false)
+        setPassword('')
+        setConfirmPassword('')
+        setLoading(false)
+      } catch (errors: any) {
+        setMessage(
+          errors?.response?.data?.errors?.[0]?.message ||
+            errors?.errors?.[0]?.message ||
+            'Unable to create account'
+        )
+        console.error(errors)
+        setLoading(false)
+      }
+      return
     }
 
     const cipherText = AES.encrypt(password, '#we$$12@@*6sj3SE7667^&^KK')
@@ -107,8 +162,24 @@ export default function AdminAuth({
   return (
     <>
       <Header headerData={header?.data} />
-      <div className="box-form absolute-heading">
-        <h1 className="account-heading">Admin Login</h1>
+      <div
+        className="box-form absolute-heading"
+        style={{
+          overflowY: 'auto',
+          paddingBottom: '40px',
+        }}
+      >
+        <h1
+          className="account-heading"
+          style={{
+            right: '0',
+            fontSize: isSignUp ? 'clamp(48px, 7vw, 96px)' : '',
+            lineHeight: isSignUp ? '1' : '',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {isSignUp ? 'Admin Sign Up' : 'Admin Login'}
+        </h1>
         <div className="bg-box">
           <div className="bg-box-head">
             <div className="flex dots">
@@ -120,28 +191,63 @@ export default function AdminAuth({
           <form onSubmit={handleAdminAuth}>
             <div className="box-model">
               <div className="form-field">
-                <Input type="text" placeholder="Email" onChange={setEmail} />
+                <Input
+                  type="text"
+                  placeholder="Email"
+                  value={email}
+                  onChange={setEmail}
+                />
                 {emailError && (
                   <div className="error-message text-red border-red">
                     <p className="text-red">Email is invalid</p>
                   </div>
                 )}
               </div>
-              <div className="form-field forgot-password">
+              <div
+                className={
+                  isSignUp ? 'form-field' : 'form-field forgot-password'
+                }
+              >
                 <Input
                   type="password"
                   placeholder="Password"
+                  value={password}
                   onChange={setPassword}
                 />
-                <Link href={'/admin-forgot-password'}>
-                  <a className="link">Forgot password?</a>
-                </Link>
+                {!isSignUp && (
+                  <Link href={'/admin-forgot-password'}>
+                    <a className="link">Forgot password?</a>
+                  </Link>
+                )}
                 {passwordError && (
                   <div className="error-message text-red border-red">
                     <p className="text-red">Password is required</p>
                   </div>
                 )}
+                {passwordInvalidError && (
+                  <div className="error-message text-red border-red">
+                    <p className="text-red">
+                      Password must be at least 8 characters with a letter, a
+                      number, and a special character.
+                    </p>
+                  </div>
+                )}
               </div>
+              {isSignUp && (
+                <div className="form-field">
+                  <Input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={setConfirmPassword}
+                  />
+                  {confirmPasswordError && (
+                    <div className="error-message text-red border-red">
+                      <p className="text-red">Passwords do not match</p>
+                    </div>
+                  )}
+                </div>
+              )}
               {message && (
                 <div className="error-message text-red border-red">
                   {message}
@@ -155,8 +261,25 @@ export default function AdminAuth({
                   loading={loading}
                   className="btn"
                 >
-                  Login
+                  {isSignUp ? 'Sign Up' : 'Login'}
                 </Button>
+              </div>
+              <div className="mt-3 align-center">
+                <button
+                  type="button"
+                  onClick={toggleMode}
+                  className="link"
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                  }}
+                >
+                  {isSignUp
+                    ? 'Already have an account? Log in'
+                    : "Don't have an account? Sign up"}
+                </button>
               </div>
             </div>
           </form>

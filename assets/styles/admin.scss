@@ -13,6 +13,27 @@
   margin: auto;
   text-align: center;
   position: relative;
+  .rules-scroll {
+    max-height: calc(100vh - 380px);
+    overflow-y: auto;
+    padding-right: 12px;
+    margin-bottom: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary);
+    }
+  }
   .btn-small {
     position: absolute;
     top: 0;
@@ -24,7 +45,99 @@
     }
   }
   h2 {
-    margin: 50px 0;
+    margin: 50px 0 20px;
+  }
+  .rule-count {
+    color: var(--text-muted, #8e8e8e);
+    font-weight: 400;
+    font-size: 0.7em;
+    margin-left: 8px;
+  }
+  .admin-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 24px;
+    flex-wrap: wrap;
+    .user-actions,
+    .rule-actions {
+      display: flex;
+      gap: 12px;
+    }
+  }
+  .rules-search {
+    position: relative;
+    margin-bottom: 20px;
+    input {
+      width: 100%;
+      padding: 12px 40px 12px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--secondary);
+      font-size: 14px;
+      &:focus {
+        outline: none;
+        border-color: var(--secondary);
+      }
+      &::placeholder {
+        color: var(--text-muted, #8e8e8e);
+      }
+    }
+    .rules-search-clear {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted, #8e8e8e);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 6px;
+      &:hover {
+        color: var(--secondary);
+      }
+    }
+  }
+  .rules-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted, #8e8e8e);
+    font-size: 14px;
+  }
+  .rule-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    text-align: left;
+  }
+  .rule-summary {
+    color: var(--text-muted, #8e8e8e);
+    font-size: 13px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  .add-rule-btn {
+    margin-top: 12px;
+  }
+  .select-label {
+    display: block;
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted, #8e8e8e);
+    margin-bottom: 8px;
+    .select-count {
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--secondary);
+      margin-left: 6px;
+    }
   }
   .select {
     width: 48%;

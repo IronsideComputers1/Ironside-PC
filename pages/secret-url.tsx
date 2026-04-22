@@ -49,8 +49,13 @@ export default function SecretUrl({
   const [addUserPopUp, setAddUserPopUp] = useState(false)
   const [deleteUserPopUp, setDeleteUserPopUp] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [ruleSearch, setRuleSearch] = useState('')
   const router = useRouter()
   const [token, setToken] = useState('')
+
+  const visibleAccordions = accordions?.filter((r: any) =>
+    r?.name?.toLowerCase().includes(ruleSearch.trim().toLowerCase())
+  )
 
   if (typeof window !== 'undefined') {
     
@@ -241,62 +246,98 @@ export default function SecretUrl({
           </div>
         ) : (
           <>
-            <h2>Incompatibilities Rules</h2>
-            <div className="mb-5">
-              <button
-                className="btn"
-                onClick={() => {
-                  setAddUserPopUp(true)
-                  setDeleteUserPopUp(false)
-                }}
-              >
-                Add User
-              </button>
-              <button
-                className="btn"
-                onClick={() => {
-                  setDeleteUserPopUp(true)
-                  setAddUserPopUp(false)
-                }}
-              >
-                Delete User
-              </button>
-            </div>
-            <div className="expand-buttons">
-              <div className="flex" onClick={() => setIsOpen(!isOpen)}>
-                <button className="btn">Expand All</button>
+            <h2>
+              Incompatibilities Rules
+              {!!accordions?.length && (
+                <span className="rule-count"> ({accordions.length})</span>
+              )}
+            </h2>
+            <div className="admin-toolbar">
+              <div className="user-actions">
+                <button
+                  className="btn"
+                  onClick={() => {
+                    setAddUserPopUp(true)
+                    setDeleteUserPopUp(false)
+                  }}
+                >
+                  Add User
+                </button>
+                <button
+                  className="btn"
+                  onClick={() => {
+                    setDeleteUserPopUp(true)
+                    setAddUserPopUp(false)
+                  }}
+                >
+                  Delete User
+                </button>
+              </div>
+              <div className="rule-actions">
+                <button className="btn" onClick={() => setIsOpen(!isOpen)}>
+                  {isOpen ? 'Collapse All' : 'Expand All'}
+                </button>
                 <button className="btn" onClick={() => submitAllButton()}>
                   Submit All
                 </button>
               </div>
             </div>
-            {!!accordions?.length &&
-              accordions?.map((data: any, index: any) => (
-                <AccordianBlock
-                  key={index}
-                  title={data.name}
-                  ruleId={data._id}
-                  products={data.products}
-                  incompatible_products={data.incompatible_products}
-                  options={filterData}
-                  accordionList={accordions}
-                  accordianIndex={index}
-                  setAccordionList={setAccordions}
-                  getData={getData}
-                  token={token}
-                  isRuleAdded={isRuleAdded}
-                  setIsRuleAdded={setIsRuleAdded}
-                  totalRules={accordions?.length}
-                  isOpenAll={isOpen}
-                  submitAll={submitAll}
-                />
-              ))}
+            <div className="rules-search">
+              <input
+                type="text"
+                placeholder={`Search ${
+                  accordions?.length || 0
+                } rule${accordions?.length === 1 ? '' : 's'}...`}
+                value={ruleSearch}
+                onChange={(e) => setRuleSearch(e.target.value)}
+              />
+              {ruleSearch && (
+                <button
+                  type="button"
+                  className="rules-search-clear"
+                  onClick={() => setRuleSearch('')}
+                  aria-label="Clear search"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+            {!!accordions?.length && (
+              <div className="rules-scroll">
+                {visibleAccordions?.length ? (
+                  visibleAccordions.map((data: any, index: any) => (
+                    <AccordianBlock
+                      key={data._id || index}
+                      title={data.name}
+                      ruleId={data._id}
+                      products={data.products}
+                      incompatible_products={data.incompatible_products}
+                      options={filterData}
+                      accordionList={accordions}
+                      accordianIndex={accordions.indexOf(data)}
+                      setAccordionList={setAccordions}
+                      getData={getData}
+                      token={token}
+                      isRuleAdded={isRuleAdded}
+                      setIsRuleAdded={setIsRuleAdded}
+                      totalRules={accordions?.length}
+                      isOpenAll={isOpen}
+                      submitAll={submitAll}
+                    />
+                  ))
+                ) : (
+                  <div className="rules-empty">
+                    No rules match &ldquo;{ruleSearch}&rdquo;
+                  </div>
+                )}
+              </div>
+            )}
             <button
-              className="btn"
+              className="btn add-rule-btn"
               type="button"
               onClick={() => setShowModal(true)}
             >
-              Add Rule
+              + Add Rule
             </button>
           </>
         )}

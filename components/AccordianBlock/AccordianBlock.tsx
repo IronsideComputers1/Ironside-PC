@@ -177,12 +177,30 @@ const AccordianBlock = ({
           }`}
           onClick={toggleAccordion}
         >
-          <h4 className="mb-0">{title}</h4>
+          <div className="rule-title-wrap">
+            <h4 className="mb-0">{title}</h4>
+            <span className="rule-summary">
+              {selectedOptions[0]?.length || 0} ⇆{' '}
+              {selectedOptions[1]?.length || 0}
+            </span>
+          </div>
           <div className="flex align-center justify-center">
-            <button onClick={() => setShowModal(true)} className="delete">
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowModal(true)
+              }}
+              className="delete"
+              title="Rename rule"
+              aria-label="Rename rule"
+            >
               <Pencil />
             </button>
-            <button className="">
+            <button
+              className=""
+              title={isOpen || isOpenAll ? 'Collapse' : 'Expand'}
+              aria-label={isOpen || isOpenAll ? 'Collapse' : 'Expand'}
+            >
               {isOpen || isOpenAll ? (
                 <Minus width={28} height={28} />
               ) : (
@@ -192,7 +210,12 @@ const AccordianBlock = ({
             <button
               type="button"
               className="delete"
-              onClick={() => deletAccordian()}
+              onClick={(e) => {
+                e.stopPropagation()
+                if (window.confirm(`Delete rule "${title}"?`)) deletAccordian()
+              }}
+              title="Delete rule"
+              aria-label="Delete rule"
             >
               <Delete />
             </button>
@@ -210,9 +233,26 @@ const AccordianBlock = ({
           >
             <div className="accordion-content-inner flex justify-space items-center">
               <div className="select" data-lenis-prevent>
+                <label className="select-label">
+                  Products{' '}
+                  <span className="select-count">
+                    ({selectedOptions[0]?.length || 0} selected)
+                  </span>
+                </label>
                 <Select
                   isMulti
+                  isSearchable
+                  isClearable
+                  closeMenuOnSelect={false}
+                  hideSelectedOptions={false}
                   className="select-2 required-field"
+                  classNamePrefix="select-2"
+                  placeholder="Search products..."
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No products match "${inputValue}"`
+                      : 'No products available'
+                  }
                   options={filteredArray}
                   defaultValue={products}
                   value={selectedOptions[0]}
@@ -222,9 +262,26 @@ const AccordianBlock = ({
                 />
               </div>
               <div className="select" data-lenis-prevent>
+                <label className="select-label">
+                  Incompatible With{' '}
+                  <span className="select-count">
+                    ({selectedOptions[1]?.length || 0} selected)
+                  </span>
+                </label>
                 <Select
                   isMulti
+                  isSearchable
+                  isClearable
+                  closeMenuOnSelect={false}
+                  hideSelectedOptions={false}
                   className="select-2 required-field"
+                  classNamePrefix="select-2"
+                  placeholder="Search products..."
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No products match "${inputValue}"`
+                      : 'No products available'
+                  }
                   options={filteredArray}
                   value={selectedOptions[1]}
                   defaultValue={incompatible_products}
