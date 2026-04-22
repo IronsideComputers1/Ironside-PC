@@ -280,6 +280,13 @@ export default function SecretUrl({
                 <button className="btn" onClick={() => submitAllButton()}>
                   Submit All
                 </button>
+                <button
+                  className="btn btn-primary add-rule-btn"
+                  type="button"
+                  onClick={() => setShowModal(true)}
+                >
+                  + Add Rule
+                </button>
               </div>
             </div>
             <div className="rules-search">
@@ -332,13 +339,6 @@ export default function SecretUrl({
                 )}
               </div>
             )}
-            <button
-              className="btn add-rule-btn"
-              type="button"
-              onClick={() => setShowModal(true)}
-            >
-              + Add Rule
-            </button>
           </>
         )}
         {!!showModal && (
